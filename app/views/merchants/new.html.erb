@@ -1,0 +1,16 @@
+<h1 align= "center">Create Merchant</h1>
+<center>
+  <%= form_tag '/merchants', method: :post do |f| %>
+    <%= text_field_tag :name, "Name" %>
+
+    <%= text_field_tag :address, "Address" %>
+
+    <%= text_field_tag :city, "City" %>
+
+    <%= text_field_tag :state, "State" %>
+
+    <%= text_field_tag :zip, "Zip" %>
+
+    <%= submit_tag 'Create Merchant' %>
+  <% end %>
+</center>
