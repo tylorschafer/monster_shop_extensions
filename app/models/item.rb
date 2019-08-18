@@ -13,4 +13,9 @@ class Item <ApplicationRecord
   def average_review
     reviews.average(:rating)
   end
+
+  def sorted_reviews(limit, order)
+    reviews.order(rating: order).limit(limit)
+  end
+
 end
