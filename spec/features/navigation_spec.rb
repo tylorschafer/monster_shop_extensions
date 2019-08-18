@@ -18,5 +18,20 @@ RSpec.describe 'Site Navigation' do
 
       expect(current_path).to eq('/merchants')
     end
+
+    it "I can see a cart indicator on all pages" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_content("Cart: 0")
+      end
+
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_content("Cart: 0")
+      end
+
+    end
   end
 end
