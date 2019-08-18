@@ -26,4 +26,5 @@ Rails.application.routes.draw do
   delete "/reviews/:id", to: "reviews#destroy"
 
   post "/cart/:item_id", to: "cart#add_item"
+  get "/cart", to: "cart#show"
 end

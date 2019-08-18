@@ -1,0 +1,14 @@
+<h1>Cart</h1>
+
+<% @items.each do |item,quantity| %>
+  <section id="cart-item-<%= item.id%>">
+    <p> <%=link_to item.name, "/items/#{item.id}" %> </p>
+    <img src= <%= item.image %>>
+    <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
+    <p>Price: $<%=item.price%></p>
+    <p>Quantity: <%=quantity%></p>
+    <p>Subtotal: $<%=cart.subtotal(item)%></p>
+  </section>
+<% end %>
+
+<p>Total: $<%= cart.total %></p>
