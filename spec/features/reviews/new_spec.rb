@@ -15,31 +15,49 @@ RSpec.describe 'review creation', type: :feature do
 
       expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
     end
+    describe "and click on a link to add a review" do
+      it "I can create a new review by following the link" do
+        title = "Thanks Brian's Bike Shop!"
+        content = "Took my bike in for a service and all is working well!"
+        rating = 5
 
-    it "I can create a new review by following the link" do
-      title = "Thanks Brian's Bike Shop!"
-      content = "Took my bike in for a service and all is working well!"
-      rating = 5
+        visit "/items/#{@chain.id}"
 
-      visit "/items/#{@chain.id}"
+        click_on "Add Review"
 
-      click_on "Add Review"
-      
-      fill_in :title, with: title
-      fill_in :content, with: content
-      fill_in :rating, with: rating
+        fill_in :title, with: title
+        fill_in :content, with: content
+        fill_in :rating, with: rating
 
-      click_button "Create Review"
+        click_button "Create Review"
 
-      last_review = Review.last
-      expect(current_path).to eq("/items/#{@chain.id}")
-      expect(last_review.title).to eq(title)
-      expect(last_review.content).to eq(content)
-      expect(last_review.rating).to eq(rating)
-      within "#review-#{last_review.id}" do
-        expect(page).to have_content(title)
-        expect(page).to have_content(content)
-        expect(page).to have_content("Rating: #{rating}/5")
+        last_review = Review.last
+        expect(current_path).to eq("/items/#{@chain.id}")
+        expect(last_review.title).to eq(title)
+        expect(last_review.content).to eq(content)
+        expect(last_review.rating).to eq(rating)
+        within "#review-#{last_review.id}" do
+          expect(page).to have_content(title)
+          expect(page).to have_content(content)
+          expect(page).to have_content("Rating: #{rating}/5")
+        end
+      end
+
+      it "I cannot create a review unless I complete the whole form" do
+        title = "Thanks Brian's Bike Shop!"
+        rating = 5
+
+        visit "/items/#{@chain.id}"
+
+        click_on "Add Review"
+
+        fill_in :title, with: title
+        fill_in :rating, with: rating
+
+        click_on "Create Review"
+
+        expect(page).to have_content("Please fill in all fields in order to create a review.")
+        expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
       end
     end
   end
