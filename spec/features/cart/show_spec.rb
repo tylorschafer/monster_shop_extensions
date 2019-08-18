@@ -1,14 +1,3 @@
-# When I have added items to my cart
-# And I visit my cart ("/cart")
-# I see all items I've added to my cart
-# Each item in my cart shows the following information:
-# - the name of the item
-# - the item image
-# - the merchant I'm buying this item from
-# - the price of the item
-# - my desired quantity of the item
-# - a subtotal (price multiplied by quantity)
-# I also see a grand total of what everything in my cart will cost
 require 'rails_helper'
 
 RSpec.describe 'Cart show' do
