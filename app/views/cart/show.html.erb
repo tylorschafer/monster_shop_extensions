@@ -11,9 +11,10 @@
         <p>Quantity: <%=quantity%></p>
         <p>Subtotal: $<%=cart.subtotal(item)%></p>
       </section>
-      <p>Total: $<%= cart.total %></p>
     </section>
   <% end %>
+  <p>Total: $<%= cart.total %></p>
+  <p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
 <% end %>
