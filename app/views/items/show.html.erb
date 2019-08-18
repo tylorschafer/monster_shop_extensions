@@ -19,3 +19,14 @@
     </section>
   </section>
 </center>
+<center>
+  <section class = "list-reviews">
+    <% @item.reviews.each do |review| %>
+      <section id= 'review-<%=review.id%>'>
+        <%= review.title %>
+        <%= review.content %>
+        Rating: <%= review.rating %>/5
+      </section>
+    <% end %>
+  </section>
+</center>
