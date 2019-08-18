@@ -19,4 +19,11 @@ class CartController < ApplicationController
     session[:cart].delete(params[:item_id])
     redirect_to '/cart'
   end
+
+  def increment_decrement
+    if params[:increment_decrement] == "increment"
+      cart.add_quantity(params[:item_id]) unless cart.limit_reached?(params[:item_id])
+    end
+    redirect_to "/cart"
+  end
 end
