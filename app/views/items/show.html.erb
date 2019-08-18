@@ -1,5 +1,20 @@
 <h1><%= @item.name %></h1>
 <p align="center">Sold by: <%=link_to @item.merchant.name, "/merchants/#{@item.merchant.id}" %> </p>
+<section class = "review-stats">
+  <section class = "top-three-reviews">
+    <% @item.sorted_reviews(3, :desc).each do |review| %>
+      <%= "#{review.rating}-#{review.title}" %>
+    <% end %>
+  </section>
+  <section class = "bottom-three-reviews">
+    <% @item.sorted_reviews(3, :asc).each do |review| %>
+      <%= "#{review.rating}-#{review.title}" %>
+    <% end %>
+  </section>
+  <section id = "average-rating">
+    <p>Average Rating: <%= @item.average_review %></p>
+  </section>
+</section>
 <center>
   <section class = "item-show-grid">
     <section class = "item-show-item">
