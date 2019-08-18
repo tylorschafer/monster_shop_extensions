@@ -15,7 +15,7 @@
     <nav class = "topnav">
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <h2 align="right">Cart: 0</h2>
+      <h2 align="right">Cart: <%= cart.total %></h2>
     </nav>
     <%= yield %>
   </body>
