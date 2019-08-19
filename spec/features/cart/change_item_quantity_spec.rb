@@ -1,15 +1,3 @@
-# When I have items in my cart
-# And I visit my cart
-# Next to each item in my cart
-# I see a button or link to increment the count of items I want to purchase
-# I cannot increment the count beyond the item's inventory size
-# As a visitor
-# When I have items in my cart
-# And I visit my cart
-# Next to each item in my cart
-# I see a button or link to remove that item from my cart
-# - clicking this button will remove the item but not other items
-
 require 'rails_helper'
 
 RSpec.describe 'Cart show' do
@@ -31,12 +19,13 @@ RSpec.describe 'Cart show' do
         @items_in_cart = [@paper,@tire,@pencil]
       end
 
-      it 'there is a button to increment the item next to each item' do
+      it 'there is a button to increment and decrement the item next to each item' do
         visit "/cart"
 
         @items_in_cart.each do |item|
           within "#cart-item-#{item.id}" do
             expect(page).to have_link("+")
+            expect(page).to have_link("-")
           end
         end
       end
@@ -53,6 +42,22 @@ RSpec.describe 'Cart show' do
 
         within "#cart-item-#{@paper.id}" do
           expect(page).to have_content("Quantity: 2")
+        end
+      end
+
+      it 'I can decrement the quantity of each item' do
+        visit "/cart"
+
+        within "#cart-item-#{@paper.id}" do
+          expect(page).to have_content("Quantity: 1")
+          click_on "+"
+          click_on "-"
+        end
+
+        expect(current_path).to eq("/cart")
+
+        within "#cart-item-#{@paper.id}" do
+          expect(page).to have_content("Quantity: 1")
         end
       end
 
@@ -75,6 +80,17 @@ RSpec.describe 'Cart show' do
         within "#cart-item-#{@paper.id}" do
           expect(page).to have_content("Quantity: 3")
         end
+      end
+
+      it 'I can delete the item by decrementing to 0' do
+        visit "/cart"
+
+        within "#cart-item-#{@paper.id}" do
+          click_on "-"
+        end
+
+        expect(current_path).to eq("/cart")
+        expect(page).to_not have_css("#cart-item-#{@paper.id}")
       end
     end
   end
