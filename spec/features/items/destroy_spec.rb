@@ -1,13 +1,3 @@
-# User Story 12, Item Delete
-#
-# As a visitor
-# When I visit an item show page
-# Then I see a link to delete the item
-# When I click the link
-# Then a 'DELETE' request is sent to '/items/:id',
-# the item is deleted,
-# and I am redirected to the item index page where I no longer see this item
-
 require 'rails_helper'
 
 RSpec.describe 'item delete', type: :feature do

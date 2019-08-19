@@ -1,9 +1,3 @@
-# As a visitor
-# When I visit an item's show page,
-# I see an area on the page for statistics about reviews:
-# - the top three reviews for this item (title and rating only)
-# - the bottom three reviews for this item  (title and rating only)
-# - the average rating of all reviews for this item
 require 'rails_helper'
 
 RSpec.describe 'Review statistics', type: :feature do

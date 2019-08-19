@@ -1,9 +1,3 @@
-# As a visitor,
-# When I visit an item's show page,
-# I see a link next to each review to delete the review.
-# When I delete a review I am returned to the item's show page
-# Then I should no longer see that review.
-
 require 'rails_helper'
 
 RSpec.describe 'review edit and update', type: :feature do
