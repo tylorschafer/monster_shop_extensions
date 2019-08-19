@@ -11,6 +11,7 @@
         <p>Quantity: <%=quantity%></p>
         <p>Subtotal: $<%=cart.subtotal(item)%></p>
         <%= link_to "+", "/cart/#{item.id}/increment", method: :patch %>
+        <%= link_to "-", "/cart/#{item.id}/decrement", method: :patch %>
         <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %>
       </section>
     </section>
