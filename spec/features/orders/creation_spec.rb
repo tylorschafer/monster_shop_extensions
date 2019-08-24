@@ -1,4 +1,12 @@
-RSpec.describe("New Order Page") do
+# When I fill out all information on the new order page
+# And click on 'Create Order'
+# An order is created and saved in the database
+# And I am redirected to that order's show page with the following information:
+#
+# - Details of the order:
+
+# - the date when the order was created
+RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -15,21 +23,36 @@ RSpec.describe("New Order Page") do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-    end
-    it "I see all the information about my current cart" do
+
       visit "/cart"
-
       click_on "Checkout"
+    end
 
-      within "#order-item-#{@tire.id}" do
-        expect(page).to have_content(@tire.name)
-        expect(page).to have_content("Sold by: #{@tire.merchant.name}")
-        expect(page).to have_content("Price: $#{@tire.price}")
-        expect(page).to have_content("Quantity: 1")
-        expect(page).to have_content("Subtotal: $100")
+    it 'I can create a new order' do
+      name = "Bert"
+      address = "123 Sesame St."
+      city = "NYC"
+      state = "New York"
+      zip = 10001
+
+      fill_in :name, with: name
+      fill_in :address, with: address
+      fill_in :city, with: city
+      fill_in :state, with: state
+      fill_in :zip, with: zip
+
+      click_button "Create Order"
+
+      new_order = Order.last
+
+      expect(current_path).to eq("/orders/#{new_order.id}")
+
+      within '.shipping-address' do
+        expect(page).to have_content(name)
+        expect(page).to have_content("#{address}, #{city}, #{state} #{zip}")
       end
 
-      within "#order-item-#{@paper.id}" do
+      within "#item-#{@paper.id}" do
         expect(page).to have_content(@paper.name)
         expect(page).to have_content("Sold by: #{@paper.merchant.name}")
         expect(page).to have_content("Price: $#{@paper.price}")
@@ -37,7 +60,15 @@ RSpec.describe("New Order Page") do
         expect(page).to have_content("Subtotal: $40")
       end
 
-      within "#order-item-#{@pencil.id}" do
+      within "#item-#{@tire.id}" do
+        expect(page).to have_content(@tire.name)
+        expect(page).to have_content("Sold by: #{@tire.merchant.name}")
+        expect(page).to have_content("Price: $#{@tire.price}")
+        expect(page).to have_content("Quantity: 1")
+        expect(page).to have_content("Subtotal: $100")
+      end
+
+      within "#item-#{@pencil.id}" do
         expect(page).to have_content(@pencil.name)
         expect(page).to have_content("Sold by: #{@pencil.merchant.name}")
         expect(page).to have_content("Price: $#{@pencil.price}")
@@ -45,19 +76,15 @@ RSpec.describe("New Order Page") do
         expect(page).to have_content("Subtotal: $2")
       end
 
-      expect(page).to have_content("Total: $142")
+      within "#grandtotal" do
+        expect(page).to have_content("Total: $142")
+      end
+
+      within "#datecreated" do
+        expect(page).to have_content(Date.today)
+      end
     end
 
-    it "I see a form where I can enter my shipping info" do
-      visit "/cart"
-      click_on "Checkout"
 
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
-      expect(page).to have_button("Create Order")
-    end
   end
 end
