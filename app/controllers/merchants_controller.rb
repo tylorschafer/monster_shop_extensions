@@ -12,8 +12,13 @@ class MerchantsController <ApplicationController
   end
 
   def create
-    Merchant.create(merchant_params)
-    redirect_to "/merchants"
+    merchant = Merchant.create(merchant_params)
+    if merchant.save
+      redirect_to "/merchants"
+    else
+      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      render :new
+    end 
   end
 
   def edit
