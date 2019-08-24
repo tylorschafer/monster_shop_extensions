@@ -32,4 +32,6 @@ Rails.application.routes.draw do
   patch "/cart/:item_id/:increment_decrement", to: "cart#increment_decrement"
 
   get "/orders/new", to: "orders#new"
+  post "/orders", to: "orders#create"
+  get "/orders/:id", to: "orders#show"
 end
