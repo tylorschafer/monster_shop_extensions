@@ -19,5 +19,9 @@ class Item <ApplicationRecord
   def sorted_reviews(limit, order)
     reviews.order(rating: order).limit(limit)
   end
-  
+
+  def no_orders?
+    item_orders.empty?
+  end
+
 end
