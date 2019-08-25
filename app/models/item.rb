@@ -20,4 +20,8 @@ class Item <ApplicationRecord
     reviews.order(rating: order).limit(limit)
   end
 
+  def no_reviews?
+    reviews.empty?
+  end
+
 end
