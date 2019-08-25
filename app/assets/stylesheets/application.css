@@ -33,6 +33,10 @@ img{
   width: 50%;
 }
 
+#cart-image{
+  width:50px;
+}
+
  .grid-container{
  	display: grid;
  	grid-template-columns: repeat(5,1fr);
@@ -113,4 +117,31 @@ form {
   background-color: #f2f2f2;
   padding: 20px;
   width: 60%;
+}
+
+.error-flash {
+  padding: 10px;
+  background-color: red;
+  color: white;
+}
+.success-flash {
+  padding: 10px;
+  background-color: green;
+  color: white;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #f2f2f2;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #F0F8FF;
 }
