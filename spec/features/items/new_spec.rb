@@ -50,5 +50,28 @@ RSpec.describe "Create Merchant Items" do
       expect(page).to_not have_content(new_item.description)
       expect(page).to have_content("Inventory: #{new_item.inventory}")
     end
+
+    it 'I get an alert if I dont fully fill out the form' do
+      visit "/merchants/#{@brian.id}/items"
+
+      name = ""
+      price = 18
+      description = "No more chaffin'!"
+      image_url = "https://images-na.ssl-images-amazon.com/images/I/51HMpDXItgL._SX569_.jpg"
+      inventory = ""
+
+      click_on "Add New Item"
+
+      fill_in :name, with: name
+      fill_in :price, with: price
+      fill_in :description, with: description
+      fill_in :image, with: image_url
+      fill_in :inventory, with: inventory
+
+      click_button "Create Item"
+
+      expect(page).to have_content("Please fill in the following field(s): Name , Inventory")
+      expect(page).to have_button("Create Item")
+    end
   end
 end

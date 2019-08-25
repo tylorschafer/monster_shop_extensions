@@ -48,6 +48,26 @@ RSpec.describe "As a Visitor" do
         expect(page).to have_content("They're a bit more expensive, and they kinda do pop sometimes, but whatevs.. this is retail.")
         expect(page).to_not have_content("They'll never pop!")
       end
+
+      it 'I get a flash message if entire form is not filled out' do
+        @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+        visit "/items/#{@tire.id}"
+
+        click_on "Edit Item"
+
+        fill_in 'Name', with: ""
+        fill_in 'Price', with: 110
+        fill_in 'Description', with: "They're a bit more expensive, and they kinda do pop sometimes, but whatevs.. this is retail."
+        fill_in 'Image', with: ""
+        fill_in 'Inventory', with: 11
+
+        click_button "Update Item"
+
+        expect(page).to have_content("Please fill in the following field(s): Name , Image")
+        expect(page).to have_button("Update Item")
+      end
     end
   end
 end
