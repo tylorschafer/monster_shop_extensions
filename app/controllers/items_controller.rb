@@ -18,9 +18,14 @@ class ItemsController<ApplicationController
   end
 
   def create
-    merchant = Merchant.find(params[:merchant_id])
-    merchant.items.create(item_params)
-    redirect_to "/merchants/#{merchant.id}/items"
+    @merchant = Merchant.find(params[:merchant_id])
+    item = @merchant.items.create(item_params)
+    if item.save
+      redirect_to "/merchants/#{@merchant.id}/items"
+    else
+      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      render :new
+    end
   end
 
   def edit
@@ -28,9 +33,14 @@ class ItemsController<ApplicationController
   end
 
   def update
-    item = Item.find(params[:id])
-    item.update(item_params)
-    redirect_to "/items/#{item.id}"
+    @item = Item.find(params[:id])
+    @item.update(item_params)
+    if @item.save
+      redirect_to "/items/#{@item.id}"
+    else
+      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      render :edit
+    end
   end
 
   def destroy
@@ -44,6 +54,16 @@ class ItemsController<ApplicationController
 
   def item_params
     params.permit(:name,:description,:price,:inventory,:image)
+  end
+
+  def find_empty_params
+    empty_params = []
+    empty_params << "Name " if item_params[:name] == ""
+    empty_params << "Description " if item_params[:description] == ""
+    empty_params << "Price " if item_params[:price] == ""
+    empty_params << "Inventory " if item_params[:inventory] == ""
+    empty_params << "Image " if item_params[:image] == ""
+    empty_params.join(", ")
   end
 
 end
