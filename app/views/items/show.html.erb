@@ -30,7 +30,7 @@
         <p style= "color:red">Inactive</p>
       <% end %>
       <p><%= link_to "Edit Item", "/items/#{@item.id}/edit" %></p>
-      <p><%= link_to "Delete Item", "/items/#{@item.id}", method: :delete %></p>
+      <p><%= link_to "Delete Item", "/items/#{@item.id}", method: :delete if @item.no_reviews?%></p>
     </section>
   </section>
 </center>
