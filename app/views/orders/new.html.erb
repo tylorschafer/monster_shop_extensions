@@ -1,15 +1,27 @@
 <h1 align = "center">Order</h1>
-<% cart.items.each do |item, quantity| %>
-  <section id='order-item-<%= item.id%>'>
-    <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
-    <p>Price: $<%= item.price %></p>
-    <p>Quantity: <%= quantity %></p>
-    <p>Subtotal: $<%= cart.subtotal(item) %></p>
-    <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
-  </section>
-<% end %>
-<h3>Total: $<%= cart.total%></h3>
+<table>
+  <tr>
+    <th>Item</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Subtotal</th>
+    <th>Sold By</th>
+    <th>Inventory</th>
+  </tr>
+  <% cart.items.each do |item, quantity| %>
+    <tr id='order-item-<%= item.id%>'>
+      <td><h2><%= link_to item.name, "/items/#{item.id}" %></h2></td>
+      <td><p>$<%= item.price %></p></td>
+      <td><p><%= quantity %></p></td>
+      <td><p>$<%= cart.subtotal(item) %></p><td>
+      <td><p><%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %></p></td>
+      <td><p><%= item.inventory %> in stock</p></td>
+    </tr>
+  <% end %>
+</table>
+<h3 align = "right">Total: $<%= cart.total%></h3>
 <center>
+  <h2>Shipping Info:</h2>
   <%= form_tag "/orders", method: :create do %>
     <%= label_tag :name %>
     <%= text_field_tag :name %>

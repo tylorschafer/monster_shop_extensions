@@ -27,18 +27,18 @@ RSpec.describe 'Cart show' do
         expect(page).to_not have_css(".cart-items")
         expect(page).to have_content("Cart is currently empty")
       end
-      
+
       it 'I see all items Ive added to my cart' do
         visit '/cart'
 
         @items_in_cart.each do |item|
           within "#cart-item-#{item.id}" do
-            expect(page).to have_content(item.name)
+            expect(page).to have_link(item.name)
             expect(page).to have_css("img[src*='#{item.image}']")
-            expect(page).to have_content("Sold by: #{item.merchant.name}")
-            expect(page).to have_content("Price: $#{item.price}")
-            expect(page).to have_content("Quantity: 1")
-            expect(page).to have_content("Subtotal: $#{item.price}")
+            expect(page).to have_link("#{item.merchant.name}")
+            expect(page).to have_content("$#{item.price}")
+            expect(page).to have_content("1")
+            expect(page).to have_content("$#{item.price}")
           end
         end
         expect(page).to have_content("Total: $122")
@@ -49,8 +49,8 @@ RSpec.describe 'Cart show' do
         visit '/cart'
 
         within "#cart-item-#{@pencil.id}" do
-          expect(page).to have_content("Quantity: 2")
-          expect(page).to have_content("Subtotal: $4")
+          expect(page).to have_content("2")
+          expect(page).to have_content("$4")
         end
 
         expect(page).to have_content("Total: $124")
