@@ -34,10 +34,10 @@ RSpec.describe 'Review statistics', type: :feature do
           expect(page).to have_content(review_4.rating)
           expect(page).to have_content(review_5.rating)
         end
+      end
 
-        within "#average-rating" do
-          expect(page).to have_content("Average Rating: 3.0")
-        end
+      within "#average-rating" do
+        expect(page).to have_content("Average Rating: 3.0")
       end
     end
   end

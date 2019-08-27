@@ -37,6 +37,17 @@ img{
   width:50px;
 }
 
+section[id*='review'] {
+  background-color: #DCDCDC;
+}
+.list-reviews {
+  display: grid;
+  width: 50%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 30px;
+}
+
  .grid-container{
  	display: grid;
  	grid-template-columns: repeat(5,1fr);

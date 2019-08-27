@@ -11,7 +11,7 @@
     <th>Subtotal</th>
   </tr>
   <% @items.each do |item,quantity| %>
-    <tr>
+    <tr id= "cart-item-<%=item.id%>">
       <td>
         <p align = "center">
           <span>

@@ -6,7 +6,7 @@ RSpec.describe 'review edit and update', type: :feature do
     @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
   end
   describe "when I visit the item show page" do
-    it "I see a link called Edit Review next to each review" do
+    it "I see a link called Edit next to each review" do
       review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       review_2 = @chain.reviews.create(title: "Cool shop!", content: "They have cool bike stuff and I'd recommend them to anyone.", rating: 4)
       review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
@@ -19,7 +19,7 @@ RSpec.describe 'review edit and update', type: :feature do
 
       reviews.each do |review|
         within "#review-#{review.id}" do
-          expect(page).to have_link("Edit Review")
+          expect(page).to have_link("Edit")
         end
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe 'review edit and update', type: :feature do
       visit "/items/#{@chain.id}"
 
       within "#review-#{review_1.id}" do
-        click_on "Edit Review"
+        click_on "Edit"
       end
 
       expect(current_path).to eq("/reviews/#{review_1.id}/edit")
@@ -62,7 +62,7 @@ RSpec.describe 'review edit and update', type: :feature do
       visit "/items/#{@chain.id}"
 
       within "#review-#{review_1.id}" do
-        click_on "Edit Review"
+        click_on "Edit"
       end
 
       fill_in :title, with: title

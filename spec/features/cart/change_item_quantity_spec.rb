@@ -34,14 +34,14 @@ RSpec.describe 'Cart show' do
         visit "/cart"
 
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 1")
+          expect(page).to have_content("1")
           click_on "+"
         end
 
         expect(current_path).to eq("/cart")
 
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 2")
+          expect(page).to have_content("2")
         end
       end
 
@@ -49,7 +49,7 @@ RSpec.describe 'Cart show' do
         visit "/cart"
 
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 1")
+          expect(page).to have_content("1")
           click_on "+"
           click_on "-"
         end
@@ -57,7 +57,7 @@ RSpec.describe 'Cart show' do
         expect(current_path).to eq("/cart")
 
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 1")
+          expect(page).to have_content("1")
         end
       end
 
@@ -72,13 +72,13 @@ RSpec.describe 'Cart show' do
         expect(current_path).to eq("/cart")
 
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 3")
+          expect(page).to have_content("3")
           click_on "+"
         end
 
         expect(current_path).to eq("/cart")
         within "#cart-item-#{@paper.id}" do
-          expect(page).to have_content("Quantity: 3")
+          expect(page).to have_content("3")
         end
       end
 
