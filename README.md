@@ -1,9 +1,9 @@
-# Monster Shop
+# Little Shop of Orders, v2
 BE Mod 2 Week 4/5 Group Project
 
 ## Background and Description
 
-"Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will automatically set the order status to "shipped". Each user role will have access to some or all CRUD functionality for application models.
+"Monster Shop" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Users who work for a merchant can mark their items as 'fulfilled'; the last merchant to mark items in an order as 'fulfilled' will automatically set the order status to "shipped". Each user role will have access to some or all CRUD functionality for application models.
 
 Students will be put into 3 or 4 person groups to complete the project.\n
 
@@ -49,13 +49,10 @@ Students will be put into 3 or 4 person groups to complete the project.\n
 ## User Roles
 
 1. Visitor - this type of user is anonymously browsing our site and is not logged in
-2. Registered User - this user is registered and logged in to the application while performing their work; can place items in a cart and create an order
-- Registered Users may or may not work for a merchant, in addition to having their regular user role
-3. Merchant Admin - this user works for a merchant, and has additional capabilities than regular employees
-- A user will only be able to be a merchant admin, if they are employed by a merchant
-3. Admin User - a registered user (but cannot also be a merchant) who has "superuser" access to all areas of the application; user is logged in to perform their work
-
-In addition, some Registered users may work for a Merchant, these users will have additional capabilities - like fulfilling order items.
+1. Regular User - this user is registered and logged in to the application while performing their work; can place items in a cart and create an order
+1. Merchant Employee - this user works for a merchant. They can fulfill orders on behalf of their merchant. They also have the same permissions as a regular user (adding items to a cart and checking out)
+3. Merchant Admin - this user works for a merchant, and has additional capabilities than regular employees, such as changing merchant info.
+3. Admin User - a registered user who has "superuser" access to all areas of the application; user is logged in to perform their work
 
 ## Order Status
 
@@ -123,7 +120,7 @@ Next to the shopping cart link I see a count of the items in my cart
 
 User Story 3, User Navigation
 
-As a registered user
+As a registered regular user
 I see the same links as a visitor
 Plus the following links
 - a link to my profile page ("/profile")
@@ -140,14 +137,10 @@ I also see text that says "Logged in as Ian Douglas" (or whatever my name is)
 
 User Story 4, Merchant Navigation
 
-As a user who works for a merchant
-I see the same links as a visitor
+As a merchant employee or admin
+I see the same links as a regular user
 Plus the following links:
 - a link to my merchant dashboard ("/merchant")
-- a link to log out ("/logout")
-
-Minus the following links/info:
-- I do not see a link to log in or register
 ```
 
 ```
@@ -156,14 +149,12 @@ Minus the following links/info:
 User Story 5, Admin Navigation
 
 As an admin user
-I see the same links as a visitor
+I see the same links as a regular user
 Plus the following links
 - a link to my admin dashboard ("/admin")
-- a link to log out ("/logout")
 - a link to see all users ("/admin/users")
 
-Minus the following links/info:
-- I do not see a link to log in or register
+Minus the following links/info
 - a link to my shopping cart ("/cart") or count of cart items
 ```
 
@@ -195,11 +186,9 @@ When I try to access any path that begins with the following, then I see a 404 e
 
 User Story 8, Merchant Navigation Restrictions
 
-As a Merchant
+As a merchant employee or admin
 When I try to access any path that begins with the following, then I see a 404 error:
-- '/profile'
 - '/admin'
-- '/cart'
 ```
 
 ```
@@ -207,9 +196,8 @@ When I try to access any path that begins with the following, then I see a 404 e
 
 User Story 9, Admin Navigation Restrictions
 
-As a Admin
+As an Admin
 When I try to access any path that begins with the following, then I see a 404 error:
-- '/profile'
 - '/merchant'
 - '/cart'
 ```
@@ -562,7 +550,7 @@ The order status changes from "pending" to "packaged"
 User Story 30, Admin can see all orders
 
 As an admin user
-When I log into my dashboard, "/admin/dashboard"
+When I visit my admin dashboard ("/admin")
 Then I see all orders in the system.
 For each order I see the following information:
 
@@ -604,9 +592,9 @@ Admin users will see more information on the "/merchants" route that all users s
 
 User Story 32, Merchant Dashboard Show Page
 
-As a merchant
+As a merchant employee or admin
 When I visit my merchant dashboard ("/merchant")
-I see my profile data, but cannot edit it
+I see the name and full address of the merchant I work for
 ```
 
 ```
@@ -672,7 +660,7 @@ And I see a flash message that the merchant's account is now disabled
 
 User Story 37, Disabled Merchant Item's are inactive
 
-As an admin merchant
+As an admin
 When I visit the merchant index page
 And I click on the "disable" button for an enabled merchant
 Then all of that merchant's items should be deactivated
@@ -696,7 +684,7 @@ And I see a flash message that the merchant's account is now enabled
 
 User Story 39, Enabled Merchant Item's are active
 
-As an admin merchant
+As an admin
 When I visit the merchant index page
 And I click on the "enable" button for a disabled merchant
 Then all of that merchant's items should be activated
@@ -1051,13 +1039,3 @@ Then I do not see a "fulfill" button or link
 Instead I see a big red notice next to the item indicating I cannot fulfill this item
 ```
 
-
-
-## Rubric
-
-| | **Feature Completeness** | **Rails** | **ActiveRecord** | **Testing and Debugging** | **Styling, UI/UX** |
-| --- | --- | --- | --- | --- | --- |
-| **4: Exceptional**  | All User Stories 100% complete including all sad paths and edge cases, and some extension work completed | Students implement strategies not discussed in class to effectively organize code and adhere to MVC. | Highly effective and efficient use of ActiveRecord beyond what we've taught in class. Even `.each` calls will not cause additional database lookups. | Very clear Test Driven Development. Test files are extremely well organized and nested. Students utilize `before :each` blocks. 100% coverage for features and models | Extremely well styled and purposeful layout. Excellent color scheme and font usage. All other rubric categories score 3 or 4. |
-| **3: Passing** | Students complete all User Stories. No more than 2 Stories fail to correctly implement sad path and edge case functionality. | Students use the principles of MVC to effectively organize code. Students can defend any of their design decisions. Students limit access to authorized users. | ActiveRecord is used in a clear and effective way to read/write data using no Ruby to process data. | 100% coverage for models. 98% coverage for features. Tests are well written and meaningful. | Purposeful styling pattern and layout using `application.html.erb`. Links or buttons to reach all areas of the site. |
-| **2: Passing with Concerns** | Students complete all but 1 - 3 User Stories | Students utilize MVC to organize code, but cannot defend some of their design decisions. Or some functionality is not limited to the appropriately authorized users. | Ruby is used to process data that could use ActiveRecord instead. | Feature test coverage between 90% and 98%, or model test coverage below 100%, or tests are not meaningfully written or have an unclear objective. | Styling is poor or incomplete. Incomplete navigation for some routes, i.e. users must manually type URLs. |
-| **1: Failing** | Students fail to complete 4 or more User Stories | Students do not effectively organize code using MVC. Or students do not authorize users. | Ruby is used to process data more often than ActiveRecord | Below 90% coverage for either features or models. | No styling or no buttons or links to navigate the site. |
