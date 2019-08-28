@@ -13,4 +13,16 @@ class Merchant <ApplicationRecord
     item_orders.empty?
   end
 
+  def item_count
+    items.count
+  end
+
+  def average_item_price
+    items.average(:price)
+  end
+
+  def distinct_cities
+    item_orders.joins('INNER JOIN orders ON orders.id  = item_orders.order_id').pluck('DISTINCT city')
+  end
+
 end
