@@ -59,6 +59,25 @@ RSpec.describe 'review creation', type: :feature do
         expect(page).to have_content("Please fill in all fields in order to create a review.")
         expect(current_path).to eq("/items/#{@chain.id}/reviews/new")
       end
+
+      it 'I get an error if my rating is not between 1 and 5' do
+        title = "Thanks Brian's Bike Shop!"
+        rating = 6
+        content = "SO FUN SO GREAT"
+
+        visit "/items/#{@chain.id}"
+
+        click_on "Add Review"
+
+        fill_in :title, with: title
+        fill_in :content, with: content
+        fill_in :rating, with: rating
+
+        click_on "Create Review"
+
+        expect(page).to have_content("Rating must be between 1 and 5")
+        expect(page).to have_button "Create Review"
+      end
     end
   end
 end
