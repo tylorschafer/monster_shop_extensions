@@ -1,4 +1,4 @@
-# Little Shop of Orders, v2
+# Monster Shop
 BE Mod 2 Week 4/5 Group Project
 
 ## Background and Description
