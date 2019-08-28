@@ -88,6 +88,25 @@ RSpec.describe("Order Creation") do
       end
     end
 
+    it 'i cant create order if info not filled out' do
+      name = ""
+      address = "123 Sesame St."
+      city = "NYC"
+      state = "New York"
+      zip = 10001
+
+      fill_in :name, with: name
+      fill_in :address, with: address
+      fill_in :city, with: city
+      fill_in :state, with: state
+      fill_in :zip, with: zip
+
+      click_button "Create Order"
+
+      expect(page).to have_content("Please complete address form to create an order.")
+      expect(page).to have_button("Create Order")
+    end
+
 
   end
 end
