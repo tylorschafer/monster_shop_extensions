@@ -46,7 +46,7 @@ RSpec.describe "As a Visitor" do
 
       click_button "Update Merchant"
 
-      expect(page).to have_content("Please fill in the following field(s): Name , City")
+      expect(page).to have_content("Name can't be blank and City can't be blank")
       expect(page).to have_button("Update Merchant")
     end
   end
