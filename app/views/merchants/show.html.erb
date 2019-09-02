@@ -8,11 +8,13 @@
 </ul>
 <section class = "merchant-stats">
   <h2>Number of Items: <%=@merchant.item_count%></h2>
-  <h2>Average Price of Items: $<%= @merchant.average_item_price%></h2>
-  <section class = "distinct-cities">
-    <h2>Cities that order these items:</h2>
-    <% @merchant.distinct_cities.each do |city| %>
-      <p><%= city %></p>
+  <% if @merchant.item_count > 0 %>
+    <h2>Average Price of Items: $<%= @merchant.average_item_price.round(2)%></h2>
+    <section class = "distinct-cities">
+      <h2>Cities that order these items:</h2>
+      <% @merchant.distinct_cities.each do |city| %>
+        <p><%= city %></p>
+      <% end %>
     <% end %>
   </section>
 </section>
