@@ -22,7 +22,7 @@ class Merchant <ApplicationRecord
   end
 
   def distinct_cities
-    item_orders.joins('INNER JOIN orders ON orders.id  = item_orders.order_id').pluck('DISTINCT city')
+    item_orders.distinct.joins(:order).pluck(:city)
   end
 
 end
