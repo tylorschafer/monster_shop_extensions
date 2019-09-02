@@ -16,9 +16,9 @@ class MerchantsController <ApplicationController
     if merchant.save
       redirect_to "/merchants"
     else
-      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      flash[:error] = merchant.errors.full_messages.to_sentence
       render :new
-    end 
+    end
   end
 
   def edit
@@ -31,7 +31,7 @@ class MerchantsController <ApplicationController
     if @merchant.save
       redirect_to "/merchants/#{@merchant.id}"
     else
-      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      flash[:error] = @merchant.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -48,13 +48,4 @@ class MerchantsController <ApplicationController
     params.permit(:name,:address,:city,:state,:zip)
   end
 
-  def find_empty_params
-    empty_params = []
-    empty_params << "Name " if merchant_params[:name] == ""
-    empty_params << "Address " if merchant_params[:address] == ""
-    empty_params << "City " if merchant_params[:city] == ""
-    empty_params << "State " if merchant_params[:state] == ""
-    empty_params << "Zip " if merchant_params[:zip] == ""
-    empty_params.join(", ")
-  end
 end

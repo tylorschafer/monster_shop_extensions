@@ -23,7 +23,7 @@ class ItemsController<ApplicationController
     if item.save
       redirect_to "/merchants/#{@merchant.id}/items"
     else
-      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      flash[:error] = item.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -38,7 +38,7 @@ class ItemsController<ApplicationController
     if @item.save
       redirect_to "/items/#{@item.id}"
     else
-      flash[:error] = "Please fill in the following field(s): " + find_empty_params
+      flash[:error] = @item.errors.full_messages.to_sentence
       render :edit
     end
   end
@@ -56,14 +56,5 @@ class ItemsController<ApplicationController
     params.permit(:name,:description,:price,:inventory,:image)
   end
 
-  def find_empty_params
-    empty_params = []
-    empty_params << "Name " if item_params[:name] == ""
-    empty_params << "Description " if item_params[:description] == ""
-    empty_params << "Price " if item_params[:price] == ""
-    empty_params << "Inventory " if item_params[:inventory] == ""
-    empty_params << "Image " if item_params[:image] == ""
-    empty_params.join(", ")
-  end
 
 end
