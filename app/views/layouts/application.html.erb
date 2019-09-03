@@ -10,9 +10,14 @@
 
   <body>
     <nav class = "topnav">
+      <%= link_to "Puggly Wuggly Home", '/' %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <div class="login-options">
+        <%= link_to 'Log In', '/login' %>
+        <%= link_to 'Sign Up', '/register' %>
+      </div>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">

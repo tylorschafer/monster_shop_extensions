@@ -17,6 +17,28 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq('/merchants')
+
+      within 'nav' do
+        click_link 'Puggly Wuggly Home'
+      end
+
+      expect(current_path).to eq('/')
+
+      within 'nav' do
+        within '.login-options' do
+          click_link 'Sign Up'
+        end
+
+        expect(current_path).to eq('/register')
+      end
+
+      within 'nav' do
+        within '.login-options' do
+          click_link 'Log In'
+        end
+
+        expect(current_path).to eq('/login')
+      end
     end
 
     it "I can see a cart indicator on all pages" do
@@ -31,7 +53,6 @@ RSpec.describe 'Site Navigation' do
       within 'nav' do
         expect(page).to have_content("Cart: 0")
       end
-
     end
   end
 end
