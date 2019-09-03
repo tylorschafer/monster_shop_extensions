@@ -15,8 +15,15 @@
  */
 
  body {
- background-color: white;
+  background-color: white;
  }
+
+form {
+  align-content: center;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 60%;
+}
 
  h1 {
   text-align: center;
@@ -25,120 +32,37 @@
  	font-family: "Marker Felt", fantasy;
  }
 
-ul{
-  padding: 0px;
-  text-align: center;
-}
 img{
   width: 50%;
-}
-
-#cart-image{
-  width:50px;
-}
-
-section[id*='review'] {
-  background-color: #DCDCDC;
-}
-.list-reviews {
-  display: grid;
-  width: 50%;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 30px;
-}
-
- .grid-container{
- 	display: grid;
- 	grid-template-columns: repeat(5,1fr);
- 	grid-template-rows: auto;
- 	grid-gap: 30px;
- }
-
- .grid-item{
- 	background-color: #17BEBB;
- 	padding: 20px;
-  border: solid;
- 	border-radius: 12px;
-  border-color: #002244;
- 	text-align: center
- }
- .item-show-grid{
-  width: 60%;
- 	display: grid;
-  border: solid;
-  border-radius: 12px;
- 	grid-template-columns: repeat(2,1fr);
- }
-
- .item-show-item{
- 	padding: 20px;
- 	text-align: right;
- }
-
- .topnav {
-   overflow: hidden;
-   background-color: #002244;
- }
-
- .topnav a {
-   float: left;
-   color: #f2f2f2;
-   text-align: center;
-   padding: 14px 16px;
-   text-decoration: none;
-   font-size: 17px;
- }
-
- .topnav a:hover {
-   background-color: #17BEBB;
-   color: black;
- }
-
- .address{
-   text-align: center;
- }
-
- input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #17BEBB;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 input[type=submit]:hover {
   background-color: #45a049;
 }
-form {
-  align-content: center;
-  background-color: #f2f2f2;
-  padding: 20px;
-  width: 60%;
+
+input[type=text], select {
+ width: 100%;
+ padding: 12px 20px;
+ margin: 8px 0;
+ display: inline-block;
+ border: 1px solid #ccc;
+ border-radius: 4px;
+ box-sizing: border-box;
 }
 
-.error-flash {
-  padding: 10px;
-  background-color: red;
-  color: white;
+input[type=submit] {
+ width: 100%;
+ background-color: #17BEBB;
+ color: white;
+ padding: 14px 20px;
+ margin: 8px 0;
+ border: none;
+ border-radius: 4px;
+ cursor: pointer;
 }
-.success-flash {
-  padding: 10px;
-  background-color: green;
-  color: white;
+
+section[id*='review'] {
+  background-color: #DCDCDC;
 }
 
 table {
@@ -155,4 +79,84 @@ td, th {
 
 tr:nth-child(even) {
   background-color: #F0F8FF;
+}
+
+ul{
+  padding: 0px;
+  text-align: center;
+}
+.address{
+  text-align: center;
+}
+
+.error-flash {
+  padding: 10px;
+  background-color: red;
+  color: white;
+}
+
+.grid-container{
+ 	display: grid;
+ 	grid-template-columns: repeat(5,1fr);
+ 	grid-template-rows: auto;
+ 	grid-gap: 30px;
+}
+
+.grid-item{
+ 	background-color: #17BEBB;
+ 	padding: 20px;
+  border: solid;
+ 	border-radius: 12px;
+  border-color: #002244;
+ 	text-align: center
+}
+
+.item-show-grid{
+  width: 60%;
+ 	display: grid;
+  border: solid;
+  border-radius: 12px;
+ 	grid-template-columns: repeat(2,1fr);
+}
+
+.item-show-item{
+ 	padding: 20px;
+ 	text-align: right;
+}
+
+.list-reviews {
+  display: grid;
+  width: 50%;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-gap: 30px;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #002244;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #17BEBB;
+  color: black;
+}
+
+.success-flash {
+  padding: 10px;
+  background-color: green;
+  color: white;
+}
+
+#cart-image{
+  width:50px;
 }
