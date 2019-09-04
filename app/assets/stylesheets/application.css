@@ -21,6 +21,7 @@
 
  body {
   background-color: white;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
  }
 
 form {
@@ -148,14 +149,23 @@ ul{
 .topnav a {
   color: #f2f2f2;
   text-align: center;
-  padding: 14px 16px;
+  padding: 1.5em 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 1.5em;
 }
 
 .topnav a:hover {
   background-color: #17BEBB;
   color: black;
+}
+
+.sign-up {
+  color: #f2f2f2;
+  font-size: 0.8em;
+}
+
+.sign-up-link {
+  font-size: 8em;
 }
 
 .success-flash {
@@ -188,11 +198,14 @@ ul{
 }
 
 #home-indicator {
-  width: 9em;
+  width: 10em;
 }
 
+#home-link {
+  padding: 4em 0 0 0;
+}
 
 #home-logo {
-  margin-top: 0.6em;
-  width: 9em;
+  padding: 0.6em;
+  width: 100%;
 }

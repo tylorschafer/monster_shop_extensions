@@ -10,7 +10,8 @@
 
   <body>
     <nav class = "topnav">
-      <div class="home-indicator">
+
+      <div id="home-indicator">
         <%= link_to '/', id: 'home-link' do %>
           <%= image_tag 'puggly-wuggly-logo.png', id: 'home-logo' %>
         <% end %>
@@ -18,9 +19,10 @@
 
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
+
       <div class="login-options">
         <%= link_to 'Log In', '/login' %>
-        <%= link_to 'Sign Up', '/register' %>
+        <p class='sign-up'>First time here? <%= link_to 'Sign Up', '/register', class: 'sign-up-link' %></p>
       </div>
       <div id="cart-indicator">
         <%= link_to '/cart', id: 'cart-link' do %>

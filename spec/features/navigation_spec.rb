@@ -19,7 +19,7 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/merchants')
 
       within 'nav' do
-        within '.home-indicator' do
+        within '#home-indicator' do
           click_link
         end
       end
