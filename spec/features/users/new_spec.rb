@@ -40,7 +40,7 @@ describe 'User clicks link to sign up' do
     click_on 'Submit'
 
     expect(current_path).to eq('/register')
-    expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Email can't be blank, and Password can't be blank")
+    expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Password confirmation doesn't match Password, Email can't be blank, and Password can't be blank")
   end
 
   it 'Cant reuse email addresses' do
@@ -60,5 +60,22 @@ describe 'User clicks link to sign up' do
 
     expect(current_path).to eq('/register')
     expect(page).to have_content('Email has already been taken')
+  end
+  it "needs matching passwords" do
+    visit '/register'
+
+    fill_in 'Name', with: @name
+    fill_in 'Address', with: @address
+    fill_in 'City', with: @city
+    fill_in 'State', with: @state
+    fill_in 'Zip', with: @zip
+    fill_in 'Email', with: @email
+    fill_in 'Password', with: @password
+    fill_in 'Password confirmation', with: 'something_random'
+
+    click_on 'Submit'
+
+    expect(current_path).to eq('/register')
+    expect(page).to have_content("Password confirmation doesn't match Password")
   end
 end

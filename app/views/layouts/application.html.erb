@@ -20,10 +20,13 @@
       <%= link_to "All Merchants", "/merchants", class: 'topnav-link'%>
       <%= link_to "All Items", "/items", class: 'topnav-link'%>
 
-      <div class="login-options">
-        <%= link_to 'Log In', '/login', class: 'btn' %>
-        <p class='sign-up'>First time here? <%= link_to 'Sign Up', '/register', class: 'sign-up-link' %></p>
-      </div>
+        <div class="login-options">
+          <% if session[:user_id].nil? %>
+              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log In", path: "/login", message: "First time here?", message_link: "Sign Up", message_path: "/register"} %>
+            <% else %>
+              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log Out", path: "/logout", message: "Logged in as: ", message_link: "#{User.find(session[:user_id]).name}", message_path: "/profile"} %>
+            <% end %>
+        </div> %>
 
       <div id="cart-indicator">
         <%= link_to '/cart', class: 'topnav-link', id: 'cart-link' do %>
