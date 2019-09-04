@@ -10,15 +10,37 @@
 
   <body>
     <nav class = "topnav">
-      <%= link_to "All Merchants", "/merchants"%>
-      <%= link_to "All Items", "/items"%>
-      <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+
+      <div id="home-indicator">
+        <%= link_to '/', class: 'topnav-link', id: 'home-link' do %>
+          <%= image_tag 'puggly-wuggly-logo.png', id: 'home-logo' %>
+        <% end %>
+      </div>
+
+      <%= link_to "All Merchants", "/merchants", class: 'topnav-link'%>
+      <%= link_to "All Items", "/items", class: 'topnav-link'%>
+
+      <div class="login-options">
+        <%= link_to 'Log In', '/login', class: 'btn' %>
+        <p class='sign-up'>First time here? <%= link_to 'Sign Up', '/register', class: 'sign-up-link' %></p>
+      </div>
+
+      <div id="cart-indicator">
+        <%= link_to '/cart', class: 'topnav-link', id: 'cart-link' do %>
+          <%= image_tag "pug_cart.png", id: 'cart-nav-img' %>
+        <% end %>
+        <% items = cart.total_items%>
+        <p id="cart-p"><%= items %> <%= items == 1 ? ' item' : ' items' %></p>
+      </div>
     </nav>
+
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
         <p><%= msg %></p>
       </div>
     <% end %>
+
     <%= yield %>
+
   </body>
 </html>

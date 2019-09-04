@@ -22,14 +22,14 @@ RSpec.describe 'Cart creation' do
       expect(current_path).to eq("/items")
 
       within 'nav' do
-        expect(page).to have_content("Cart: 1")
+        expect(page).to have_content("1 item")
       end
 
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
 
       within 'nav' do
-        expect(page).to have_content("Cart: 2")
+        expect(page).to have_content("2 item")
       end
     end
   end
