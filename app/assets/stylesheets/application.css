@@ -95,6 +95,24 @@ ul{
   text-align: center;
 }
 
+.btn {
+  background-color: #17BEBB;
+  border-radius: 7px;
+  box-shadow: 2px 2px 4px #505050;
+  color: #303030;
+  display: inline-block;
+  font-size: 1.3em;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #00798c;
+  color: #f2f2f2;
+  box-shadow: 2px 2px 5px #707070;
+}
+
 .error-flash {
   padding: 10px;
   background-color: red;
@@ -138,6 +156,14 @@ ul{
   grid-gap: 30px;
 }
 
+.login-options {
+  margin-top: 0.8em;
+}
+
+.login-options a {
+  text-decoration: none;
+}
+
 .topnav {
   display: flex;
   justify-content: space-between;
@@ -146,7 +172,7 @@ ul{
   height: 6em;
 }
 
-.topnav a {
+.topnav-link {
   color: #f2f2f2;
   text-align: center;
   padding: 1.5em 16px;
@@ -154,7 +180,7 @@ ul{
   font-size: 1.5em;
 }
 
-.topnav a:hover {
+.topnav-link:hover {
   background-color: #17BEBB;
   color: black;
 }
@@ -165,7 +191,13 @@ ul{
 }
 
 .sign-up-link {
-  font-size: 8em;
+  font-size: 1em;
+  padding-left: 0.4em;
+  color: #17BEBB;
+}
+
+.sign-up-link:hover {
+  text-decoration: underline;
 }
 
 .success-flash {
