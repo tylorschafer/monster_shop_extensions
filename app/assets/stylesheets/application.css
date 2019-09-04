@@ -14,6 +14,11 @@
  *= require_self
  */
 
+ *{
+   box-sizing: border-box;
+   /* border: 0.5px solid red; */
+ }
+
  body {
   background-color: white;
  }
@@ -133,12 +138,14 @@ ul{
 }
 
 .topnav {
+  display: flex;
+  justify-content: space-between;
   overflow: hidden;
   background-color: #002244;
+  height: 6em;
 }
 
 .topnav a {
-  float: left;
   color: #f2f2f2;
   text-align: center;
   padding: 14px 16px;
@@ -157,6 +164,35 @@ ul{
   color: white;
 }
 
-#cart-image{
+#cart-item-img{
   width:50px;
+}
+
+#cart-nav-img {
+  width: 100%;
+}
+
+#cart-indicator {
+  width: 5em;
+}
+
+#cart-link {
+  padding: 4.5em 0 2em 0;
+  margin: 0;
+}
+
+#cart-p {
+  margin: 0;
+  padding: 0.2em;
+  color: #f2f2f2;
+}
+
+#home-indicator {
+  width: 9em;
+}
+
+
+#home-logo {
+  margin-top: 0.6em;
+  width: 9em;
 }

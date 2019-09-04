@@ -19,7 +19,9 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq('/merchants')
 
       within 'nav' do
-        click_link 'Puggly Wuggly Home'
+        within '.home-indicator' do
+          click_link
+        end
       end
 
       expect(current_path).to eq('/')
@@ -45,13 +47,13 @@ RSpec.describe 'Site Navigation' do
       visit '/merchants'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_content("0 items")
       end
 
       visit '/items'
 
       within 'nav' do
-        expect(page).to have_content("Cart: 0")
+        expect(page).to have_content("0 items")
       end
     end
   end
