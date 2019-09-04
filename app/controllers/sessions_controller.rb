@@ -13,4 +13,10 @@ class SessionsController < ApplicationController
       redirect_to '/login'
     end
   end
+
+  def end
+    session[:user_id] = nil
+    flash[:success] = "L8r, yo"
+    redirect_to "/"
+  end
 end
