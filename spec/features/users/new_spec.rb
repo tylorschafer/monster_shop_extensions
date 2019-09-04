@@ -10,6 +10,7 @@ describe 'User clicks link to sign up' do
     @email = 'bobb@gmail.com'
     @password = 'supersafe'
   end
+
   it 'They are taken to a form to register' do
     visit '/'
 
@@ -19,14 +20,14 @@ describe 'User clicks link to sign up' do
 
     expect(current_path).to eq('/register')
 
-
-    fill_in :name, with: @name
-    fill_in :address, with: @address
-    fill_in :city, with: @city
-    fill_in :state, with: @state
-    fill_in :zip, with: @zip
-    fill_in :email, with: @email
-    fill_in :password, with: @password
+    fill_in 'Name', with: @name
+    fill_in 'Address', with: @address
+    fill_in 'City', with: @city
+    fill_in 'State', with: @state
+    fill_in 'Zip', with: @zip
+    fill_in 'Email', with: @email
+    fill_in 'Password', with: @password
+    fill_in 'Password confirmation', with: @password
 
     click_on 'Submit'
 
@@ -39,23 +40,25 @@ describe 'User clicks link to sign up' do
     click_on 'Submit'
 
     expect(current_path).to eq('/register')
-    expect(page).to have_content("Name can't blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank and Password can't be blank.")
+    expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Email can't be blank, and Password can't be blank")
   end
 
   it 'Cant reuse email addresses' do
     user = User.create(name: @name, address: @address, city: @city, state: @state, zip: @zip, email: @email, password: @password)
+    visit '/register'
 
-    fill_in :name, with: @name
-    fill_in :address, with: @address
-    fill_in :city, with: @city
-    fill_in :state, with: @state
-    fill_in :zip, with: @zip
-    fill_in :email, with: @email
-    fill_in :password, with: @password
+    fill_in 'Name', with: @name
+    fill_in 'Address', with: @address
+    fill_in 'City', with: @city
+    fill_in 'State', with: @state
+    fill_in 'Zip', with: @zip
+    fill_in 'Email', with: @email
+    fill_in 'Password', with: @password
+    fill_in 'Password confirmation', with: @password
 
     click_on 'Submit'
 
     expect(current_path).to eq('/register')
-    expect(page).to have_content('Username has already been taken')
+    expect(page).to have_content('Email has already been taken')
   end
 end
