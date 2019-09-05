@@ -12,6 +12,7 @@ describe 'User visits their profile page' do
     within '#login-form' do
       click_on 'Log In'
     end
+
     within '.user-profile' do
       expect(current_path).to eq('/profile')
 
@@ -22,6 +23,7 @@ describe 'User visits their profile page' do
 
       expect(page).to have_link('Edit Profile')
       expect(page).to have_link('Change Password')
+      expect(page).to have_link('My Orders')
     end
   end
 end

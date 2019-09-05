@@ -9,7 +9,7 @@ class OrdersController <ApplicationController
   end
 
   def create
-    user ||= User.find_by(name: params[:name])
+    user = User.find(session[:user_id])
     order = user.orders.create(order_params)
     if order.save
       cart.items.each do |item,quantity|

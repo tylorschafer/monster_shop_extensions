@@ -16,6 +16,15 @@ RSpec.describe("Order Creation") do
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
       @user = create(:user)
 
+      visit '/login'
+
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+
+      within '#login-form' do
+        click_on 'Log In'
+      end
+
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
       visit "/items/#{@paper.id}"
