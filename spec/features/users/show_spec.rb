@@ -16,7 +16,7 @@ describe 'User visits their profile page' do
   it 'Show all their info inlucing edit link' do
 
     within '.user-profile' do
-      expect(current_path).to eq('/user/profile')
+      expect(current_path).to eq('/profile')
 
       expect(page).to have_content("#{@user.name}'s Profile")
       expect(page).to have_content("#{@user.address}")
@@ -30,6 +30,6 @@ describe 'User visits their profile page' do
   it 'has a link to view past orders' do
     expect(page).to have_link('My Orders')
     click_link('My Orders')
-    expect(current_path).to eq("/user/profile/orders")
+    expect(current_path).to eq("/profile/orders")
   end
 end

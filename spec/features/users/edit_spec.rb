@@ -14,11 +14,11 @@ describe 'User clicks Edit Profile link in their profile' do
 
     click_link 'Edit Profile'
 
-    expect(current_path).to eq('/user/profile/edit')
+    expect(current_path).to eq('/profile/edit')
 
     click_on 'Update Profile'
 
-    expect(current_path).to eq('/user/profile')
+    expect(current_path).to eq('/profile')
 
     click_link 'Edit Profile'
 
@@ -63,7 +63,7 @@ describe 'User clicks Edit Profile link in their profile' do
 
     click_on 'Update Profile'
 
-    expect(current_path).to eq('/user/profile/edit')
+    expect(current_path).to eq('/profile/edit')
     expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, and Email can't be blank")
   end
 end

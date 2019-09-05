@@ -5,7 +5,7 @@
   <p><%= "#{@user.city}, #{@user.state} #{@user.zip}" %></p>
   <p><span style="font-weight:bold;">Email: </span><%= @user.email %></p>
   <br>
-  <%= link_to 'Edit Profile', "/#{@user.role}/profile/edit" %>
-  <%= link_to 'Change Password', "/#{@user.role}/profile/edit_password" %>
-  <%= link_to 'My Orders', "/#{@user.role}/profile/orders" %>
+  <%= link_to 'Edit Profile', '/profile/edit' %>
+  <%= link_to 'Change Password', '/profile/edit_password' %>
+  <%= link_to 'My Orders', '/profile/orders' %>
 </section>
