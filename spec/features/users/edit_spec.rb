@@ -14,7 +14,7 @@ describe 'User clicks Edit Profile link in their profile' do
 
     click_link 'Edit Profile'
 
-    expect(current_path).to eq('/users/edit')
+    expect(current_path).to eq('/profile/edit')
 
     click_on 'Update Profile'
 
@@ -26,10 +26,12 @@ describe 'User clicks Edit Profile link in their profile' do
     fill_in 'Address', with: '123 A st.'
     fill_in 'City', with: 'San Pedro'
     fill_in 'State', with: 'CA'
-    fill_in 'zip', with: '92345'
-    fill_in 'email', with: 'maria@email.com'
+    fill_in 'Zip', with: '92345'
+    fill_in 'Email', with: 'maria@email.com'
 
     click_on 'Update Profile'
+
+    expect(page).to have_content('Profile updated')
 
     within '.user-profile' do
       expect(page).to have_content("Maria's Profile")
