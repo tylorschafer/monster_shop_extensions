@@ -1,0 +1,8 @@
+<% @user.orders.each do |order| %>
+    <%= order.id %>
+    <% order.item_orders.each do |item| %>
+        <%= Item.find(item.id).name %>
+        <%= item.price %>
+        <%= item.quantity %>
+    <% end %>
+<% end %>
