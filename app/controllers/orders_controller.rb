@@ -5,7 +5,6 @@ class OrdersController <ApplicationController
   end
 
   def show
-    user = User.find(session[:user_id])
     if params[:order_id]
       @order = Order.find(params[:order_id])
     else
