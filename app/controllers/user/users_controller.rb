@@ -1,6 +1,5 @@
-class UsersController <ApplicationController
+class User::UsersController <ApplicationController
   def new
-    @user = User.new
   end
 
   def create
@@ -8,10 +7,10 @@ class UsersController <ApplicationController
     if user.save
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}!"
-      redirect_to "/profile"
+      redirect_to "/user/profile"
     else
       flash[:error] = user.errors.full_messages.uniq.to_sentence
-      redirect_to '/register'
+      redirect_to '/user/register'
     end
   end
 
@@ -27,10 +26,10 @@ class UsersController <ApplicationController
     @user = User.find(session[:user_id])
     if @user.update(profile_params)
       flash[:success] = 'Profile updated'
-      redirect_to '/profile'
+      redirect_to '/user/profile'
     else
       flash[:error] = @user.errors.full_messages.uniq.to_sentence
-      redirect_to '/profile/edit'
+      redirect_to '/user/profile/edit'
     end
   end
 
@@ -43,15 +42,15 @@ class UsersController <ApplicationController
       if params[:update_password][:new_password] == params[:update_password][:new_password_confirmation]
         @user.password = params[:update_password][:new_password]
         @user.save
-        flash[:success] = 'You got a fresh new password, dog!'
-        redirect_to '/profile'
+        flash[:success] = 'You got a fresh new password, dawg!'
+        redirect_to '/user/profile'
       else
         flash[:error] = "Your new password didn't match the confirmation"
-        redirect_to '/profile/edit_password'
+        redirect_to '/user/profile/edit_password'
       end
     else
       flash[:error] = "Your old password didn't match the one on record"
-      redirect_to '/profile/edit_password'
+      redirect_to '/user/profile/edit_password'
     end
 
   end

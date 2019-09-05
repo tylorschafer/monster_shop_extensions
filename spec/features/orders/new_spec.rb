@@ -19,6 +19,19 @@ RSpec.describe("New Order Page") do
     it "I see all the information about my current cart" do
       visit "/cart"
 
+      user = create(:user)
+
+      click_on "log in"
+
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+
+      within "#login-form" do
+        click_on 'Log In'
+      end
+
+      visit "/cart"
+
       click_on "Checkout"
 
       within "#order-item-#{@tire.id}" do
@@ -50,6 +63,20 @@ RSpec.describe("New Order Page") do
 
     it "I see a form where I can enter my shipping info" do
       visit "/cart"
+
+      user = create(:user)
+
+      click_on "log in"
+
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+
+      within "#login-form" do
+        click_on 'Log In'
+      end
+
+      visit "/cart"
+      
       click_on "Checkout"
 
       expect(page).to have_field(:name)
