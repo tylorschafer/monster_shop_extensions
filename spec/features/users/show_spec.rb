@@ -21,10 +21,7 @@ describe 'User visits their profile page' do
       expect(page).to have_content("Email: #{user.email}")
 
       expect(page).to have_link('Edit Profile')
+      expect(page).to have_link('Change Password')
     end
   end
 end
-# As a registered user
-# When I visit my profile page
-# Then I see all of my profile data on the page except my password
-# And I see a link to edit my profile data
