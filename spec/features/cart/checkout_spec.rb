@@ -18,7 +18,20 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
     end
 
-    it 'Theres a link to checkout' do
+    it 'Theres a link to checkout if logged in' do
+      visit "/cart"
+
+      user = create(:user)
+
+      click_on "log in"
+
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+
+      within "#login-form" do
+        click_on 'Log In'
+      end
+
       visit "/cart"
 
       expect(page).to have_link("Checkout")

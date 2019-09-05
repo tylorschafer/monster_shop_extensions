@@ -43,7 +43,7 @@ class UsersController <ApplicationController
       if params[:update_password][:new_password] == params[:update_password][:new_password_confirmation]
         @user.password = params[:update_password][:new_password]
         @user.save
-        flash[:success] = 'You got a fresh new password, dog!'
+        flash[:success] = 'You got a fresh new password, dawg!'
         redirect_to '/profile'
       else
         flash[:error] = "Your new password didn't match the confirmation"

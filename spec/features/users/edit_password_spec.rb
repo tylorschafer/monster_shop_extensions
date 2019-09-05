@@ -22,7 +22,7 @@ describe 'User clicks Change Password in their profile' do
     click_on 'Update Password'
 
     expect(current_path).to eq('/profile')
-    expect(page).to have_content('You got a fresh new password, dog!')
+    expect(page).to have_content('You got a fresh new password, dawg!')
   end
 
   it 'Needs to have the correct old password' do
