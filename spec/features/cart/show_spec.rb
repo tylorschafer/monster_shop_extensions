@@ -55,6 +55,28 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+
+      it "only shows checkout link if logged in" do
+        visit "/items/#{@pencil.id}"
+        click_on "Add To Cart"
+        visit "/cart"
+        
+        expect(page).to_not have_link("Checkout")
+
+        user = create(:user)
+
+        click_on "log in"
+
+        fill_in 'Email', with: user.email
+        fill_in 'Password', with: user.password
+
+        within "#login-form" do
+          click_on 'Log In'
+        end
+        
+        visit "/cart"
+        expect(page).to have_link("Checkout")
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
