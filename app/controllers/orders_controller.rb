@@ -5,7 +5,12 @@ class OrdersController <ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
+    user = User.find(session[:user_id])
+    if params[:order_id]
+      @order = Order.find(params[:order_id])
+    else
+      @orders =  Order.where(user_id: params[:id])
+    end
   end
 
   def create

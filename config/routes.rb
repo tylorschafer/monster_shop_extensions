@@ -38,7 +38,9 @@ Rails.application.routes.draw do
 
   get '/orders/new', to: 'orders#new'
   post '/orders', to: 'orders#create'
-  get '/orders/:id', to: 'orders#show'
+  get '/orders/:order_id', to: 'orders#show'
+
+  get '/profile/orders', to: 'orders#show'
 
   post '/users', to: 'users#create', as: :users
   get '/profile', to: 'users#show'
