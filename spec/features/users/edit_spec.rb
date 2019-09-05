@@ -40,15 +40,30 @@ describe 'User clicks Edit Profile link in their profile' do
       expect(page).to have_content("Email: maria@email.com")
     end
   end
+
+  it 'They cant leave any fields blank in edit form' do
+    user = create(:user)
+
+    visit '/login'
+
+    within "#login-form" do
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_on 'Log In'
+    end
+
+    click_link 'Edit Profile'
+
+    fill_in 'Name', with: nil
+    fill_in 'Address', with: nil
+    fill_in 'City', with: nil
+    fill_in 'State', with: nil
+    fill_in 'Zip', with: nil
+    fill_in 'Email', with: nil
+
+    click_on 'Update Profile'
+
+    expect(current_path).to eq('/profile/edit')
+    expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, and Email can't be blank")
+  end
 end
-# As a registered user
-# When I visit my profile page
-# I see a link to edit my profile data
-# When I click on the link to edit my profile data
-# I see a form like the registration page
-# The form is prepopulated with all my current information except my password
-# When I change any or all of that information
-# And I submit the form
-# Then I am returned to my profile page
-# And I see a flash message telling me that my data is updated
-# And I see my updated information

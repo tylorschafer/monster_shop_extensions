@@ -29,7 +29,7 @@ class UsersController <ApplicationController
       flash[:success] = 'Profile updated'
       redirect_to '/profile'
     else
-      flash[:error] = @user.error.full_messages.uniq.to_sentence
+      flash[:error] = @user.errors.full_messages.uniq.to_sentence
       redirect_to '/profile/edit'
     end
   end
