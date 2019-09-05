@@ -14,6 +14,7 @@ RSpec.describe("Order Creation") do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
       @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
       @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      @user = create(:user)
 
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
@@ -29,17 +30,11 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      name = "Bert"
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      fill_in :name, with: @user.name
+      fill_in :address, with: @user.address
+      fill_in :city, with: @user.city
+      fill_in :state, with: @user.state
+      fill_in :zip, with: @user.zip
 
       click_button "Create Order"
 
@@ -48,11 +43,11 @@ RSpec.describe("Order Creation") do
       expect(current_path).to eq("/orders/#{new_order.id}")
 
       within '.shipping-address' do
-        expect(page).to have_content(name)
-        expect(page).to have_content(address)
-        expect(page).to have_content(city)
-        expect(page).to have_content(state)
-        expect(page).to have_content(zip)
+        expect(page).to have_content(@user.name)
+        expect(page).to have_content(@user.address)
+        expect(page).to have_content(@user.city)
+        expect(page).to have_content(@user.state)
+        expect(page).to have_content(@user.zip)
       end
 
       within "#item-#{@paper.id}" do
@@ -89,17 +84,11 @@ RSpec.describe("Order Creation") do
     end
 
     it 'i cant create order if info not filled out' do
-      name = ""
-      address = "123 Sesame St."
-      city = "NYC"
-      state = "New York"
-      zip = 10001
-
-      fill_in :name, with: name
-      fill_in :address, with: address
-      fill_in :city, with: city
-      fill_in :state, with: state
-      fill_in :zip, with: zip
+      fill_in :name, with: @user.name
+      fill_in :address, with: @user.address
+      fill_in :city, with: @user.state
+      fill_in :state, with: @user.state
+      fill_in :zip, with: ""
 
       click_button "Create Order"
 
