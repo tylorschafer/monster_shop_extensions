@@ -21,7 +21,7 @@ describe 'User clicks Change Password in their profile' do
 
     click_on 'Update Password'
 
-    expect(current_path).to eq('/profile')
+    expect(current_path).to eq('/user/profile')
     expect(page).to have_content('You got a fresh new password, dawg!')
   end
 
@@ -45,7 +45,7 @@ describe 'User clicks Change Password in their profile' do
 
     click_on 'Update Password'
 
-    expect(current_path).to eq('/profile/edit_password')
+    expect(current_path).to eq('/user/profile/edit_password')
     expect(page).to have_content("Your old password didn't match the one on record")
   end
 
@@ -69,7 +69,7 @@ describe 'User clicks Change Password in their profile' do
 
     click_on 'Update Password'
 
-    expect(current_path).to eq('/profile/edit_password')
+    expect(current_path).to eq('/user/profile/edit_password')
     expect(page).to have_content("Your new password didn't match the confirmation")
   end
 end

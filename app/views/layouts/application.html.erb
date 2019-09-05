@@ -22,9 +22,9 @@
 
         <div class="login-options">
           <% if session[:user_id].nil? %>
-              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log In", path: "/login", message: "First time here?", message_link: "Sign Up", message_path: "user/register"} %>
+              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log In", path: "/login", message: "First time here?", message_link: "Sign Up", message_path: "/user/register"} %>
             <% else %>
-              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log Out", path: "/logout", message: "Logged in as: ", message_link: "#{User.find(session[:user_id]).name}", message_path: "/profile"} %>
+              <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log Out", path: "/logout", message: "Logged in as: ", message_link: "#{User.find(session[:user_id]).name}", message_path: "/#{User.find(session[:user_id]).role}/profile"} %>
             <% end %>
         </div>
 
