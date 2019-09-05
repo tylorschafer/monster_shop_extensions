@@ -26,7 +26,7 @@
             <% else %>
               <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log Out", path: "/logout", message: "Logged in as: ", message_link: "#{User.find(session[:user_id]).name}", message_path: "/profile"} %>
             <% end %>
-        </div> %>
+        </div>
 
       <div id="cart-indicator">
         <%= link_to '/cart', class: 'topnav-link', id: 'cart-link' do %>
