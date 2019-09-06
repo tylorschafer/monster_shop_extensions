@@ -1,6 +1,6 @@
 <% @user.orders.each do |order| %>
   <section id = "order-<%=order.id%>">
-    <%= link_to order.id, "/order/#{order.id}" %>
+    <%= link_to order.id, "/profile/orders/#{order.id}" %>
     <p>Date Placed: <%= order.created_at.strftime('%F %T') %></p>
     <p>Last Updated: <%= order.updated_at.strftime('%F %T') %></p>
     <p>Status: <%= order.status %></p>

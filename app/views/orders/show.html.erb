@@ -2,6 +2,8 @@
   <h1 align = "center">Shipping Info</h1>
   <table>
     <tr>
+      <th>Order id</th>
+      <th>Status</th>
       <th>Name</th>
       <th>Address</th>
       <th>City</th>
@@ -9,6 +11,8 @@
       <th>Zip</th>
     </tr>
     <tr>
+      <td><p><%= @order.id %> </p></td>
+      <td><p><%= @order.status %></p></td>
       <td><p><%= @order.name %> </p></td>
       <td><p><%= @order.address %> </p></td>
       <td><p><%= @order.city %> </p></td>
@@ -44,5 +48,6 @@
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
 <section id="datecreated">
-  <p> <%= @order.created_at%></p>
+  <p>Date Placed: <%= @order.created_at.strftime('%F %T') %></p>
+  <p>Last Updated: <%= @order.updated_at.strftime('%F %T') %></p>
 </section>

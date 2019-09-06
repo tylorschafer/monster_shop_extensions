@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create]
   get '/orders/:order_id', to: 'orders#show'
+  get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders', to: 'orders#index'
 
   post '/users', to: 'users#create'
