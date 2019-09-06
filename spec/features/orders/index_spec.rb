@@ -28,7 +28,6 @@ describe 'User order index page' do
 
     @orders.each do |order|
       within "#order-#{order.id}" do
-        save_and_open_page
         expect(page).to have_link(order.id)
         expect(page).to have_content("Date Placed: #{order.created_at.strftime('%F %T')}")
         expect(page).to have_content("Last Updated: #{order.updated_at.strftime('%F %T')}")
