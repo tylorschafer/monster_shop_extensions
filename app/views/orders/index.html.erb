@@ -1,8 +1,10 @@
 <% @user.orders.each do |order| %>
-    <%= order.id %>
-    <% order.item_orders.each do |item| %>
-        <%= Item.find(item.id).name %>
-        <%= item.price %>
-        <%= item.quantity %>
-    <% end %>
+  <section id = "order-<%=order.id%>">
+    <%= link_to order.id, "/order/#{order.id}" %>
+    <p>Date Placed: <%= order.created_at.strftime('%F %T') %></p>
+    <p>Last Updated: <%= order.updated_at.strftime('%F %T') %></p>
+    <p>Status: <%= order.status %></p>
+    <p>Items Count: <%= order.items_count %></p>
+    <p>Grand Total: <%= order.grandtotal %></p>
+  </section>
 <% end %>
