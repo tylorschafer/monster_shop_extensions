@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create' #change to login
-  get '/logout', to: 'sessions#end' #change to logout
+  post '/login', to: 'sessions#login'
+  get '/logout', to: 'sessions#logout'
 
   resources :merchants do
     resources :items, only: [:index, :new, :create]
