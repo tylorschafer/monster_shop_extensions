@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
@@ -23,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create]
   get '/orders/:order_id', to: 'orders#show'
+  get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders', to: 'orders#index'
 
   post '/users', to: 'users#create'
