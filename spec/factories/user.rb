@@ -8,5 +8,6 @@ FactoryBot.define do
     sequence(:email) {|x| "email #{x}"}
     sequence(:password) {|x| "password#{x}"}
     role { 1 }
+    association :merchant, factory: :merchant
   end
 end

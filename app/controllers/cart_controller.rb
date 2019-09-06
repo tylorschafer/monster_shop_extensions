@@ -7,7 +7,11 @@ class CartController < ApplicationController
   end
 
   def show
-    @items = cart.items
+    if current_admin?
+      render file: "/public/404"
+    else
+      @items = cart.items
+    end
   end
 
   def empty

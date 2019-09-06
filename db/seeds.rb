@@ -23,6 +23,7 @@ dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it
 
 #Users
 user = User.create(name: 'Bob', address: '123 A Ave', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'bob@email.com', password: 'bob', password_confirmation: 'bob', role: 1)
-merchant_employee = User.create(name: 'Joe', address: '1234 B Blvd', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'joe@email.com', password: 'joe', password_confirmation: 'joe', role: 2)
-merchant_admin = User.create(name: 'Sue', address: '12345 C St', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'sue@email.com', password: 'sue', password_confirmation: 'sue', role: 3)
+joe = bike_shop.users.create(name: 'Joe', address: '1234 B Blvd', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'joe@email.com', password: 'joe', password_confirmation: 'joe', role: 2)
+moe = bike_shop.users.create(name: 'Moe', address: '12 C Blvd', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'moe@email.com', password: 'moe', password_confirmation: 'moe', role: 2)
+sue = bike_shop.users.create(name: 'Sue', address: '12345 C St', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'sue@email.com', password: 'sue', password_confirmation: 'sue', role: 3)
 admin = User.create(name: 'admin', address: 'admin address', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'admin@email.com', password: 'admin', password_confirmation: 'admin', role: 4)
