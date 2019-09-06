@@ -5,15 +5,10 @@ class OrdersController <ApplicationController
   end
 
   def new
-
   end
 
   def show
-    if params[:order_id]
-      @order = Order.find(params[:order_id])
-    else
-      @orders =  Order.where(user_id: params[:id])
-    end
+    @order = Order.find(params[:order_id])
   end
 
   def create
