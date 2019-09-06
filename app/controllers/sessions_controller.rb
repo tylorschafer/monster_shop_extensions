@@ -1,8 +1,18 @@
 class SessionsController < ApplicationController
   def new
+    if current_user
+      flash[:success] = 'Silly pup, you are already logged in!'
+      if current_user.admin?
+        redirect_to '/admin'
+      elsif current_user.merchant_employee? || current_user.merchant_admin?
+        redirect_to '/merchant'
+      else
+        redirect_to '/profile'
+      end
+    end
   end
 
-  def create
+  def login
     user = User.find_by(email: params[:session][:email])
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
@@ -14,7 +24,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def end
+  def logout
     session[:user_id] = nil
     flash[:success] = "L8r, yo"
     redirect_to "/"

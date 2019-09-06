@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create' #change to login
-  get '/logout', to: 'sessions#end' #change to logout
+  post '/login', to: 'sessions#login'
+  get '/logout', to: 'sessions#logout'
 
   resources :merchants do
     resources :items, only: [:index, :new, :create]
@@ -32,4 +32,8 @@ Rails.application.routes.draw do
   patch '/profile/edit', to: 'users#update'
   get '/profile/edit_password', to: 'users#edit_password'
   patch '/profile/edit_password', to: 'users#update_password'
+
+  get '/merchant', to: 'merchant/dashboard#index'
+  get '/admin', to: 'admin/dashboard#index'
+
 end

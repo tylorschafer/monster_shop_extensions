@@ -136,9 +136,10 @@ ul{
 }
 
 .error-flash {
-  padding: 10px;
   background-color: red;
   color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 .grid-container{
@@ -223,9 +224,10 @@ ul{
 }
 
 .success-flash {
-  padding: 10px;
   background-color: green;
   color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 #cart-item-img{
