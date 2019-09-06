@@ -20,6 +20,13 @@
       <%= link_to "All Merchants", "/merchants", class: 'topnav-link'%>
       <%= link_to "All Items", "/items", class: 'topnav-link'%>
 
+      <% if current_admin? %>
+        <%= link_to 'Dashboard', admin_dash_path, class: 'topnav-link' %>
+        <%= link_to 'Users', admin_users_path, class: 'topnav-link' %>
+      <% elsif current_merchant? %>
+        <%= link_to 'Dashboard', merchant_dash_path, class: 'topnav-link' %>
+      <% end %>
+
         <div class="login-options">
           <% if session[:user_id].nil? %>
               <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log In", path: "/login", message: "First time here?", message_link: "Sign Up", message_path: "/register"} %>
@@ -27,14 +34,16 @@
               <%= render partial: "partials/log_in_out", locals: {log_in_out: "Log Out", path: "/logout", message: "Logged in as: ", message_link: "#{User.find(session[:user_id]).name}", message_path: "/profile"} %>
             <% end %>
         </div>
-
-      <div id="cart-indicator">
-        <%= link_to '/cart', class: 'topnav-link', id: 'cart-link' do %>
-          <%= image_tag "pug_cart.png", id: 'cart-nav-img' %>
-        <% end %>
-        <% items = cart.total_items%>
-        <p id="cart-p"><%= items %> <%= items == 1 ? ' item' : ' items' %></p>
-      </div>
+        
+      <% unless current_admin? %>
+        <div id="cart-indicator">
+          <%= link_to '/cart', class: 'topnav-link', id: 'cart-link' do %>
+            <%= image_tag "pug_cart.png", id: 'cart-nav-img' %>
+          <% end %>
+          <% items = cart.total_items%>
+          <p id="cart-p"><%= items %> <%= items == 1 ? ' item' : ' items' %></p>
+        </div>
+      <% end %>
     </nav>
 
     <% flash.each do |name, msg| %>

@@ -33,7 +33,8 @@ Rails.application.routes.draw do
   get '/profile/edit_password', to: 'users#edit_password'
   patch '/profile/edit_password', to: 'users#update_password'
 
-  get '/merchant', to: 'merchant/dashboard#index'
-  get '/admin', to: 'admin/dashboard#index'
+  get '/merchant', to: 'merchant/dashboard#index', as: :merchant_dash
+  get '/admin', to: 'admin/dashboard#index', as: :admin_dash
+  get '/admin/users', to: 'admin/dashboard#users'
 
 end
