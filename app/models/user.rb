@@ -5,8 +5,7 @@ class User < ApplicationRecord
     validates :role, numericality: {only_integer: true, greater_than_or_equal_to: 0}
 
     has_many :orders
-    has_many :merchant_users
-    has_many :merchants, through: :merchant_users
+    belongs_to :merchant, optional: true
 
     enum role: {user: 1, merchant_employee: 2, merchant_admin: 3, admin: 4}
 

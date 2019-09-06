@@ -10,10 +10,10 @@ describe User, type: :model do
     it {should validate_presence_of(:city)}
     it {should validate_presence_of(:state)}
     it {should validate_presence_of(:zip)}
+    it {should allow_value(nil).for(:merchant)}
   end
+
   describe "relationships" do
     it {should have_many :orders}
-    it {should have_many :merchant_users}
-    it {should have_many(:merchants).through(:merchant_users)}
   end
 end

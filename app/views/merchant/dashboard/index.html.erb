@@ -1,7 +1,5 @@
 <center>
-  <% @merchants.each do |merchant| %>
-    <h1><%= merchant.name %></h1>
-    <h3><%= merchant.address %></h3>
-    <h3><%= "#{merchant.city}, #{merchant.state} #{merchant.zip}" %> </h3>
-  <% end %>
+  <h1><%= @merchant.name %></h1>
+  <h3><%= @merchant.address %></h3>
+  <h3><%= "#{@merchant.city}, #{@merchant.state} #{@merchant.zip}" %> </h3>
 </center>
