@@ -11,7 +11,6 @@ class UsersController <ApplicationController
       redirect_to "/profile"
     else
       flash[:error] = @user.errors.full_messages.uniq.to_sentence
-      # redirect_to '/register'
       render :new
     end
   end
@@ -21,7 +20,7 @@ class UsersController <ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = User.find_by(id: session[:user_id])
   end
 
   def update
