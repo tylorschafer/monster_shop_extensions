@@ -2,9 +2,10 @@ require 'rails_helper'
 
 describe 'user order show page' do
   before :each do
-    @tire = create(:item)
-    @paper = create(:item)
+    @tire = create(:item, inventory: 10)
+    @paper = create(:item, inventory: 10)
     @order = create(:order)
+    @order_2 = create(:order, status: 2)
     @item_order_1 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
     @item_order_2 = @order.item_orders.create!(item: @paper, price: @paper.price, quantity: 4)
 
@@ -51,5 +52,26 @@ describe 'user order show page' do
     expect(page).to have_content("Total: $230.00")
     expect(page).to have_content("Date Placed: #{@order.created_at.strftime('%F %T')}")
     expect(page).to have_content("Last Updated: #{@order.updated_at.strftime('%F %T')}")
+  end
+
+  it "I can cancel an order if the order is still pending" do
+
+    visit "/profile/orders/#{@order.id}"
+
+    expect(page).to have_button("Cancel Order")
+
+    expect(current_path).to eq("/profile/orders/")
+
+    within "#order-#{@order.id}" do
+      expect(page).to have_content("Status: Cancelled")
+    end
+
+    expect(page).to have_content("Your order has been cancelled")
+  end
+
+  it "An order that is beyond the pending stage cannot be cancelled" do
+    visit "/orders/#{@order_2.id}"
+
+    expect(page).to_not have_button("Cancel Order")
   end
 end

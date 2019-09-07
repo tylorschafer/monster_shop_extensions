@@ -7,4 +7,6 @@ class ItemOrder <ApplicationRecord
   def subtotal
     price * quantity
   end
+
+  enum role: {unfulfilled: 0, fulfilled: 1}
 end
