@@ -8,12 +8,14 @@ class OrdersController <ApplicationController
   end
 
   def update
-    order = Order.find(params[:order_id])
+    order = Order.find(params[:id])
     order.item_orders.each do |item_order|
-      item_order.status = "Unfufilled"
+      item_order.status = "unfulfilled"
     end
-    order.status = "Cancelled"
-    redirect_to "/profile/orders"
+    order.status = "cancelled"
+    order.save
+    flash[:success] = "Your order has been cancelled"
+    redirect_to "/profile"
   end
 
   def show

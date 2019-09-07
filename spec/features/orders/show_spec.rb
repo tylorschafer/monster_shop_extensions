@@ -60,13 +60,25 @@ describe 'user order show page' do
 
     expect(page).to have_button("Cancel Order")
 
-    expect(current_path).to eq("/profile/orders/")
+    click_button "Cancel Order"
 
-    within "#order-#{@order.id}" do
-      expect(page).to have_content("Status: Cancelled")
-    end
+    expect(current_path).to eq("/profile")
 
     expect(page).to have_content("Your order has been cancelled")
+
+    visit "/profile/orders/#{@order.id}"
+
+    within ".shipping-address" do
+      expect(page).to have_content("cancelled")
+    end
+
+    within "#item-#{@item_order_1.item_id}" do
+      expect(page).to have_content("unfulfilled")
+    end
+
+    within "#item-#{@item_order_2.item_id}" do
+      expect(page).to have_content("unfulfilled")
+    end
   end
 
   it "An order that is beyond the pending stage cannot be cancelled" do
