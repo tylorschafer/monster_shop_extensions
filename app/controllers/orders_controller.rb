@@ -11,6 +11,9 @@ class OrdersController <ApplicationController
     order = Order.find(params[:id])
     order.item_orders.each do |item_order|
       item_order.status = "unfulfilled"
+      item = Item.find(item_order.item_id)
+      item.restock(item_order.quantity)
+      item.save
     end
     order.status = "cancelled"
     order.save

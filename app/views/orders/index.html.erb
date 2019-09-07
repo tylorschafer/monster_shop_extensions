@@ -1,8 +1,8 @@
 <% @user.orders.each do |order| %>
   <section id = "order-<%=order.id%>">
     <%= link_to order.id, "/profile/orders/#{order.id}" %>
-    <p>Date Placed: <%= order.created_at.strftime('%F %T') %></p>
-    <p>Last Updated: <%= order.updated_at.strftime('%F %T') %></p>
+    <p>Date Placed: <%= order.created_at.strftime('%D') %></p>
+    <p>Last Updated: <%= order.updated_at.strftime('%D') %></p>
     <p>Status: <%= order.status %></p>
     <p>Items Count: <%= order.items_count %></p>
     <p>Grand Total: <%= order.grandtotal %></p>
