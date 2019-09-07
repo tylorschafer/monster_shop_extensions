@@ -1,52 +1,82 @@
 <h1>All Orders</h1>
 
 <section>
-  <section>
-    <h3>Pending Orders: </h3>
-    <% @orders.pending.each do |order| %>
-      <section id="pending-order-<%= order.id %>">
-        <ul>
-          <li><%= link_to "#{order.id}", "/orders/#{order.id}" %></li>
-          <li>Order Placed By: <%= order.user.name %></li>
-          <li>Ordered on: <%= order.created_at.strftime('%F %T') %></li>
-        </ul>
-      </section>
-    <% end %>
+  <section class = "shipping-address">
+    <h3>Pending Orders</h3>
+    <table>
+      <tr>
+        <th>Order Id</th>
+        <th>Order Placed By</th>
+        <th>Ordered on</th>
+      </tr>
+      <% @orders.pending.each do |order| %>
+        <tr>
+          <section id="pending-order-<%= order.id %>">
+            <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.created_at.strftime('%D') %></td>
+          </section>
+        </tr>
+      <% end %>
+    </table>
   </section>
-  <section>
-    <p>Packaged Orders: </p>
-    <% @orders.packaged.each do |order| %>
-      <section id="packaged-order-<%= order.id %>">
-        <ul>
-          <li><%= link_to "#{order.id}", "/orders/#{order.id}" %></li>
-          <li>Order Placed By: <%= order.user.name %></li>
-          <li>Ordered on: <%= order.created_at.strftime('%F %T') %></li>
-        </ul>
-      </section>
-    <% end %>
+<section>
+  <section class = "shipping-address">
+    <h3>Packaged Orders</h3>
+    <table>
+      <tr>
+        <th>Order Id</th>
+        <th>Order Placed By</th>
+        <th>Ordered on</th>
+      </tr>
+      <% @orders.packaged.each do |order| %>
+        <tr>
+          <section id="packaged-order-<%= order.id %>">
+            <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.created_at.strftime('%D') %></td>
+          </section>
+        </tr>
+      <% end %>
+    </table>
   </section>
-  <section>
-    <p>Shipped Orders: </p>
-    <% @orders.shipped.each do |order| %>
-      <section id="shipped-order-<%= order.id %>">
-        <ul>
-          <li><%= link_to "#{order.id}", "/orders/#{order.id}" %></li>
-          <li>Order Placed By: <%= order.user.name %></li>
-          <li>Ordered on: <%= order.created_at.strftime('%F %T') %></li>
-        </ul>
-      </section>
-    <% end %>
+<section>
+  <section class = "shipping-address">
+    <h3>Shipped Orders</h3>
+    <table>
+      <tr>
+        <th>Order Id</th>
+        <th>Order Placed By</th>
+        <th>Ordered on</th>
+      </tr>
+      <% @orders.shipped.each do |order| %>
+        <tr>
+          <section id="shipped-order-<%= order.id %>">
+            <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.created_at.strftime('%D') %></td>
+          </section>
+        </tr>
+      <% end %>
+    </table>
   </section>
-  <section>
-    <p>Cancelled Orders: </p>
-    <% @orders.cancelled.each do |order| %>
-      <section id="cancelled-order-<%= order.id %>">
-        <ul>
-          <li><%= link_to "#{order.id}", "/orders/#{order.id}" %></li>
-          <li>Order Placed By: <%= order.user.name %></li>
-          <li>Ordered on: <%= order.created_at.strftime('%F %T') %></li>
-        </ul>
-      </section>
-    <% end %>
+<section>
+  <section class = "shipping-address">
+    <h3>Cancelled Orders</h3>
+    <table>
+      <tr>
+        <th>Order Id</th>
+        <th>Order Placed By</th>
+        <th>Ordered on</th>
+      </tr>
+      <% @orders.cancelled.each do |order| %>
+        <tr>
+          <section id="cancelled-order-<%= order.id %>">
+            <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
+            <td><%= order.user.name %></td>
+            <td><%= order.created_at.strftime('%D') %></td>
+          </section>
+        </tr>
+      <% end %>
+    </table>
   </section>
-</section>
