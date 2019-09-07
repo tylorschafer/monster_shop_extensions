@@ -6,4 +6,10 @@ class Merchant::DashboardController < Merchant::BaseController
     @pending_orders = @merchant.pending_orders
   end
 
+  def items
+    @user = User.find(session[:user_id])
+    @merchant = @user.merchant
+    @items = @merchant.items
+  end
+
 end
