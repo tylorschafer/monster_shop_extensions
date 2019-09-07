@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   delete '/cart/:item_id', to: 'cart#remove_item'
   patch '/cart/:item_id/:increment_decrement', to: 'cart#increment_decrement'
 
-  resources :orders, only: [:new, :create]
+  resources :orders, only: [:new, :create, :update]
   get '/orders/:order_id', to: 'orders#show'
   get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders', to: 'orders#index'

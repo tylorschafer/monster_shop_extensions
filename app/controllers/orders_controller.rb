@@ -7,6 +7,17 @@ class OrdersController <ApplicationController
   def new
   end
 
+  def update
+    order = Order.find(params[:id])
+    order.item_orders.each do |item_order|
+      item_order.status = "unfulfilled"
+    end
+    order.status = "cancelled"
+    order.save
+    flash[:success] = "Your order has been cancelled"
+    redirect_to "/profile"
+  end
+
   def show
     @order = Order.find(params[:order_id])
   end
