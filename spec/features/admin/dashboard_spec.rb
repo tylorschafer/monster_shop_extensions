@@ -17,7 +17,7 @@ describe 'admin dashboard' do
       click_on 'Log In'
     end
   end
-  
+
   it "admin can see all orders in the system" do
     visit "/admin"
 
