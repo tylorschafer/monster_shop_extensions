@@ -31,15 +31,18 @@ describe 'Merchant employee or admin visits their dashboard' do
     expect(page).to have_content(dog_shop.address)
     expect(page).to have_content("#{dog_shop.city}, #{dog_shop.state} #{dog_shop.zip}")
 
-    expect(page).to have_content("Order: #{order_1.id}")
-    expect(page).to have_content("Placed on: #{order_1.created_at.strftime('%D')}")
-    expect(page).to have_content("Total number of items: #{order_1.items_count}")
-    expect(page).to have_content("Total cost: $92.00")
+    within "#order-#{order_1.id}-info" do
+      expect(page).to have_link("Order ##{order_1.id}")
+      expect(page).to have_content(order_1.created_at.strftime('%D'))
+      expect(page).to have_content(order_1.items_count)
+      expect(page).to have_content("$92.00")
+    end
 
-    expect(page).to have_content("Order: #{order_2.id}")
-    expect(page).to have_content("Placed on: #{order_2.created_at.strftime('%D')}")
-    expect(page).to have_content("Total number of items: #{order_2.items_count}")
-    expect(page).to have_content("Total cost: $92.00")
-
+    within "#order-#{order_2.id}-info" do
+      expect(page).to have_link("Order ##{order_2.id}")
+      expect(page).to have_content(order_2.created_at.strftime('%D'))
+      expect(page).to have_content(order_2.items_count)
+      expect(page).to have_content("$31.00")
+    end
   end
 end
