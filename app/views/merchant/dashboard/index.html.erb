@@ -10,4 +10,6 @@
     <h3>Total Number of Items: <%= order.items_count %></h3>
     <h3>Total Cost: <%= number_to_currency order.grandtotal %></h3>
   <% end %>
+
+  <h1><%= link_to "#{@merchant.name} Items", "/merchant/items" %></h1>
 </center>
