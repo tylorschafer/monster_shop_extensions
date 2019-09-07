@@ -7,7 +7,7 @@
   <% @pending_orders.each do |order| %>
     <h2><%= link_to "Order: #{order.id}", "/orders/#{order.id}" %> </h2>
     <h3>Placed on: <%= (order.created_at).strftime("%D") %></h3>
-    <h3>Total Number of Items: <%= order.items_count %></h3>
-    <h3>Total Cost: <%= number_to_currency order.grandtotal %></h3>
+    <h3>Total number of items: <%= order.items_count %></h3>
+    <h3>Total cost: <%= number_to_currency order.grandtotal %></h3>
   <% end %>
 </center>
