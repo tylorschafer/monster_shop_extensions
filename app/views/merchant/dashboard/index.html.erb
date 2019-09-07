@@ -13,7 +13,7 @@
     </tr>
     <% @pending_orders.each do |order| %>
       <tr id="order-<%=order.id%>-info">
-        <td><%= link_to "Order ##{order.id}", "/orders/#{order.id}" %></td>
+        <td><%= link_to "Order ##{order.id}", merchant_order_show_path(order) %></td>
         <td><%= (order.created_at).strftime("%D") %></td>
         <td><%= order.items_count %></td>
         <td><%= number_to_currency order.grandtotal %></td>
