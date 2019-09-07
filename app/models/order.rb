@@ -20,6 +20,10 @@ class Order <ApplicationRecord
   end
 
   def qty_item_in_order(item)
-    item_orders.where(item_id: item.id).pluck(:quantity)
+    item_orders.find_by(item_id: item.id).quantity
+  end
+
+  def find_item_status(item)
+    item_orders.find_by(item_id: item.id).status
   end
 end

@@ -50,8 +50,8 @@
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
 <section id="datecreated">
-  <p>Date Placed: <%= @order.created_at.strftime('%F %T') %></p>
-  <p>Last Updated: <%= @order.updated_at.strftime('%F %T') %></p>
+  <p>Date Placed: <%= @order.created_at.strftime('%D') %></p>
+  <p>Last Updated: <%= @order.updated_at.strftime('%D') %></p>
 </section>
 <% if @order.pending? %>
   <section>
