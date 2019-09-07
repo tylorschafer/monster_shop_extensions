@@ -32,3 +32,6 @@ admin = User.create(name: 'admin', address: 'admin address', city: 'Los Angeles'
 order_1 = user.orders.create(name: "Evette", address: "123 street", city: "Denver", state: "CO", zip: "12345")
 io1 = ItemOrder.create(item: pull_toy, order: order_1, price: pull_toy.price, quantity: 5)
 io2 = ItemOrder.create(item: dog_bone, order: order_1, price: dog_bone.price, quantity: 2)
+order_2 = user.orders.create(name: "Evette", address: "123 street", city: "Denver", state: "CO", zip: "12345")
+io3 = ItemOrder.create(item: pull_toy, order: order_2, price: pull_toy.price, quantity: 1)
+io4 = ItemOrder.create(item: dog_bone, order: order_2, price: dog_bone.price, quantity: 1)
