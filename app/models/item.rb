@@ -25,4 +25,10 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def fulfill(quantity)
+    self.inventory -= quantity
+    self.update(active?: false) if self.inventory == 0
+    self.save
+  end
+
 end
