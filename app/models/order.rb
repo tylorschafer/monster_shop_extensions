@@ -26,4 +26,8 @@ class Order <ApplicationRecord
   def find_item_status(item)
     item_orders.find_by(item_id: item.id).status
   end
+
+  def update_status
+    self.update(status: 1) if item_orders.pluck(:status).all? {|status| status == "fulfilled"}
+  end
 end
