@@ -28,11 +28,11 @@ describe 'User order index page' do
     @orders.each do |order|
       within "#order-#{order.id}" do
         expect(page).to have_link(order.id)
-        expect(page).to have_content("Date Placed: #{order.created_at.strftime('%F %T')}")
-        expect(page).to have_content("Last Updated: #{order.updated_at.strftime('%F %T')}")
-        expect(page).to have_content("Status: #{order.status}")
-        expect(page).to have_content("Items Count: #{order.items_count}")
-        expect(page).to have_content("Grand Total: #{order.grandtotal}")
+        expect(page).to have_content(order.created_at.strftime('%F %T'))
+        expect(page).to have_content(order.updated_at.strftime('%F %T'))
+        expect(page).to have_content(order.status)
+        expect(page).to have_content(order.items_count)
+        expect(page).to have_content(order.grandtotal)
       end
     end
   end

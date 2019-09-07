@@ -1,10 +1,24 @@
 <% @user.orders.each do |order| %>
-  <section id = "order-<%=order.id%>">
-    <%= link_to order.id, "/profile/orders/#{order.id}" %>
-    <p>Date Placed: <%= order.created_at.strftime('%F %T') %></p>
-    <p>Last Updated: <%= order.updated_at.strftime('%F %T') %></p>
-    <p>Status: <%= order.status %></p>
-    <p>Items Count: <%= order.items_count %></p>
-    <p>Grand Total: <%= order.grandtotal %></p>
-  </section>
-<% end %>
+<section class = "shipping-address">
+  <table>
+    <tr>
+      <th>Order Id</th>
+      <th>Date Placed</th>
+      <th>Last Updated</th>
+      <th>Status</th>
+      <th>Item Count</th>
+      <th>Grand Total</th>
+    </tr>
+    <section id = "order-<%=order.id%>">
+      <tr>
+        <td><%= link_to order.id, "/profile/orders/#{order.id}" %></td>
+        <td><p><%= order.created_at.strftime('%F %T') %></p></td>
+        <td><p><%= order.updated_at.strftime('%F %T') %></p></td>
+        <td><p><%= order.status %></p></td>
+        <td><p><%= order.items_count %></p></td>
+        <td><p><%= order.grandtotal %></p></td>
+      </tr>
+    </section>
+  </table>
+  <% end %>
+</section>
