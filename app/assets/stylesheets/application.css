@@ -188,6 +188,11 @@ ul{
   text-decoration: none;
 }
 
+.merchant-orders-table {
+  table-layout: fixed;
+  width: 60%;
+}
+
 .topnav {
   display: flex;
   justify-content: space-between;
