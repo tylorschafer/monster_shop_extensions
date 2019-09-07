@@ -12,4 +12,10 @@ class Merchant::DashboardController < Merchant::BaseController
     @items = @merchant.items
   end
 
+  def order_show
+    @order = Order.find(params[:id])
+    user = User.find(session[:user_id])
+    @merchant_items = @order.merchant_items(user.merchant)
+  end
+
 end

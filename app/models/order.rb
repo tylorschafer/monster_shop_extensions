@@ -14,4 +14,12 @@ class Order <ApplicationRecord
   def items_count
     item_orders.sum(:quantity)
   end
+
+  def merchant_items(merchant)
+    items.where(merchant_id: merchant.id)
+  end
+
+  def qty_item_in_order(item)
+    item_orders.where(item_id: item.id).pluck(:quantity)
+  end
 end

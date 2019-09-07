@@ -271,3 +271,7 @@ ul{
   padding: 0.6em;
   width: 100%;
 }
+
+#merchant-order-show {
+  width: 10%
+}
