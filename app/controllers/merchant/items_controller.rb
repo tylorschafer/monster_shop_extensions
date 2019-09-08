@@ -23,4 +23,12 @@ class Merchant::ItemsController < Merchant::BaseController
         flash[:success] = "#{item.name} has been updated"
         redirect_to "/merchant/items"
     end
+
+    def destroy
+        item = Item.find(params[:id])
+        item.reviews.destroy_all
+        item.destroy
+        flash[:success] = "#{item.name} has been deleted"
+        redirect_to "/merchant/items"
+    end
 end
