@@ -8,6 +8,7 @@ class Admin::MerchantsController < Admin::BaseController
       merchant.status = 1
     end
     merchant.save
+    flash[:success] = "#{merchant.name} has been disabled"
     redirect_to '/merchants'
   end
 end
