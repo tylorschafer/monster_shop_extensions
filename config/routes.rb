@@ -35,6 +35,8 @@ Rails.application.routes.draw do
 
   get '/merchant', to: 'merchant/dashboard#index', as: :merchant_dash
   get '/merchant/items', to: 'merchant/dashboard#items'
+  get '/merchant/items/new', to: 'merchant/items#new'
+  post '/merchant/items', to: 'merchant/items#create', as: :merchant_new_item
   patch '/merchant/items/:id', to: 'merchant/items#update', as: :merchant_update_item
   delete '/merchant/items/:id', to: 'merchant/items#destroy', as: :merchant_delete_item
   get '/merchant/orders/:id', to: 'merchant/dashboard#order_show', as: :merchant_order_show
