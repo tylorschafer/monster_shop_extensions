@@ -32,7 +32,7 @@ describe 'merchant index as an admin' do
 
         click_link(merchant.name)
 
-        expect(current_path).to eq("/admin/merchants/#{@merchant_3.id}")
+        expect(current_path).to eq("/admin/merchants/#{merchant.id}")
       end
     end
   end
@@ -48,6 +48,7 @@ describe 'merchant index as an admin' do
       expect(current_path).to eq('/merchants')
 
       expect(page).to_not have_button('Disable')
+      expect(page).to have_button('Enable')
     end
   end
 

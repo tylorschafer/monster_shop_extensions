@@ -20,8 +20,10 @@
         </section>
         <% if merchant.status == 'enabled' %>
           <section class = "grid-item">
-            <%= button_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch %>
+            <%= button_to 'Disable', "/admin/merchants/#{merchant.id}", params: { request: :disable }, method: :patch %>
           </section>
+          <% else %>
+            <%= button_to 'Enable', "/admin/merchants/#{merchant.id}", params: { request: :enable }, method: :patch %>
         <% end %>
       <% else %>
         <section class = "grid-item">
