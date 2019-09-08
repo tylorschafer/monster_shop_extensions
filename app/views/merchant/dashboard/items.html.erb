@@ -1,0 +1,32 @@
+<center>
+    <h1><%= @merchant.name %> Items:</h1>
+    <h3>Employee: <%= @user.name %></h3>
+    <table>
+        <tr>
+            <th>Item Name</th>
+            <th>Price</th>
+            <th>Inventory</th>
+            <th>Status</th>
+            <% if @user.role == "merchant_admin" %>
+              <th>Update Status</th>
+            <% end %>
+        </tr>
+        <% @items.each do |item| %>
+            <tr>
+                <td><p><%= item.name %></p></td>
+                <td><p><%= number_to_currency item.price %></p></td>
+                <td><p><%= item.inventory %></p></td>
+                <% if item.active? == true %>
+                    <td><p>active</p></td>
+                <% else %>
+                    <td><p>inactive</p></td>
+                <% end %>
+                <% if @user.role == "merchant_admin" && item.active? == true %>
+                    <td><p><%= link_to "Deactivate Item", merchant_update_item_path(item), method: :patch %></p></td>
+                <% elsif @user.role == "merchant_admin" && item.active? == false %>
+                    <td><p><%= link_to "Activate Item", merchant_update_item_path(item), method: :patch %></p></td>
+                <% end %>
+            </tr>
+        <% end %>
+    </table>
+</center>

@@ -10,4 +10,17 @@ class Merchant::ItemsController < Merchant::BaseController
         flash[:success] = "#{item.name} has been fulfilled"
         redirect_to "/merchant/orders/#{item_order.order_id}"
     end
+
+    def update
+        item = Item.find(params[:id])
+        if item.active? == true
+            item.update(active?: false)
+            item.save
+        elsif item.active? == false
+            item.update(active?: true)
+            item.save
+        end
+        flash[:success] = "#{item.name} has been updated"
+        redirect_to "/merchant/items"
+    end
 end
