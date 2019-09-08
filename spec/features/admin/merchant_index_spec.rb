@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe 'merchant index as an admin' do
   before :each do
-    @merchant_1 = create(:merchant, status: enabled)
-    @merchant_2 = create(:merchant, status: enabled)
-    @merchant_3 = create(:merchant, status: disabled)
+    @merchant_1 = create(:merchant, status: 0)
+    @merchant_2 = create(:merchant, status: 0)
+    @merchant_3 = create(:merchant, status: 1)
     @merchants = [@merchant_1,@merchant_2,@merchant_3]
     @user = create(:user)
     @admin = create(:user, role: 4)
@@ -22,12 +22,12 @@ describe 'merchant index as an admin' do
   it "merchant info is shown and namex are links to namespaced admin merchant show page" do
 
     @merchants.each do |merchant|
-      within "#merchant-#{merchant.id}" do
-        visit '/merchants'
+      visit '/merchants'
 
+      within "#merchant-#{merchant.id}" do
         expect(page).to have_link(merchant.name)
-        expect(page).to have_link(merchant.name)
-        expect(page).to have_link(merchant.name)
+        expect(page).to have_content(merchant.city)
+        expect(page).to have_content(merchant.state)
         expect(page).to have_content(merchant.status)
 
         click_link(merchant.name)
