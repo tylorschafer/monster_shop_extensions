@@ -17,31 +17,32 @@ describe 'admin dashboard' do
       click_on 'Log In'
     end
   end
+
   it "admin can see all orders in the system" do
     visit "/admin"
 
     within "#pending-order-#{@order_1.id}" do
-      expect(page).to have_content("Order Placed By: #{@order_1.user.name}")
+      expect(page).to have_content(@order_1.user.name)
       expect(page).to have_link(@order_1.id)
-      expect(page).to have_content("Ordered on: #{@order_1.created_at.strftime('%F %T')}")
+      expect(page).to have_content(@order_1.created_at.strftime('%D'))
     end
 
     within "#packaged-order-#{@order_2.id}" do
-      expect(page).to have_content("Order Placed By: #{@order_2.user.name}")
+      expect(page).to have_content(@order_2.user.name)
       expect(page).to have_link(@order_2.id)
-      expect(page).to have_content("Ordered on: #{@order_2.created_at.strftime('%F %T')}")
+      expect(page).to have_content(@order_2.created_at.strftime('%D'))
     end
 
     within "#shipped-order-#{@order_3.id}" do
-      expect(page).to have_content("Order Placed By: #{@order_3.user.name}")
+      expect(page).to have_content(@order_3.user.name)
       expect(page).to have_link(@order_3.id)
-      expect(page).to have_content("Ordered on: #{@order_3.created_at.strftime('%F %T')}")
+      expect(page).to have_content(@order_3.created_at.strftime('%D'))
     end
 
     within "#cancelled-order-#{@order_4.id}" do
-      expect(page).to have_content("Order Placed By: #{@order_4.user.name}")
+      expect(page).to have_content(@order_4.user.name)
       expect(page).to have_link(@order_4.id)
-      expect(page).to have_content("Ordered on: #{@order_4.created_at.strftime('%F %T')}")
+      expect(page).to have_content(@order_4.created_at.strftime('%D'))
     end
   end
 end
