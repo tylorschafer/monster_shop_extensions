@@ -11,17 +11,17 @@ class Merchant::ItemsController < Merchant::BaseController
         redirect_to "/merchant/orders/#{item_order.order_id}"
     end
 
-    def update
+    def update_activity
         item = Item.find(params[:id])
-        if item.active? == true
-            item.update(active?: false)
-            item.save
-        elsif item.active? == false
-            item.update(active?: true)
-            item.save
-        end
-        flash[:success] = "#{item.name} has been updated"
-        redirect_to "/merchant/items"
+    if item.active? == true
+        item.update(active?: false)
+        item.save
+    elsif item.active? == false
+        item.update(active?: true)
+        item.save
+    end
+    flash[:success] = "#{item.name} has been updated"
+    redirect_to "/merchant/items"
     end
 
     def destroy
@@ -30,5 +30,49 @@ class Merchant::ItemsController < Merchant::BaseController
         item.destroy
         flash[:success] = "#{item.name} has been deleted"
         redirect_to "/merchant/items"
+    end
+
+    def new
+        user = User.find(session[:user_id])
+        @merchant = user.merchant
+        @item = @merchant.items.new
+    end
+
+    def create
+     user = User.find(session[:user_id])
+     @merchant = user.merchant
+     @item = @merchant.items.create(item_params)
+     if @item.save
+      flash[:success] = "#{@item.name} has been added"
+      redirect_to "/merchant/items" 
+     else
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :new
+      end
+    end
+
+    def edit
+        @item = Item.find(params[:id])
+    end
+
+    def update
+        @item = Item.find(params[:id])
+        @item.update(item_params)
+        if @item.image == ""
+            @item.update(image: "https://i.ibb.co/0jybzgd/default-thumbnail.jpg")
+        end
+        if @item.save
+            flash[:success] = "#{@item.name} has been updated"
+          redirect_to "/merchant/items"
+        else
+          flash[:error] = @item.errors.full_messages.to_sentence
+          render :edit
+        end
+    end
+
+    private
+
+    def item_params
+      params.require(:item).permit(:name,:description,:price,:inventory,:image)
     end
 end

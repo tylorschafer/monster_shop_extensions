@@ -1,21 +1,27 @@
 <center>
-    <h1><%= @merchant.name %> Items:</h1>
+    <h1><%= @merchant.name %> Items</h1>
     <h3>Employee: <%= @user.name %></h3>
+    <h3><%= link_to "Add a New Item", "/merchant/items/new" %></h3>
     <table>
         <tr>
+            <th>Image Thumbnail</th>
             <th>Item Name</th>
             <th>Price</th>
             <th>Inventory</th>
             <th>Status</th>
             <% if @user.role == "merchant_admin" %>
-              <th>Update Status</th>
+              <th>Item Status</th>
             <% end %>
             <% if @user.role == "merchant_admin" %>
-              <th>Order Status</th>
+              <th>Delete Item/Order Status</th>
+            <% end %>
+            <% if @user.role == "merchant_admin" %>
+              <th>Edit Item</th>
             <% end %>
         </tr>
         <% @items.each do |item| %>
             <tr>
+                <td><p><img id="merchant-order-show" src=<%= item.image %>></p></td>
                 <td><p><%= item.name %></p></td>
                 <td><p><%= number_to_currency item.price %></p></td>
                 <td><p><%= item.inventory %></p></td>
@@ -25,14 +31,17 @@
                     <td><p>inactive</p></td>
                 <% end %>
                 <% if @user.role == "merchant_admin" && item.active? == true %>
-                    <td><p><%= link_to "Deactivate Item", merchant_update_item_path(item), method: :patch %></p></td>
+                    <td><p><%= link_to "Deactivate Item", merchant_update_item_activity_path(item), method: :patch %></p></td>
                 <% elsif @user.role == "merchant_admin" && item.active? == false %>
-                    <td><p><%= link_to "Activate Item", merchant_update_item_path(item), method: :patch %></p></td>
+                    <td><p><%= link_to "Activate Item", merchant_update_item_activity_path(item), method: :patch %></p></td>
                 <% end %>
                 <% if @user.role == "merchant_admin" && item.no_orders? == true %>
                     <td><p><%= link_to "Delete Item", merchant_delete_item_path(item), method: :delete %></p></td>
                 <% elsif @user.role == "merchant_admin" && item.no_orders? == false %>
                     <td><p>This item has been ordered.</p></td>
+                <% end %>
+                <% if @user.role == "merchant_admin" %>
+                    <td><p><%= link_to "Edit #{item.name}", merchant_edit_item_path(item) %></p></td>
                 <% end %>
             </tr>
         <% end %>
