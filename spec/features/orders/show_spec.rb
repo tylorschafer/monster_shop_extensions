@@ -50,8 +50,8 @@ describe 'user order show page' do
     end
 
     expect(page).to have_content("Total: $230.00")
-    expect(page).to have_content("Date Placed: #{@order.created_at.strftime('%F %T')}")
-    expect(page).to have_content("Last Updated: #{@order.updated_at.strftime('%F %T')}")
+    expect(page).to have_content("Date Placed: #{@order.created_at.strftime('%D')}")
+    expect(page).to have_content("Last Updated: #{@order.updated_at.strftime('%D')}")
   end
 
   it "I can cancel an order if the order is still pending" do
