@@ -41,7 +41,8 @@ Rails.application.routes.draw do
   post '/merchant/orders/:order_id/items/:item_id', to: 'merchant/items#fulfill_item', as: :merchant_fulfill_item
 
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
-  get '/admin/users', to: 'admin/dashboard#users'
+  get '/admin/users', to: 'admin/users#index'
+  get '/admin/users/:id', to: 'users#show'
   get '/admin/merchants/:id', to: 'merchant/dashboard#index'
   patch '/admin/merchants/:id', to: 'admin/merchants#update'
 end

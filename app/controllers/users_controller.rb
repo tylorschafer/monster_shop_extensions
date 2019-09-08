@@ -20,7 +20,12 @@ class UsersController <ApplicationController
   end
 
   def show
-    @user = User.find_by(id: session[:user_id])
+    if params[:id] && current_admin?
+      @user = User.find(params[:id])
+      @admin = User.find_by(id: session[:user_id])
+    else
+      @user = User.find_by(id: session[:user_id])
+    end
   end
 
   def update
