@@ -55,6 +55,9 @@
 </section>
 <% if @order.pending? %>
   <section>
-    <%= button_to 'Cancel Order', order_path(@order), method: :patch %>
+    <%= button_to 'Cancel Order', order_cancel_path(@order), method: :patch %>
   </section>
+<% end %>
+<% if current_admin? && @order.status == 'packaged' %>
+  <%= link_to 'Ship Order', shipped_order_path(@order), method: :patch %>
 <% end %>
