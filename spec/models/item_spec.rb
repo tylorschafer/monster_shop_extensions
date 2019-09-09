@@ -21,6 +21,7 @@ describe Item, type: :model do
     before(:each) do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @chain = @bike_shop.items.create(name: "Chain", description: "It'll never break!", price: 50, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
+      @bike = @bike_shop.items.create(name: "Bike", description: "It'll never break!", price: 100, image: "https://www.rei.com/media/b61d1379-ec0e-4760-9247-57ef971af0ad?size=784x588", inventory: 5)
 
       @review_1 = @chain.reviews.create(title: "Great place!", content: "They have great bike stuff and I'd recommend them to anyone.", rating: 5)
       @review_2 = @chain.reviews.create(title: "Cool shop!", content: "They have cool bike stuff and I'd recommend them to anyone.", rating: 4)
@@ -60,6 +61,30 @@ describe Item, type: :model do
       @chain.restock(5)
       expect(@chain.inventory).to eq(5)
       expect(@chain.active?).to eq(true)
+    end
+
+    describe "item stats" do
+      before :each do
+        @user = create(:user)
+        @order = @user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+        @order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
+        @order.item_orders.create(item: @bike, price: @bike.price, quantity: 1)
+      end
+      it "top_5" do
+        expected = {
+          @chain => 2,
+          @bike => 1,
+        }
+        expect(Item.top_5).to eq(expected)
+      end
+
+      it "bottom_5" do
+        expected = {
+          @bike => 1,
+          @chain => 2,
+        }
+        expect(Item.bottom_5).to eq(expected)
+      end
     end
   end
 end

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:new, :create]
   patch '/orders/:id', to: 'orders#cancel', as: :order_cancel
-  get '/orders/:order_id', to: 'orders#show'
+  get '/orders/:order_id', to: 'orders#show', as: :order
   patch '/orders/:order_id/ship', to: 'orders#ship', as: :shipped_order
   get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders', to: 'orders#index'
