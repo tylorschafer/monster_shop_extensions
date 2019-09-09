@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'password_resets/new'
+
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
@@ -51,4 +53,6 @@ Rails.application.routes.draw do
   get '/admin/users/:id', to: 'users#show'
   get '/admin/merchants/:id', to: 'merchant/dashboard#index'
   patch '/admin/merchants/:id', to: 'admin/merchants#update'
+
+  resources :password_resets
 end
