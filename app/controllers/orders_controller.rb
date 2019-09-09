@@ -7,7 +7,7 @@ class OrdersController <ApplicationController
   def new
   end
 
-  def update
+  def cancel
     order = Order.find(params[:id])
     order.item_orders.each do |item_order|
       item_order.status = "unfulfilled"
@@ -42,6 +42,14 @@ class OrdersController <ApplicationController
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+  end
+
+  def ship
+    order = Order.find(params[:order_id])
+    order.update(status: 'shipped')
+    order.save
+    flash[:success] = "Order No. #{order.id} has been shipped, yo!"
+    redirect_to "/admin"
   end
 
   private
