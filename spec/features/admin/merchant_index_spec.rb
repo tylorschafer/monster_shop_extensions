@@ -48,10 +48,17 @@ describe 'merchant index as an admin' do
 
       expect(current_path).to eq('/merchants')
       expect(page).to_not have_button('Disable')
-      expect(page).to have_button('Enable')
     end
 
-      expect(page).to have_content("#{@merchant_1.name} has been disabled")
+    expect(page).to have_content("#{@merchant_1.name} has been disabled")
+
+    within "#merchant-#{@merchant_1.id}" do
+      expect(page).to have_button('Enable')
+
+      click_button 'Enable'
+    end
+
+    expect(page).to have_content("#{@merchant_1.name} has been enabled")
   end
 
   it "Other users do not have access to this functionality" do
