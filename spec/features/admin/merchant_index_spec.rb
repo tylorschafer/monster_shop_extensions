@@ -93,6 +93,6 @@ describe 'merchant index as an admin' do
 
     visit '/items'
 
-    expect(page).to have_content('Inactive')
+    expect(page).to_not have_content("#{@item.name}")
   end
 end
