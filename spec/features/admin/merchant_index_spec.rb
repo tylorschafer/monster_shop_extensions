@@ -5,6 +5,7 @@ describe 'merchant index as an admin' do
     @merchant_1 = create(:merchant, status: 0)
     @merchant_2 = create(:merchant, status: 0)
     @merchant_3 = create(:merchant, status: 1)
+    @item = create(:item, merchant_id: @merchant_1.id)
     @merchants = [@merchant_1,@merchant_2,@merchant_3]
     @user = create(:user)
     @admin = create(:user, role: 4)
@@ -46,10 +47,18 @@ describe 'merchant index as an admin' do
       click_button 'Disable'
 
       expect(current_path).to eq('/merchants')
-
       expect(page).to_not have_button('Disable')
-      expect(page).to have_button('Enable')
     end
+
+    expect(page).to have_content("#{@merchant_1.name} has been disabled")
+
+    within "#merchant-#{@merchant_1.id}" do
+      expect(page).to have_button('Enable')
+
+      click_button 'Enable'
+    end
+
+    expect(page).to have_content("#{@merchant_1.name} has been enabled")
   end
 
   it "Other users do not have access to this functionality" do
@@ -73,5 +82,17 @@ describe 'merchant index as an admin' do
     visit '/merchants'
 
     expect(page).to_not have_button('Disable')
+  end
+
+  it "All of a merchants items are disabled if the merchant is disabled" do
+    visit '/merchants'
+
+    within "#merchant-#{@merchant_1.id}" do
+      click_button 'Disable'
+    end
+
+    visit '/items'
+
+    expect(page).to have_content('Inactive')
   end
 end

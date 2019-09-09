@@ -48,5 +48,18 @@ describe Item, type: :model do
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
+
+    it "fulfill" do
+      @chain.fulfill(5)
+      expect(@chain.inventory).to eq(0)
+      expect(@chain.active?).to eq(false)
+    end
+
+    it "restock" do
+      @chain.fulfill(5)
+      @chain.restock(5)
+      expect(@chain.inventory).to eq(5)
+      expect(@chain.active?).to eq(true)
+    end
   end
 end

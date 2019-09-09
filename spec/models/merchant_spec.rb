@@ -67,5 +67,20 @@ describe Merchant, type: :model do
 
       expect(@meg.pending_orders).to eq([order_1, order_2])
     end
+
+    it '#disable' do
+      expect(@meg.status).to eq('enabled')
+
+      @meg.disable
+
+      expect(@meg.status).to eq('disabled')
+    end
+
+    it '#enable' do
+      @meg.disable
+      @meg.enable
+
+      expect(@meg.status).to eq('enabled')
+    end
   end
 end
