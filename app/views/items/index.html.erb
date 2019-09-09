@@ -23,3 +23,17 @@
     </section>
     <% end %>
 </section>
+
+<center>
+  <section>
+    <h1>Item Stats</h1>
+    <h2>Top 5 Items Purchased:</h2>
+    <% @items.top_5.each do |item, qty| %>
+      <li><%= item.name %> | Amount Purchased: <%= qty %></li>
+    <% end %>
+    <h2>Worst 5 Items Purchased:</h2>
+    <% @items.bottom_5.each do |item, qty| %>
+      <li><%= item.name %> | Amount Purchased: <%= qty %></li>
+    <% end %>
+  </section>
+</center>
