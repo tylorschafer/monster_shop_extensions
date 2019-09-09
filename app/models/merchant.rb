@@ -36,7 +36,7 @@ class Merchant < ApplicationRecord
   def enable
     self.status = 0
     self.save
-    self.items.update_column(active?: true)
+    self.items.update_all(active?: true)
     reload
   end
 
