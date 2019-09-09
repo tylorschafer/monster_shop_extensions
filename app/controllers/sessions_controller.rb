@@ -17,6 +17,11 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.name}"
+      if params[:remember_me]
+        cookies.permanent[:auth_token] = user.auth_token
+      else
+        cookies[:auth_token] = user.auth_token
+      end
       if current_admin?
         redirect_to '/admin'
       elsif current_merchant?
@@ -32,6 +37,7 @@ class SessionsController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    cookies.delete(:auth_token)
     flash[:success] = "L8r, yo"
     redirect_to "/"
   end
