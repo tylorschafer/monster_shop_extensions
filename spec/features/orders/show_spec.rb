@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'user order show page' do
   before :each do
-    @tire = create(:item, inventory: 10)
-    @paper = create(:item, inventory: 10)
+    @tire = create(:item, inventory: 10, price: 35)
+    @paper = create(:item, inventory: 10, price: 40)
     @order = create(:order)
     @order_2 = create(:order, status: 2)
     @item_order_1 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
