@@ -42,6 +42,9 @@ class Merchant::ItemsController < Merchant::BaseController
      user = User.find(session[:user_id])
      @merchant = user.merchant
      @item = @merchant.items.create(item_params)
+     if @item.image == ""
+        @item.update(image: "https://i.ibb.co/0jybzgd/default-thumbnail.jpg")
+     end
      if @item.save
       flash[:success] = "#{@item.name} has been added"
       redirect_to "/merchant/items" 
