@@ -8,7 +8,6 @@ class PasswordResetsController < ApplicationController
     user.send_password_reset if user
     flash[:success] = "We sent you an email with instructions!"
     redirect_to "/login"
-    binding.pry
   end
 
   def edit
