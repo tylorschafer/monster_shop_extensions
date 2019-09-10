@@ -4,8 +4,12 @@ class ItemsController<ApplicationController
     if params[:merchant_id]
       @merchant = Merchant.find(params[:merchant_id])
       @items = @merchant.items
+      @top_5 = @merchant.top_or_bottom_5('desc')
+      @bottom_5 = @merchant.top_or_bottom_5('asc')
     else
-      @items = Item.where(active?: true)
+      @items = Item.active_items
+      @top_5 = Item.top_or_bottom_5('desc')
+      @bottom_5 = Item.top_or_bottom_5('asc')
     end
   end
 
@@ -55,6 +59,4 @@ class ItemsController<ApplicationController
   def item_params
     params.permit(:name,:description,:price,:inventory,:image)
   end
-
-
 end

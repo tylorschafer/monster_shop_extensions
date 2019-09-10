@@ -46,4 +46,12 @@ class Merchant < ApplicationRecord
     self.items.update_all(active?: false)
     reload
   end
+
+  def top_or_bottom_5(order)
+    items.left_joins(:item_orders)
+    .select('items.id, items.name, coalesce(sum(item_orders.quantity), 0) as total_quantity')
+    .group('items.id')
+    .order("total_quantity #{order}, items.name")
+    .limit(5)
+  end
 end

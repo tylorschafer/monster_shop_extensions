@@ -17,6 +17,44 @@ describe Item, type: :model do
     it {should have_many(:orders).through(:item_orders)}
   end
 
+  describe 'class methods' do
+    it '::top_or_bottom_5' do
+      user = create(:user)
+
+      item_1 = create(:item)
+      item_2 = create(:item)
+      item_3 = create(:item)
+      item_4 = create(:item)
+      item_5 = create(:item)
+      item_6 = create(:item)
+      item_7 = create(:item)
+
+      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+
+      order.item_orders.create(item: item_1, price: item_1.price, quantity: 10)
+      order.item_orders.create(item: item_2, price: item_2.price, quantity: 20)
+      order.item_orders.create(item: item_3, price: item_3.price, quantity: 30)
+      order.item_orders.create(item: item_4, price: item_4.price, quantity: 40)
+      order.item_orders.create(item: item_5, price: item_5.price, quantity: 50)
+      order.item_orders.create(item: item_6, price: item_6.price, quantity: 60)
+      order.item_orders.create(item: item_7, price: item_7.price, quantity: 70)
+
+      top = Item.top_or_bottom_5('desc')
+      expect(top).to eq([item_7, item_6, item_5, item_4, item_3])
+
+      bottom = Item.top_or_bottom_5('asc')
+      expect(bottom).to eq([item_1, item_2, item_3, item_4, item_5])
+    end
+
+    it '::active_items' do
+      item_1 = create(:item, active?: false)
+      item_2 = create(:item)
+      item_3 = create(:item)
+
+      expect(Item.active_items).to eq([item_2, item_3])
+    end
+  end
+
   describe "instance methods" do
     before(:each) do
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -61,30 +99,6 @@ describe Item, type: :model do
       @chain.restock(5)
       expect(@chain.inventory).to eq(5)
       expect(@chain.active?).to eq(true)
-    end
-
-    describe "item stats" do
-      before :each do
-        @user = create(:user)
-        @order = @user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-        @order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
-        @order.item_orders.create(item: @bike, price: @bike.price, quantity: 1)
-      end
-      it "top_5" do
-        expected = {
-          @chain => 2,
-          @bike => 1,
-        }
-        expect(Item.top_5).to eq(expected)
-      end
-
-      it "bottom_5" do
-        expected = {
-          @bike => 1,
-          @chain => 2,
-        }
-        expect(Item.bottom_5).to eq(expected)
-      end
     end
   end
 end
