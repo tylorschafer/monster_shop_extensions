@@ -37,22 +37,15 @@ class Item <ApplicationRecord
     self.save
   end
 
-  def self.top_5
-    top_ids = ActiveRecord::Base.connection.execute("select id, amount_purchased from (select items.id, items.name, sum(quantity) as amount_purchased from items inner join item_orders on items.id = item_orders.item_id group by items.id order by amount_purchased desc limit 5) as item_id")
-    items = {}
-    top_ids.each do |hash|
-      items[Item.find(hash["id"])] = hash["amount_purchased"]
-    end
-    items
+  def self.top_or_bottom_5(order)
+    Item.left_joins(:item_orders)
+      .select('items.id, items.name, coalesce(sum(item_orders.quantity), 0) as total_quantity')
+      .group('items.id')
+      .order("total_quantity #{order}, items.name")
+      .limit(5)
   end
 
-  def self.bottom_5
-    bottom_ids = ActiveRecord::Base.connection.execute("select id, amount_purchased from (select items.id, items.name, sum(quantity) as amount_purchased from items inner join item_orders on items.id = item_orders.item_id group by items.id order by amount_purchased asc limit 5) as item_id")
-    items = {}
-    bottom_ids.each do |hash|
-      items[Item.find(hash["id"])] = hash["amount_purchased"]
-    end
-    items
+  def self.active_items
+    Item.where(active?: true)
   end
-
 end

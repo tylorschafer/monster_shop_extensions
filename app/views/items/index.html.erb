@@ -31,12 +31,14 @@
         <h2>No orders yet, so no stats lol.</h2>
     <% else %>
       <h2>Top 5 Items Purchased:</h2>
-      <% @items.top_5.each do |item, qty| %>
-        <li><%= item.name %> | Amount Purchased: <%= qty %></li>
+      <% @top_5.each do |item| %>
+      <% if item.total_quantity > 0 %>
+        <li><%= item.name %> | Amount Purchased: <%= item.total_quantity %></li>
+      <% end %>
       <% end %>
       <h2>Worst 5 Items Purchased:</h2>
-      <% @items.bottom_5.each do |item, qty| %>
-        <li><%= item.name %> | Amount Purchased: <%= qty %></li>
+      <% @bottom_5.each do |item, qty| %>
+        <li><%= item.name %> | Amount Purchased: <%= item.total_quantity %></li>
       <% end %>
     <% end %>
   </section>
