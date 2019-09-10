@@ -1,6 +1,6 @@
 <% if @merchant %>
   <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link'%> Items</h1>
-  <p align="center"><%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new", class: 'btn' %></p>
+  <%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new", class: 'btn' %>
 <% else %>
   <h1>All Items</h1>
 <% end %>
