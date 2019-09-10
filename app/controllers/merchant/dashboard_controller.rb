@@ -12,12 +12,6 @@ class Merchant::DashboardController < Merchant::BaseController
   end
 
   def items
-    # if current_merchant?
-    #   @user = User.find(session[:user_id])
-    #   @merchant = @user.merchant
-    # elsif current_admin?
-    #   @merchant = Merchant.find(session[:merchant_id])
-    # end
     @merchant = Merchant.find(session[:merchant_id])
     @items = @merchant.items
   end
