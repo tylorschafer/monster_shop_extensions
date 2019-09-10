@@ -18,7 +18,7 @@ describe Item, type: :model do
   end
 
   describe 'class methods' do
-    it 'top_or_bottom_5' do
+    it '::top_or_bottom_5' do
       user = create(:user)
 
       item_1 = create(:item)
@@ -46,7 +46,7 @@ describe Item, type: :model do
       expect(bottom).to eq([item_1, item_2, item_3, item_4, item_5])
     end
 
-    it 'active_items' do
+    it '::active_items' do
       item_1 = create(:item, active?: false)
       item_2 = create(:item)
       item_3 = create(:item)

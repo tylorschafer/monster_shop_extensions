@@ -82,5 +82,32 @@ describe Merchant, type: :model do
 
       expect(@meg.status).to eq('enabled')
     end
+
+    it '#top_or_bottom_5' do
+      user = create(:user)
+
+      item_1 = create(:item, merchant: @meg)
+      item_2 = create(:item, merchant: @meg)
+      item_3 = create(:item, merchant: @meg)
+      item_4 = create(:item, merchant: @meg)
+      item_5 = create(:item, merchant: @meg)
+      item_6 = create(:item, merchant: @meg)
+
+      order = user.orders.create(name: 'Jack', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+
+      order.item_orders.create(item: item_1, price: item_1.price, quantity: 10)
+      order.item_orders.create(item: item_2, price: item_2.price, quantity: 20)
+      order.item_orders.create(item: item_3, price: item_3.price, quantity: 30)
+      order.item_orders.create(item: item_4, price: item_4.price, quantity: 40)
+      order.item_orders.create(item: item_5, price: item_5.price, quantity: 50)
+      order.item_orders.create(item: item_6, price: item_6.price, quantity: 60)
+
+      top = @meg.top_or_bottom_5('desc')
+      bottom = @meg.top_or_bottom_5('asc')
+
+      expect(top).to eq([item_6, item_5, item_4, item_3, item_2])
+
+      expect(bottom).to eq([@tire, item_1, item_2, item_3, item_4])
+    end
   end
 end
