@@ -24,4 +24,8 @@ class User < ApplicationRecord
       self[column] = SecureRandom.urlsafe_base64
     end while User.exists?(column => self[column])
   end
+
+  def works_here?(id)
+    @current_user.merchant.id == id
+  end
 end
