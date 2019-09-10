@@ -1,9 +1,47 @@
 <% if @merchant %>
-  <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}"%><span> Items</span></h1>
-  <p align="center"><%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new" %></p>
+  <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link'%> Items</h1>
+  <p align="center"><%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new", class: 'btn' %></p>
 <% else %>
   <h1>All Items</h1>
 <% end %>
+<section class='item-stats'>
+  <% if Order.first.nil? %>
+      <h2>No orders yet, so no stats lol.</h2>
+  <% else %>
+  <section id="top-5-items">
+    <h2>Top 5 Items Purchased:</h2>
+    <table class="item-stat-table">
+      <tr>
+        <th>Item Name</th>
+        <th>Total Quantity Ordered</th>
+      </tr>
+      <% @top_5.each do |item| %>
+        <% if item.total_quantity > 0 %>
+          <tr>
+            <td><%= item.name %></td>
+            <td><%= item.total_quantity %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </section>
+  <section id="bottom-5-items">
+    <h2>Bottom 5 Items Purchased:</h2>
+    <table class="item-stat-table">
+      <tr>
+        <th>Item Name</th>
+        <th>Total Quantity Ordered</th>
+      </tr>
+      <% @bottom_5.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.total_quantity %></td>
+        </tr>
+      <% end %>
+    </table>
+    <% end %>
+  </section>
+</section>
 <section class="grid-container">
   <% @items.each do |item| %>
     <section class = "grid-item" id= 'item-<%=item.id%>'>
@@ -23,23 +61,3 @@
     </section>
     <% end %>
 </section>
-
-<center>
-  <section>
-    <h1>Item Stats</h1>
-    <% if Order.first.nil? %>
-        <h2>No orders yet, so no stats lol.</h2>
-    <% else %>
-      <h2>Top 5 Items Purchased:</h2>
-      <% @top_5.each do |item| %>
-      <% if item.total_quantity > 0 %>
-        <li><%= item.name %> | Amount Purchased: <%= item.total_quantity %></li>
-      <% end %>
-      <% end %>
-      <h2>Worst 5 Items Purchased:</h2>
-      <% @bottom_5.each do |item, qty| %>
-        <li><%= item.name %> | Amount Purchased: <%= item.total_quantity %></li>
-      <% end %>
-    <% end %>
-  </section>
-</center>

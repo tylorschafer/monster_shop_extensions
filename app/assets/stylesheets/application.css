@@ -161,6 +161,16 @@ ul{
  	text-align: right;
 }
 
+.item-stats {
+  display: flex;
+  margin: 2em 0;
+}
+
+.item-stat-table {
+  table-layout: fixed;
+  width: 80%;
+}
+
 .list-reviews {
   display: grid;
   width: 50%;
@@ -195,10 +205,12 @@ ul{
 
 .reg-link:link, .reg-link:visited {
   color: var(--dark-teal);
+  text-decoration: none;
 }
 
 .reg-link:hover {
-  font-weight: bolder;
+  color: purple;
+  text-decoration: underline;
 }
 .sign-up {
   color: var(--light-text);

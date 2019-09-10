@@ -1,6 +1,6 @@
 <h1 align = "center">Merchants</h1>
 
-<p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
+<p align="center"><%= link_to "New Merchant", "/merchants/new", class: 'btn' %></p>
 <% if current_admin? %>
   <table>
     <tr>
@@ -13,7 +13,7 @@
     <% @merchants.each do |merchant|%>
       <section id="merchant-<%= merchant.id %>">
         <tr>
-          <td><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></td>
+          <td><%=link_to merchant.name, "/admin/merchants/#{merchant.id}", class: 'reg-link'%></td>
           <td><%=merchant.city%></td>
           <td><%=merchant.state%></td>
           <td><%=merchant.status%></td>
