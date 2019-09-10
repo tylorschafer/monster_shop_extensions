@@ -6,6 +6,7 @@ class MerchantsController <ApplicationController
 
   def show
     @merchant = Merchant.find(params[:id])
+    @works_here = @merchant.works_here?(current_user.merchant.id)
   end
 
   def new

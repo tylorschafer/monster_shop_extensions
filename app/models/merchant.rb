@@ -54,4 +54,8 @@ class Merchant < ApplicationRecord
     .order("total_quantity #{order}, items.name")
     .limit(5)
   end
+
+  def works_here?(id)
+    self.id == id.to_i
+  end
 end

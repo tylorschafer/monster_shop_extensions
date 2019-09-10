@@ -4,8 +4,11 @@
 
 <section class='merchant-show-btns'>
   <%= link_to "All #{@merchant.name} Items", "/merchants/#{@merchant.id}/items", class: 'btn' %>
-  <%= link_to "Update Merchant", "/merchants/#{@merchant.id}/edit", class: 'btn' %>
-  <%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete, class: 'btn'  if @merchant.no_orders?%>
+  <% if current_merchant_admin? && @works_here %>
+    <%= link_to "Update Merchant", "/merchants/#{@merchant.id}/edit", class: 'btn' %>
+  <% elsif current_admin? %>
+    <%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete, class: 'btn'  if @merchant.no_orders?%>
+  <% end %>
 </section>
 
 <section class = "merchant-stats">
