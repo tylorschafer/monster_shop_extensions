@@ -1,38 +1,33 @@
 <h1 align = "center">Merchants</h1>
 
 <p align="center"><%= link_to "New Merchant", "/merchants/new" %></p>
-
-<section class = "grid-container">
-  <% @merchants.each do |merchant|%>
-    <section id="merchant-<%= merchant.id %>">
-      <% if current_admin? %>
-      <section class = "shipping-address">
-      <table>
+<% if current_admin? %>
+  <table>
+    <tr>
+      <th>Merchant</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+    <% @merchants.each do |merchant|%>
+      <section id="merchant-<%= merchant.id %>">
         <tr>
-          <th>Merchant</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-        <tr>
-          <td><p><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></p></td>
-          <td><p><%=merchant.city%></p></td>
-          <td><p><%=merchant.state%></p></td>
-          <td><p><%=merchant.status%></p></td>
-        <% if merchant.status == 'enabled' %>
-            <td><%= button_to 'Disable', "/admin/merchants/#{merchant.id}", method: :patch %></td>
+          <td><%=link_to merchant.name, "/admin/merchants/#{merchant.id}"%></td>
+          <td><%=merchant.city%></td>
+          <td><%=merchant.state%></td>
+          <td><%=merchant.status%></td>
+          <% if merchant.status == 'enabled' %>
+            <td><%= link_to 'Disable', "/admin/merchants/#{merchant.id}", class: 'btn', method: :patch %></td>
           <% else %>
-            <td><%= button_to 'Enable', "/admin/merchants/#{merchant.id}", method: :patch %></td>
-        <% end %>
+            <td><%= link_to 'Enable', "/admin/merchants/#{merchant.id}", class: 'btn', method: :patch %></td>
+          <% end %>
         </tr>
-      <% else %>
-        <section class = "grid-item">
-          <h2><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
-        </section>
-      <% end %>
-    </table>
-    </section>
-    </section>
+      </section>
+    <% end %>
+  </table>
+<% else %>
+  <% @merchants.each do |merchant|%>
+    <h2 class="grid-item"><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
   <% end %>
-</section>
+<% end %>
