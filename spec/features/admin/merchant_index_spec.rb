@@ -42,20 +42,20 @@ describe 'merchant index as an admin' do
     visit '/merchants'
 
     within "#merchant-#{@merchant_1.id}" do
-      expect(page).to have_button('Disable')
+      expect(page).to have_link('Disable')
 
-      click_button 'Disable'
+      click_link 'Disable'
 
       expect(current_path).to eq('/merchants')
-      expect(page).to_not have_button('Disable')
+      expect(page).to_not have_link('Disable')
     end
 
     expect(page).to have_content("#{@merchant_1.name} has been disabled")
 
     within "#merchant-#{@merchant_1.id}" do
-      expect(page).to have_button('Enable')
+      expect(page).to have_link('Enable')
 
-      click_button 'Enable'
+      click_link 'Enable'
     end
 
     expect(page).to have_content("#{@merchant_1.name} has been enabled")
@@ -81,14 +81,14 @@ describe 'merchant index as an admin' do
 
     visit '/merchants'
 
-    expect(page).to_not have_button('Disable')
+    expect(page).to_not have_link('Disable')
   end
 
   it "All of a merchants items are disabled if the merchant is disabled" do
     visit '/merchants'
 
     within "#merchant-#{@merchant_1.id}" do
-      click_button 'Disable'
+      click_link 'Disable'
     end
 
     visit '/items'
