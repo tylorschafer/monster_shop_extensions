@@ -1,22 +1,38 @@
-<center>
-    <h1>Order #<%= @order.id %></h1>
-    <h2>Customer Info:</h2>
-    <p><%= @order.name %></p>
-    <p><%= @order.address %></p>
-    <p><%= "#{@order.city}, #{@order.state} #{@order.zip}" %></p><br><br>
-    <h2>Items:</h2>
-    <% @merchant_items.each do |item| %>
-        <img src= <%=item.image%> id="merchant-order-show">
-        <p><%= link_to item.name, item_path(item) %> | <%= number_to_currency item.price %> each</p>
-        <p>Quantity Ordered: <%= @order.qty_item_in_order(item)%></p>
-        <p>Current Inventory: <%= item.inventory %></p>
-        <p>Status: <%= @order.find_item_status(item) %></p>
-        <% if (item.inventory >= @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
-        <%= button_to "Fulfill", merchant_fulfill_item_path(@order.id, item.id) %>
-        <% elsif (item.inventory < @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
-          <p>There is not enough <%= item.name %> in stock to fulfill this order, dawg.</p>
-          <% else %>
-          <p>You have already fulfilled this, yo.</p>
-        <% end %>
-    <% end %>
-</center>
+<h1>Order #<%= @order.id %></h1>
+<h2>Customer Info:</h2>
+<p><%= @order.name %></p>
+<p><%= @order.address %></p>
+<p><%= "#{@order.city}, #{@order.state} #{@order.zip}" %></p><br><br>
+<h2>Items:</h2>
+<table class="merchant-orders-show-table">
+  <tr>
+    <th>Thumbnail</th>
+    <th>Item Name</th>
+    <th>Item Price</th>
+    <th>Quantity Ordered</th>
+    <th>Current Inventory</th>
+    <th>Status</th>
+    <th></th>
+  </tr>
+  <% @merchant_items.each do |item| %>
+    <section id="merchant-item-order-<%= item.id %>">
+      <tr>
+        <td><img src= <%=item.image%> id="merchant-order-show"></td>
+        <td><%= link_to item.name, item_path(item), class: 'reg-link' %></td>
+        <td><%= number_to_currency item.price %> each</td>
+        <td><%= @order.qty_item_in_order(item)%></td>
+        <td><%= item.inventory %></td>
+        <td><%= @order.find_item_status(item) %></td>
+        <td>
+          <% if (item.inventory >= @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
+          <%= link_to "Fulfill", merchant_fulfill_item_path(@order.id, item.id), class: 'btn-small', method: :post %>
+          <% elsif (item.inventory < @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
+            <p>There is not enough <%= item.name %> in stock to fulfill this order, dawg.</p>
+            <% else %>
+            <p>Dis item been fulfilled, yo.</p>
+          <% end %>
+        </td>
+      </tr>
+    </section>
+  <% end %>
+</table>
