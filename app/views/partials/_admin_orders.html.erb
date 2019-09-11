@@ -1,7 +1,7 @@
 <section class="admin-orders">
   <% unless orders.empty? %>
     <h3><%= title %></h3>
-    <table>
+    <table class="admin-orders-table">
       <tr>
         <th>Order Id</th>
         <th>Order Placed By</th>
@@ -10,7 +10,7 @@
       <% orders.each do |order| %>
         <tr>
           <section id='<%= "#{id_tag}-#{order.id}" %>'>
-            <td><%= link_to "Order ##{order.id}", "/admin/users/#{order.user.id}/orders/#{order.id}" %></td>
+            <td><%= link_to "Order ##{order.id}", "/admin/users/#{order.user.id}/orders/#{order.id}", class: 'reg-link' %></td>
             <td><%= order.user.name %></td>
             <td><%= order.created_at.strftime('%D') %></td>
           </section>

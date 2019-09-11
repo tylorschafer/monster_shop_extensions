@@ -1,21 +1,22 @@
 <center><h1>All Users</h1></center>
 
 <section>
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Registration Date</th>
-      <th>Role</th>
-    </tr>
-    <% @users.each do |user| %>
+  <center>
+    <table class="users-table">
       <tr>
-        <section id = "user-<%= user.id %>">
-          <td><%= link_to user.name, "/admin/users/#{user.id}" %></td>
-          <td><p><%= user.created_at.strftime('%D') %></p></td>
-          <td><p><%= user.role %></p></td>
-        </section>
+        <th>Name</th>
+        <th>Registration Date</th>
+        <th>Role</th>
       </tr>
-    <% end %>
-  </table>
-
+      <% @users.each do |user| %>
+        <tr>
+          <section id = "user-<%= user.id %>">
+            <td><%= link_to user.name, "/admin/users/#{user.id}", class: 'reg-link' %></td>
+            <td><p><%= user.created_at.strftime('%D') %></p></td>
+            <td><p><%= user.role %></p></td>
+          </section>
+        </tr>
+      <% end %>
+    </table>
+  </center> 
 </section>
