@@ -1,12 +1,17 @@
 class MerchantsController <ApplicationController
+  before_action :valid_merchant, only: [:show]
 
   def index
-    @merchants = Merchant.all
+    if current_admin? == false
+      @merchants = Merchant.all.where(status: 0)
+    else
+      @merchants = Merchant.all
+    end
   end
 
   def show
     @merchant = Merchant.find(params[:id])
-    if current_user
+    if current_merchant?
       @works_here = @merchant.works_here?(current_user.merchant.id)
     end
   end
@@ -51,4 +56,7 @@ class MerchantsController <ApplicationController
     params.permit(:name,:address,:city,:state,:zip)
   end
 
+  def valid_merchant
+    render file: "/public/404" unless Merchant.find(params[:id]).status == 'enabled'
+  end
 end

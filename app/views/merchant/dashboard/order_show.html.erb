@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <h1>Order #<%= @order.id %></h1>
 <h2>Customer Info:</h2>
 <p><%= @order.name %></p>
@@ -36,3 +37,27 @@
     </section>
   <% end %>
 </table>
+=======
+<center>
+    <h1>Order #<%= @order.id %></h1>
+    <h2>Customer Info:</h2>
+    <p><%= @order.name %></p>
+    <p><%= @order.address %></p>
+    <p><%= "#{@order.city}, #{@order.state} #{@order.zip}" %></p><br><br>
+    <h2>Items:</h2>
+    <% @merchant_items.each do |item| %>
+        <img src= <%=item.image%> id="merchant-order-show">
+        <p><%= link_to item.name, item_path(item) %> | <%= number_to_currency item.price %> each</p>
+        <p>Quantity Ordered: <%= @order.qty_item_in_order(item)%></p>
+        <p>Current Inventory: <%= item.inventory %></p>
+        <p>Status: <%= @order.find_item_status(item) %></p>
+        <% if (item.inventory >= @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
+        <%= button_to "Fulfill", merchant_fulfill_item_path(@order.id, item.id) %>
+        <% elsif (item.inventory < @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
+          <p>There is not enough <%= item.name %> in stock to fulfill this order, dawg.</p>
+          <% else %>
+          <p>You have already fulfilled this, yo.</p>
+        <% end %>
+    <% end %>
+</center>
+>>>>>>> 197229cc7845ddbc55e22b379d5f716a07d2fb54
