@@ -35,19 +35,23 @@ class OrdersController <ApplicationController
     @order = Order.find(params[:order_id])
   end
 
-  def create
-    user = User.find(session[:user_id])
-    order = user.orders.create(user_info(user))
+  def create_item_orders(order)
     cart.items.each do |item,quantity|
       order.item_orders.create({
         item: item,
         quantity: quantity,
         price: item.price
         })
-      end
-      session.delete(:cart)
-      redirect_to "/profile/orders"
-      flash[:success] = "Thank You For Your Order!"
+    end
+  end
+
+  def create
+    user = User.find(session[:user_id])
+    order = user.orders.create(user_info(user))
+    create_item_orders(order)
+    session.delete(:cart)
+    redirect_to "/profile/orders"
+    flash[:success] = "Thank You For Your Order!"
   end
 
   def ship
