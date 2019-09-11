@@ -72,7 +72,7 @@ RSpec.describe "As a visitor" do
       visit "/cart"
       click_on "Checkout"
 
-      click_button "Create Order"
+      click_link "Create Order"
 
       visit "/merchants/#{meg.id}"
       expect(page).to_not have_link("Delete Merchant")
