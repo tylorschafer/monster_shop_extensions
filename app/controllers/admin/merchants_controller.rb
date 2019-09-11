@@ -13,13 +13,9 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def index
-    @user = User.find(session[:user_id])
-    if @user.role == 'admin'
-      @merchant = Merchant.find(params[:id])
-    else
-      @merchant = @user.merchant
-    end
+    @merchant = Merchant.find(params[:id])
     @pending_orders = @merchant.pending_orders
     session[:merchant_id] = @merchant.id
   end
+
 end
