@@ -17,9 +17,11 @@
       <% else %>
         <p style= "color:red">Inactive</p>
       <% end %>
-      <p><%= link_to "Edit Item", "/items/#{@item.id}/edit", class: 'btn-small' %></p>
-      <p><%= link_to "Delete Item", "/items/#{@item.id}", class: 'btn-small', method: :delete if @item.no_orders?%></p>
-      <%= link_to "Add Review", "/items/#{@item.id}/reviews/new", class: 'btn-small' %>
+      <p>
+        <%= link_to "Edit Item", "/items/#{@item.id}/edit", class: 'btn-small' %>
+        <%= link_to "Add Review", "/items/#{@item.id}/reviews/new", class: 'btn-small' %>
+        <%= link_to "Delete Item", "/items/#{@item.id}", class: 'btn-small', id: 'red-btn', method: :delete if @item.no_orders?%>
+      </p>
       <% unless current_admin? %>
         <p><%= link_to "Add To Cart", "/cart/#{@item.id}", class: 'btn', id: 'green-btn', method: :post %></p>
       <% end %>

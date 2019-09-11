@@ -209,11 +209,24 @@ ul{
   width: 60%;
 }
 
-/* .merchant-show-btns {
+.merchant-show-btns {
   display: flex;
-  justify-content: flex-start;
-  margin: 0 10%;
-} */
+  justify-content: center;
+}
+
+.merchant-stats-area {
+  display: flex;
+  justify-content: center;
+}
+
+.merchant-stats,
+.merchant-address {
+  border: 1px solid var(--dark-teal);
+  border-radius: 5px;
+  margin: 1em 0.5em;
+  padding: 1em;
+  width: 25%;
+}
 
 .page-title {
   text-align: center;
@@ -272,16 +285,16 @@ ul{
 }
 
 #green-btn {
-  background-color: #45a049;
+  background-color: #00b32d;
 }
 #green-btn:hover {
-  background-color: #265929;
+  background-color: #008020;
 }
 #red-btn {
-  background-color: #bf4040;
+  background-color: #e6004c;
 }
 #red-btn:hover {
-  background-color: #862d2d;
+  background-color: #b3003b;
 }
 
 #cart-item-img{
@@ -322,4 +335,8 @@ ul{
 
 #merchant-order-show {
   width: 50%;
+}
+
+#space-btn {
+  margin: 0 0.3em;
 }
