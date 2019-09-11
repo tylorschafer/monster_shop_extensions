@@ -56,4 +56,6 @@ Rails.application.routes.draw do
   patch '/admin/merchants/:id', to: 'admin/merchants#update'
 
   resources :password_resets
+
+  match "*path", to: "welcome#catch_404", via: :all
 end

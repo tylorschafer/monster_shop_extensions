@@ -26,4 +26,9 @@ class ApplicationController < ActionController::Base
   def current_visitor?
     !(current_merchant? || current_admin? || current_user)
   end
+
+  rescue_from ActionController::RoutingError do |exception|
+    logger.error 'Routing error occurred'
+    render file: 'public/404'
+  end
 end
