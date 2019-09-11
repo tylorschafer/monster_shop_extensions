@@ -27,6 +27,7 @@ pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
 collar = dog_shop.items.create(name: "Chaco Collar", description: "Dogs love name brand stuff too!", price: 35, image: "https://www.rei.com/media/3ef543ea-9b63-4f97-9c24-e5f2d4de4b85?size=784x588", inventory: 21)
 stache = dog_shop.items.create(name: "Humunga Stache", description: "Make your dog look like an old-timey gentleman!", price: 19, image: "https://www.glamourmutt.com/thumbnail.asp?file=assets/images/stache1.jpg&maxx=300&maxy=0", inventory: 21)
+pugtato = dog_shop.items.create(name: "Baked Pugtato", description: "Feeds a family of four!" price: 300, image: "https://i.redd.it/l6od6xh0e9jy.jpg", inventory: 2)
 
 #pug_lyfe items
 pug_lyfe = pug_lyfe_records.items.create(name: "Respekt da Hustle (and treats)", description: "Hip Hop isn't dead", price: 20, image: "https://cdn.shopify.com/s/files/1/1869/0319/products/artwork_2Fz9cKcghIoyvemWkc1vCv-YBM41z0Oo079n1UnHV5N-OEnIIoR0vasFcNcuRO27-color-black_571x_crop_center.png?v=1522944906", inventory: 6)

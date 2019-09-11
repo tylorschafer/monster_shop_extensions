@@ -10,7 +10,7 @@ class Item <ApplicationRecord
                         :image
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
-  validates_numericality_of :inventory, greater_than: 0
+  validates_numericality_of :inventory, greater_than_or_equal_to: 0
 
 
   def average_review
@@ -28,7 +28,7 @@ class Item <ApplicationRecord
   def fulfill(quantity)
     self.inventory -= quantity
     self.update(active?: false) if self.inventory == 0
-    self.save
+    self.save!
   end
 
   def restock(qty)
@@ -37,11 +37,11 @@ class Item <ApplicationRecord
     self.save
   end
 
-  def self.top_or_bottom_5(order)
+  def self.top_or_bottom_5(direction)
     Item.left_joins(:item_orders)
       .select('items.id, items.name, coalesce(sum(item_orders.quantity), 0) as total_quantity')
       .group('items.id')
-      .order("total_quantity #{order}, items.name")
+      .order("total_quantity #{direction}, items.name")
       .limit(5)
   end
 
