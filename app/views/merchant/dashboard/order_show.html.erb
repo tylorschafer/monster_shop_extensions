@@ -25,11 +25,11 @@
         <td><%= @order.find_item_status(item) %></td>
         <td>
           <% if (item.inventory >= @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
-          <%= link_to "Fulfill", merchant_fulfill_item_path(@order.id, item.id), class: 'btn-small' %>
+          <%= link_to "Fulfill", merchant_fulfill_item_path(@order.id, item.id), class: 'btn-small', method: :post %>
           <% elsif (item.inventory < @order.qty_item_in_order(item)) && @order.find_item_status(item) == "unfulfilled" %>
             <p>There is not enough <%= item.name %> in stock to fulfill this order, dawg.</p>
             <% else %>
-            <p>You have already fulfilled this, yo.</p>
+            <p>Dis item been fulfilled, yo.</p>
           <% end %>
         </td>
       </tr>
