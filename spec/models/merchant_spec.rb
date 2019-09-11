@@ -21,6 +21,12 @@ describe Merchant, type: :model do
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
     end
 
+    it "works here" do
+      sue = @meg.users.create(name: 'Sue', address: '12345 C St', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'sue@email.com', password: 'sue', password_confirmation: 'sue', role: 3)
+
+      expect(@meg.works_here?(sue.merchant.id)).to be true
+    end
+
     it '#no_orders' do
       expect(@meg.no_orders?).to eq(true)
 
