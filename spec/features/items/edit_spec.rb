@@ -36,8 +36,8 @@ describe "As a merchant admin" do
   describe "When I visit an Item Show Page" do
     describe "and click on edit item" do
       before :each do
-        @m_admin = create(:user, role: 3)
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @m_admin = create(:user, role: 3, merchant_id: @meg.id)
         @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
 
         visit '/'
@@ -65,7 +65,7 @@ describe "As a merchant admin" do
         expect(current_path).to eq("/items/#{@tire.id}/edit")
         expect(page).to have_link("Gatorskins")
         expect(find_field('Name').value).to eq "Gatorskins"
-        expect(find_field('Price').value).to eq '$100.00'
+        expect(find_field('Price').value).to eq "100"
         expect(find_field('Description').value).to eq "They'll never pop!"
         expect(find_field('Image').value).to eq("https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588")
         expect(find_field('Inventory').value).to eq '12'

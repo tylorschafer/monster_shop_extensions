@@ -22,25 +22,25 @@ describe 'admin dashboard' do
     visit "/admin"
 
     within "#pending-order-#{@order_1.id}" do
-      expect(page).to have_content(@order_1.user.name)
+      expect(page).to have_content(@order_1.name)
       expect(page).to have_link("Order ##{@order_1.id}")
       expect(page).to have_content(@order_1.created_at.strftime('%D'))
     end
 
     within "#packaged-order-#{@order_2.id}" do
-      expect(page).to have_content(@order_2.user.name)
+      expect(page).to have_content(@order_2.name)
       expect(page).to have_link("Order ##{@order_2.id}")
       expect(page).to have_content(@order_2.created_at.strftime('%D'))
     end
 
     within "#shipped-order-#{@order_3.id}" do
-      expect(page).to have_content(@order_3.user.name)
+      expect(page).to have_content(@order_3.name)
       expect(page).to have_link("Order ##{@order_3.id}")
       expect(page).to have_content(@order_3.created_at.strftime('%D'))
     end
 
     within "#cancelled-order-#{@order_4.id}" do
-      expect(page).to have_content(@order_4.user.name)
+      expect(page).to have_content(@order_4.name)
       expect(page).to have_link("Order ##{@order_4.id}")
       expect(page).to have_content(@order_4.created_at.strftime('%D'))
     end
