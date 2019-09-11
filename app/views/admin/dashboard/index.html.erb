@@ -13,7 +13,7 @@
         <tr>
           <section id="pending-order-<%= order.id %>">
             <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
-            <td><%= order.user.name %></td>
+            <td><%= link_to order.user.name, "/admin/users/#{order.user.id}" %></td>
             <td><%= order.created_at.strftime('%D') %></td>
           </section>
         </tr>
