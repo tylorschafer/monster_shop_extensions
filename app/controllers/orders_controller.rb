@@ -26,7 +26,7 @@ class OrdersController <ApplicationController
       flash[:success] = "You destroyed the users order dawg"
       redirect_to "/admin"
     else
-      flash[:success] = "Your order has been cancelled"
+      flash[:success] = "Your order has been cancelled dawg"
       redirect_to "/profile"
     end
   end
