@@ -145,13 +145,16 @@ ul{
 
 .grid-container{
  	display: grid;
- 	grid-template-columns: repeat(5,1fr);
+ 	grid-template-columns: repeat(4, 250px);
+  height: 400px;
+  margin-left: 1em;
+  margin-top: 1em;
  	grid-template-rows: auto;
- 	grid-gap: 30px;
+ 	grid-gap: 2%;
 }
 
 .grid-item{
- 	background-color: var(--bright-link);
+ 	/* background-color: var(--bright-link); */
  	padding: 20px;
   border: solid;
  	border-radius: 12px;
@@ -173,13 +176,20 @@ ul{
 }
 
 .item-stats {
-  display: flex;
-  margin: 2em 0;
+  border-right: 2px solid var(--dark-teal);
+  padding-top: 1em;
+  padding-right: 1em;
+  width: 23%;
+  height: 100vh;
 }
 
 .item-stat-table {
+  margin-bottom: 2em;
   table-layout: fixed;
-  width: 80%;
+}
+
+.items-main {
+  display:inline-flex;
 }
 
 .list-reviews {
@@ -221,7 +231,7 @@ ul{
 
 .merchant-stats,
 .merchant-address {
-  border: 1px solid var(--dark-teal);
+  border: 2px solid var(--dark-teal);
   border-radius: 5px;
   margin: 1em 0.5em;
   padding: 1em;
@@ -331,6 +341,12 @@ ul{
 #home-logo {
   padding: 0.6em;
   width: 100%;
+}
+
+#items-title {
+  border-bottom: 2px solid var(--dark-teal);
+  margin-bottom: 0;
+  padding-bottom: 0.5em;
 }
 
 #merchant-order-show {
