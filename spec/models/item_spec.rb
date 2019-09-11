@@ -100,5 +100,15 @@ describe Item, type: :model do
       expect(@chain.inventory).to eq(5)
       expect(@chain.active?).to eq(true)
     end
+
+    it "update_activity" do
+      @chain.update_activity
+
+      expect(@chain.active?).to be false
+
+      @chain.update_activity
+
+      expect(@chain.active?).to be true
+    end
   end
 end
