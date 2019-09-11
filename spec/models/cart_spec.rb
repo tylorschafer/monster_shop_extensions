@@ -29,7 +29,7 @@ describe Cart do
     expect(cart.contents).to eq({"7"=>2, "2"=>1})
   end
 
-  it "cant add item quantity" do
+  it "can add item quantity" do
     cart = Cart.new(nil)
     cart.add_item("7")
     cart.add_quantity("7")
@@ -37,7 +37,7 @@ describe Cart do
     expect(cart.contents).to eq({"7"=>3})
   end
 
-  it "cant add item quantity" do
+  it "can subtract item quantity" do
     cart = Cart.new({"7"=>3})
     cart.subtract_quantity("7")
     cart.subtract_quantity("7")

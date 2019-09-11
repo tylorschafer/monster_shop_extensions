@@ -44,7 +44,6 @@ class Cart
   end
 
   def subtotal(item)
-    # item = Item.find(id)
     @contents[item.id.to_s].to_i * item.price
   end
 
