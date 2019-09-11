@@ -14,7 +14,18 @@ RSpec.describe 'merchant index page', type: :feature do
       expect(page).to have_link("Meg's Dog Shop")
     end
 
-    it 'I can see a link to create a new merchant' do
+    it 'As an admin I can see a link to create a new merchant' do
+      admin = create(:user, role: 4)
+
+      visit '/login'
+
+      fill_in 'Email', with: admin.email
+      fill_in 'Password', with: admin.password
+
+      within '#login-form' do
+        click_on 'Log In'
+      end
+
       visit '/merchants'
 
       expect(page).to have_link("New Merchant")
