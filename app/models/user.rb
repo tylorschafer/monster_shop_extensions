@@ -26,6 +26,6 @@ class User < ApplicationRecord
   end
 
   def works_here?(id)
-    @current_user.merchant.id == id
+    self.merchant.id == id
   end
 end

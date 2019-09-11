@@ -5,11 +5,7 @@ class Merchant::DashboardController < Merchant::BaseController
       render file: "/public/404"
     else
       @user = User.find(session[:user_id])
-      if @user.role == 'admin'
-        @merchant = Merchant.find(params[:id])
-      else
-        @merchant = @user.merchant
-      end
+      @merchant = @user.merchant
       @pending_orders = @merchant.pending_orders
       session[:merchant_id] = @merchant.id
     end
