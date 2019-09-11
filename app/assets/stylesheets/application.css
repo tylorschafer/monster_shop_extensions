@@ -64,7 +64,7 @@ select {
 }
 
 input[type=submit] {
- width: 100%;
+ width: 40%;
  background-color: var(--bright-link);
  color: white;
  padding: 14px 20px;
