@@ -8,37 +8,50 @@ class OrdersController <ApplicationController
 
   end
 
-  def cancel
-    order = Order.find(params[:id])
+  def cancel_item_orders(order)
     order.item_orders.each do |item_order|
       item_order.status = "unfulfilled"
       item = Item.find(item_order.item_id)
       item.restock(item_order.quantity)
       item_order.save
     end
+  end
+
+  def cancel
+    order = Order.find(params[:id])
+    cancel_item_orders(order)
     order.status = "cancelled"
     order.save
-    flash[:success] = "Your order has been cancelled"
-    redirect_to "/profile"
+    if current_admin?
+      flash[:success] = "You destroyed the users order dawg"
+      redirect_to "/admin"
+    else
+      flash[:success] = "Your order has been cancelled dawg"
+      redirect_to "/profile"
+    end
   end
 
   def show
     @order = Order.find(params[:order_id])
   end
 
-  def create
-    user = User.find(session[:user_id])
-    order = user.orders.create(user_info(user))
+  def create_item_orders(order)
     cart.items.each do |item,quantity|
       order.item_orders.create({
         item: item,
         quantity: quantity,
         price: item.price
         })
-      end
-      session.delete(:cart)
-      redirect_to "/profile/orders"
-      flash[:success] = "Thank You For Your Order!"
+    end
+  end
+
+  def create
+    user = User.find(session[:user_id])
+    order = user.orders.create(user_info(user))
+    create_item_orders(order)
+    session.delete(:cart)
+    redirect_to "/profile/orders"
+    flash[:success] = "Thank You For Your Order!"
   end
 
   def ship

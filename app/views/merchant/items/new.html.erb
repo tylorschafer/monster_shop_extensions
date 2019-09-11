@@ -1,5 +1,5 @@
 <center>
-    <h1>New Item Credentials for <%= @merchant.name %></h1>
+    <h1 class="page-title">New Item Credentials for <%= link_to @merchant.name, merchant_path(@merchant), class: 'reg-link' %></h1>
     <%= form_for @item, :url => {:action => "create"} do |f| %>
       <%= f.label :name %>
       <%= f.text_field :name %>

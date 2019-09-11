@@ -1,4 +1,4 @@
-<h1>Cart</h1>
+<h1 class="page-title">Cart</h1>
 
 <% if !@items.empty? %>
 <center>
@@ -16,13 +16,13 @@
         <p align = "center">
           <span>
             <img align = "center" id="cart-item-img" src= <%= item.image %>>
-            <%=link_to item.name, "/items/#{item.id}" %>
+            <%=link_to item.name, "/items/#{item.id}", class: 'reg-link' %>
           </span>
         </p>
       </td>
       <td>
         <p align = "center">
-          <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}"%>
+          <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}", class: 'reg-link'%>
         </p>
       </td>
       <td>
@@ -32,10 +32,10 @@
         <center>
           <p><%=quantity%></p>
           <p>
-            <%= link_to "+", "/cart/#{item.id}/increment", method: :patch %>
-            <%= link_to "-", "/cart/#{item.id}/decrement", method: :patch %>
+            <%= link_to "+", "/cart/#{item.id}/increment", class: 'btn-small', id: 'green-btn', method: :patch %>
+            <%= link_to "−", "/cart/#{item.id}/decrement", class: 'btn-small', id: 'red-btn', method: :patch %>
           </p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
+          <p><%= link_to "Remove", "/cart/#{item.id}", class: 'btn-small', method: :delete %></p>
         </center>
         </td>
       <td>
@@ -45,11 +45,11 @@
   <% end %>
 </table>
 <p>Total: <%= number_to_currency(cart.total) %></p>
-<p><%= link_to "Empty Cart", "/cart", method: :delete %></p>
+<p><%= link_to "Empty Cart", "/cart", class: 'btn', id: 'red-btn', method: :delete %></p>
   <% if session[:user_id].nil? %>
     <h1 id="cart-login">You must <%= link_to "register", "/register" %> or <%= link_to "log in", "/login" %> to complete checkout!</h1>
   <% else %>
-    <p><%= link_to "Checkout", "/orders/new", method: :get %></p>
+    <p><%= link_to "Checkout", "/orders/new",  class: 'btn', id: 'green-btn', method: :get %></p>
   <% end %>
 <% else %>
   <h3 align= "center">Cart is currently empty</h3>
