@@ -11,4 +11,15 @@ class Admin::MerchantsController < Admin::BaseController
     end
     redirect_to '/merchants'
   end
+
+  def index
+    @user = User.find(session[:user_id])
+    if @user.role == 'admin'
+      @merchant = Merchant.find(params[:id])
+    else
+      @merchant = @user.merchant
+    end
+    @pending_orders = @merchant.pending_orders
+    session[:merchant_id] = @merchant.id
+  end
 end
