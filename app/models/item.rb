@@ -48,4 +48,14 @@ class Item <ApplicationRecord
   def self.active_items
     Item.where(active?: true)
   end
+
+  def update_activity
+    if self.active? == true
+      self.update(active?: false)
+      self.save
+    elsif self.active? == false
+      self.update(active?: true)
+      self.save
+    end
+  end
 end

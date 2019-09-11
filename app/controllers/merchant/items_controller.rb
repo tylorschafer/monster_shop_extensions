@@ -13,15 +13,9 @@ class Merchant::ItemsController < Merchant::BaseController
 
     def update_activity
         item = Item.find(params[:id])
-    if item.active? == true
-        item.update(active?: false)
-        item.save
-    elsif item.active? == false
-        item.update(active?: true)
-        item.save
-    end
-    flash[:success] = "#{item.name} has been updated"
-    redirect_to "/merchant/items"
+        item.update_activity
+        flash[:success] = "#{item.name} has been updated"
+        redirect_to "/merchant/items"
     end
 
     def destroy
