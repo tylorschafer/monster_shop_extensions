@@ -7,7 +7,7 @@
     <h2>Items:</h2>
     <% @merchant_items.each do |item| %>
         <img src= <%=item.image%> id="merchant-order-show">
-        <p><%= item.name %> | <%= number_to_currency item.price %> each</p>
+        <p><%= link_to item.name, item_path(item) %> | <%= number_to_currency item.price %> each</p>
         <p>Quantity Ordered: <%= @order.qty_item_in_order(item)%></p>
         <p>Current Inventory: <%= item.inventory %></p>
         <p>Status: <%= @order.find_item_status(item) %></p>

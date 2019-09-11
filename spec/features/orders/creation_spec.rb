@@ -29,70 +29,20 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      fill_in :name, with: @user.name
-      fill_in :address, with: @user.address
-      fill_in :city, with: @user.city
-      fill_in :state, with: @user.state
-      fill_in :zip, with: @user.zip
+      expect(page).to have_button('Create Order')
 
-      click_button "Create Order"
+      click_button 'Create Order'
 
       new_order = Order.last
 
-      expect(current_path).to eq("/orders/#{new_order.id}")
+      expect(current_path).to eq("/profile/orders")
 
-      within '.shipping-address' do
-        expect(page).to have_content(@user.name)
-        expect(page).to have_content(@user.address)
-        expect(page).to have_content(@user.city)
-        expect(page).to have_content(@user.state)
-        expect(page).to have_content(@user.zip)
-      end
-
-      within "#item-#{@paper.id}" do
-        expect(page).to have_link(@paper.name)
-        expect(page).to have_link("#{@paper.merchant.name}")
-        expect(page).to have_content("$#{@paper.price}")
-        expect(page).to have_content("2")
-        expect(page).to have_content("$#{@paper.price * 2}")
-      end
-
-      within "#item-#{@tire.id}" do
-        expect(page).to have_link(@tire.name)
-        expect(page).to have_link("#{@tire.merchant.name}")
-        expect(page).to have_content("$#{@tire.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$#{@tire.price}")
-      end
-
-      within "#item-#{@pencil.id}" do
-        expect(page).to have_link(@pencil.name)
-        expect(page).to have_link("#{@pencil.merchant.name}")
-        expect(page).to have_content("$#{@pencil.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$#{@pencil.price}")
-      end
-
-      within "#grandtotal" do
-        expect(page).to have_content("Total: $120.00")
-      end
-
-      within "#datecreated" do
-        expect(page).to have_content(new_order.created_at.strftime('%D'))
-      end
-    end
-
-    it 'i cant create order if info not filled out' do
-      fill_in :name, with: @user.name
-      fill_in :address, with: @user.address
-      fill_in :city, with: @user.state
-      fill_in :state, with: @user.state
-      fill_in :zip, with: ""
-
-      click_button "Create Order"
-
-      expect(page).to have_content("Please complete address form to create an order.")
-      expect(page).to have_button("Create Order")
+      expect(page).to have_content('Thank You For Your Order!')
+      expect(page).to have_content(new_order.updated_at.strftime('%D'))
+      expect(page).to have_content(new_order.status)
+      expect(page).to have_content(new_order.items_count)
+      expect(page).to have_content("$120.00")
+      expect(page).to have_content(new_order.created_at.strftime('%D'))
     end
   end
 end

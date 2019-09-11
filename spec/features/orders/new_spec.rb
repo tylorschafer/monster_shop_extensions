@@ -60,31 +60,5 @@ RSpec.describe("New Order Page") do
 
       expect(page).to have_content("Total: $142")
     end
-
-    it "I see a form where I can enter my shipping info" do
-      visit "/cart"
-
-      user = create(:user)
-
-      click_on "log in"
-
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-
-      within "#login-form" do
-        click_on 'Log In'
-      end
-
-      visit "/cart"
-      
-      click_on "Checkout"
-
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
-      expect(page).to have_button("Create Order")
-    end
   end
 end
