@@ -29,9 +29,9 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      expect(page).to have_button('Create Order')
+      expect(page).to have_link('Create Order')
 
-      click_button 'Create Order'
+      click_link 'Create Order'
 
       new_order = Order.last
 
