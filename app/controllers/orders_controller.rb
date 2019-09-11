@@ -5,7 +5,7 @@ class OrdersController <ApplicationController
   end
 
   def new
-  
+
   end
 
   def cancel
@@ -29,20 +29,16 @@ class OrdersController <ApplicationController
   def create
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
-    if order.save
-      cart.items.each do |item,quantity|
-        order.item_orders.create({
-          item: item,
-          quantity: quantity,
-          price: item.price
-          })
+    cart.items.each do |item,quantity|
+      order.item_orders.create({
+        item: item,
+        quantity: quantity,
+        price: item.price
+        })
       end
       session.delete(:cart)
-      redirect_to "/orders/#{order.id}"
-    else
-      flash[:notice] = "Please complete address form to create an order."
-      render :new
-    end
+      redirect_to "/profile/orders"
+      flash[:success] = "Thank You For Your Order!"
   end
 
   def ship
