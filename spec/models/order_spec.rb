@@ -38,6 +38,15 @@ describe Order, type: :model do
       expect(@order_1.items_count).to eq(5)
     end
 
+
+    it '#my_total' do
+      expect(@order_1.my_total(@brian.id)).to eq(30)
+    end
+
+    it "#my_items_count" do
+      expect(@order_1.my_items_count(@brian.id)).to eq(3)
+    end
+
     it '#merchant_items' do
       expect(@order_1.merchant_items(@meg)).to eq([@tire])
     end

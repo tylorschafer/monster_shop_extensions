@@ -25,6 +25,7 @@ class ApplicationController < ActionController::Base
 
   def current_visitor?
     !(current_merchant? || current_admin? || current_user)
+    binding.pry
   end
 
   rescue_from ActionController::RoutingError do |exception|

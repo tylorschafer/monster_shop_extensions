@@ -15,8 +15,8 @@
       <tr id="order-<%=order.id%>-info">
         <td><%= link_to "Order ##{order.id}", merchant_order_show_path(order), class: 'reg-link' %></td>
         <td><%= (order.created_at).strftime("%D") %></td>
-        <td><%= order.items_count %></td>
-        <td><%= number_to_currency order.grandtotal %></td>
+        <td><%= order.my_items_count(@merchant.id) %></td>
+        <td><%= number_to_currency order.my_total(@merchant.id) %></td>
       </tr>
     <% end %>
   </table>
