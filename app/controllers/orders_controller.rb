@@ -8,18 +8,27 @@ class OrdersController <ApplicationController
 
   end
 
-  def cancel
-    order = Order.find(params[:id])
+  def cancel_item_orders(order)
     order.item_orders.each do |item_order|
       item_order.status = "unfulfilled"
       item = Item.find(item_order.item_id)
       item.restock(item_order.quantity)
       item_order.save
     end
+  end
+
+  def cancel
+    order = Order.find(params[:id])
+    cancel_item_orders(order)
     order.status = "cancelled"
     order.save
-    flash[:success] = "Your order has been cancelled"
-    redirect_to "/profile"
+    if current_admin?
+      flash[:success] = "You destroyed the users order dawg"
+      redirect_to "/admin"
+    else
+      flash[:success] = "Your order has been cancelled"
+      redirect_to "/profile"
+    end
   end
 
   def show
