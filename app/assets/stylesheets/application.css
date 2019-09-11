@@ -199,7 +199,8 @@ ul{
   text-decoration: none;
 }
 
-.merchant-items-table {
+.merchant-items-table,
+.merchant-orders-show-table {
   table-layout: fixed;
 }
 
