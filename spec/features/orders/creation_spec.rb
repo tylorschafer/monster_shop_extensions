@@ -37,6 +37,7 @@ RSpec.describe("Order Creation") do
 
       expect(current_path).to eq("/profile/orders")
 
+      expect(page).to have_content('Thank You For Your Order!')
       expect(page).to have_content(new_order.updated_at.strftime('%D'))
       expect(page).to have_content(new_order.status)
       expect(page).to have_content(new_order.items_count)

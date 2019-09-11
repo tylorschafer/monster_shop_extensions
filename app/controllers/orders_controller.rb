@@ -14,7 +14,7 @@ class OrdersController <ApplicationController
       item_order.status = "unfulfilled"
       item = Item.find(item_order.item_id)
       item.restock(item_order.quantity)
-      item.save
+      item_order.save
     end
     order.status = "cancelled"
     order.save
