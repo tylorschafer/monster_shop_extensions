@@ -1,6 +1,6 @@
 <h1>All Orders</h1>
 
-<%= render partial: 'partials/admin_orders', locals: {title: 'Pending Orders', orders: @orders.pending, id_tag: 'pending-orders'} %>
-<%= render partial: 'partials/admin_orders', locals: {title: 'Packaged Orders', orders: @orders.packaged, id_tag: 'packaged-orders'} %>
-<%= render partial: 'partials/admin_orders', locals: {title: 'Shipped Orders', orders: @orders.shipped, id_tag: 'shipped-orders'} %>
-<%= render partial: 'partials/admin_orders', locals: {title: 'Cancelled Orders', orders: @orders.cancelled, id_tag: 'cancelled-orders'} %>
+<%= render partial: 'partials/admin_orders', locals: {title: 'Pending Orders', orders: @orders.pending, id_tag: 'pending-order'} %>
+<%= render partial: 'partials/admin_orders', locals: {title: 'Packaged Orders', orders: @orders.packaged, id_tag: 'packaged-order'} %>
+<%= render partial: 'partials/admin_orders', locals: {title: 'Shipped Orders', orders: @orders.shipped, id_tag: 'shipped-order'} %>
+<%= render partial: 'partials/admin_orders', locals: {title: 'Cancelled Orders', orders: @orders.cancelled, id_tag: 'cancelled-order'} %>
