@@ -1,9 +1,9 @@
 RSpec.describe("Order Creation") do
   describe "When I check out from my cart" do
-    before(:each) do
-      @tire = create(:item)
-      @paper = create(:item)
-      @pencil = create(:item)
+    before :each do
+      @tire = create(:item, price: 10)
+      @paper = create(:item, price: 5)
+      @pencil = create(:item, price: 1)
       @user = create(:user)
 
       visit '/login'
@@ -41,7 +41,7 @@ RSpec.describe("Order Creation") do
       expect(page).to have_content(new_order.updated_at.strftime('%D'))
       expect(page).to have_content(new_order.status)
       expect(page).to have_content(new_order.items_count)
-      expect(page).to have_content("$120.00")
+      expect(page).to have_content("$21.00")
       expect(page).to have_content(new_order.created_at.strftime('%D'))
     end
   end

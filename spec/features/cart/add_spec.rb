@@ -11,7 +11,7 @@ RSpec.describe 'Cart creation' do
 
     it "I see a link to add this item to my cart" do
       visit "/items/#{@paper.id}"
-      expect(page).to have_button("Add To Cart")
+      expect(page).to have_link("Add To Cart")
     end
 
     it "I can add this item to my cart" do

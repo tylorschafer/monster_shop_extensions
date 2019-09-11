@@ -1,5 +1,5 @@
-<h1><%= link_to @item.name, "/items/#{@item.id}" %></h1>
-<p align="center">Sold by: <%=link_to @item.merchant.name, "/merchants/#{@item.merchant.id}" %> </p>
+<h1 class="page-title"><%= link_to @item.name, "/items/#{@item.id}", class: 'reg-link' %></h1>
+<p align="center">Sold by: <%=link_to @item.merchant.name, "/merchants/#{@item.merchant.id}", class: 'reg-link' %> </p>
 <section align = "center" id = "average-rating">
   <p>Average Rating: <%= @item.average_review %></p>
 </section>
@@ -17,11 +17,11 @@
       <% else %>
         <p style= "color:red">Inactive</p>
       <% end %>
-      <p><%= link_to "Edit Item", "/items/#{@item.id}/edit" %></p>
-      <p><%= link_to "Delete Item", "/items/#{@item.id}", method: :delete if @item.no_orders?%></p>
-      <%= link_to "Add Review", "/items/#{@item.id}/reviews/new" %>
+      <p><%= link_to "Edit Item", "/items/#{@item.id}/edit", class: 'btn-small' %></p>
+      <p><%= link_to "Delete Item", "/items/#{@item.id}", class: 'btn-small', method: :delete if @item.no_orders?%></p>
+      <%= link_to "Add Review", "/items/#{@item.id}/reviews/new", class: 'btn-small' %>
       <% unless current_admin? %>
-        <%= button_to "Add To Cart", "/cart/#{@item.id}", method: :post %>
+        <p><%= link_to "Add To Cart", "/cart/#{@item.id}", class: 'btn', id: 'green-btn', method: :post %></p>
       <% end %>
     </section>
   </section>
