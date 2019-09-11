@@ -2,7 +2,11 @@ class MerchantsController <ApplicationController
   before_action :valid_merchant, only: [:show]
 
   def index
-    @merchants = Merchant.all.where(status: 0)
+    if current_admin? == false
+      @merchants = Merchant.all.where(status: 0)
+    else
+      @merchants = Merchant.all
+    end
   end
 
   def show
