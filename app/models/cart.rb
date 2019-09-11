@@ -2,7 +2,7 @@ class Cart
   attr_reader :contents
 
   def initialize(contents)
-    @contents = contents
+    @contents = contents || {}
   end
 
   def add_item(item)
@@ -10,8 +10,29 @@ class Cart
     @contents[item] += 1
   end
 
+  def add_quantity(item_id)
+    @contents[item_id] += 1
+  end
+
+  def subtract_quantity(item_id)
+    @contents[item_id] -= 1
+  end
+
+  def quantity_of(item_id)
+    @contents[item_id.to_s].to_i
+  end
+
+  def add_quantity(item_id)
+    @contents[item_id.to_s] = quantity_of(item_id) + 1
+  end
+
+  def subtract_quantity(item_id)
+    @contents[item_id.to_s] = quantity_of(item_id) - 1
+  end
+
   def total_items
-    @contents.values.sum
+    num_items = @contents.values.map(&:to_i).sum
+    @contents.empty? ? 0 : num_items
   end
 
   def items
@@ -23,7 +44,7 @@ class Cart
   end
 
   def subtotal(item)
-    item.price * @contents[item.id.to_s]
+    @contents[item.id.to_s].to_i * item.price
   end
 
   def total
@@ -32,19 +53,11 @@ class Cart
     end
   end
 
-  def add_quantity(item_id)
-    @contents[item_id] += 1
-  end
-
-  def subtract_quantity(item_id)
-    @contents[item_id] -= 1
-  end
-  
   def limit_reached?(item_id)
-    @contents[item_id] == Item.find(item_id).inventory
+    @contents[item_id.to_s] == Item.find(item_id).inventory
   end
 
   def quantity_zero?(item_id)
-    @contents[item_id] == 0
+    @contents[item_id.to_s] == 0
   end
 end
