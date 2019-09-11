@@ -24,10 +24,6 @@
    /* border: 0.5px solid red; */
  }
 
- a {
-
- }
-
  body {
   background-color: white;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -105,6 +101,12 @@ ul{
 
 .address{
   text-align: center;
+}
+
+.admin-orders-table {
+  table-layout: fixed;
+  margin-left: 2%;
+  width: 50%;
 }
 
 .btn {
@@ -292,6 +294,11 @@ ul{
 .topnav-link:hover {
   background-color: var(--bright-link);
   color: black;
+}
+
+.users-table {
+  table-layout: fixed;
+  width: 60%;
 }
 
 #green-btn {
