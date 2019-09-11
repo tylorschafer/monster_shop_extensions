@@ -2,7 +2,7 @@ class Cart
   attr_reader :contents
 
   def initialize(contents)
-    @contents = contents
+    @contents = contents || {}
   end
 
   def add_item(item)
@@ -11,7 +11,8 @@ class Cart
   end
 
   def total_items
-    @contents.values.sum
+    num_items = @contents.values.map(&:to_i).sum
+    @contents.empty? ? 0 : num_items
   end
 
   def items
@@ -39,7 +40,7 @@ class Cart
   def subtract_quantity(item_id)
     @contents[item_id] -= 1
   end
-  
+
   def limit_reached?(item_id)
     @contents[item_id] == Item.find(item_id).inventory
   end
