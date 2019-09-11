@@ -27,9 +27,12 @@ describe User, type: :model do
       visit "/login"
       fill_in "Email", with: @sue.email
       fill_in "Password", with: @sue.password
-      
+
       expect(@sue.works_here?(@dog_shop.id)).to be true
     end
 
+    it "send_password_reset" do
+      @sue.send_password_reset
+    end
   end
 end

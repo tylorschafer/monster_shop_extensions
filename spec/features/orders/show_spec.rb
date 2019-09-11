@@ -86,4 +86,25 @@ describe 'user order show page' do
 
     expect(page).to_not have_button("Cancel Order")
   end
+
+  it "admin can cancel an order" do
+    admin = create(:user, role: 4)
+    click_on 'Log Out'
+
+    visit '/login'
+
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+
+    within '#login-form' do
+      click_on 'Log In'
+    end
+
+    visit "admin/users/#{@order.user_id}/orders/#{@order.id}"
+
+    click_on 'Cancel Order'
+
+    expect(current_path).to eq('/admin')
+    expect(page).to have_content('You destroyed the users order dawg')
+  end
 end
