@@ -1,25 +1,32 @@
-<h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link' %></h1>
-<p><%= @merchant.address %></p>
-<p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
-
+<h1 class="page-title"><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link' %></h1>
 <section class='merchant-show-btns'>
-  <%= link_to "All #{@merchant.name} Items", "/merchants/#{@merchant.id}/items", class: 'btn' %>
+    <%= link_to "All #{@merchant.name} Items", "/merchants/#{@merchant.id}/items", class: 'btn', id: 'space-btn' %>
   <% if current_merchant_admin? && @works_here %>
-    <%= link_to "Update Merchant", "/merchants/#{@merchant.id}/edit", class: 'btn' %>
+    <%= link_to "Update Merchant", "/merchants/#{@merchant.id}/edit", class: 'btn', id: 'space-btn' %>
   <% elsif current_admin? %>
-    <%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete, class: 'btn'  if @merchant.no_orders?%>
+    <%= link_to "Delete Merchant", "/merchants/#{@merchant.id}", method: :delete, class: 'btn', id: 'space-btn'  if @merchant.no_orders?%>
   <% end %>
 </section>
 
-<section class = "merchant-stats">
-  <h2>Number of Items: <%=@merchant.item_count%></h2>
-  <% if @merchant.item_count > 0 %>
-    <h2>Average Price of Items: <%=number_to_currency( @merchant.average_item_price)%></h2>
-    <section class = "distinct-cities">
-      <h2>Cities that order these items:</h2>
-      <% @merchant.distinct_cities.each do |city| %>
-        <p><%= city %></p>
-      <% end %>
+<section class="merchant-stats-area">
+  <section class="merchant-address">
+    <h3>Address</h3>
+    <p><%= @merchant.address %></p>
+    <p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
+  </section>
+
+  <section class = "merchant-stats">
+    <h3>Number of Items: <%=@merchant.item_count%></h3>
+    <% if @merchant.item_count > 0 %>
+      <h3>Average Price of Items: <%=number_to_currency( @merchant.average_item_price)%></h3>
+      <section class = "distinct-cities">
+        <h3>Cities that order these items:</h3>
+        <% unless  @merchant.distinct_cities.empty? %>
+          <%= @merchant.distinct_cities.map(&:titleize).sort!.join(", ") %>
+        <% else %>
+          <span><%= @merchant.name %> has not shipped any orders yet</span>
+        <% end %>
+      </section>
     <% end %>
   </section>
 </section>

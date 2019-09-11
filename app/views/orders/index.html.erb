@@ -12,7 +12,7 @@
     <% @user.orders.each do |order| %>
         <tr>
           <section id = "order-<%=order.id%>">
-            <td><%= link_to "Order #{order.id}", "/profile/orders/#{order.id}" %></td>
+            <td><%= link_to "Order #{order.id}", "/profile/orders/#{order.id}", class: 'reg-link' %></td>
             <td><p><%= order.created_at.strftime('%D') %></p></td>
             <td><p><%= order.updated_at.strftime('%D') %></p></td>
             <td><p><%= order.status %></p></td>
@@ -23,4 +23,3 @@
       <% end %>
   </table>
 </section>
-

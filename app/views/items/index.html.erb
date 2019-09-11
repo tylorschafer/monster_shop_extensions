@@ -1,35 +1,34 @@
 <% if @merchant %>
-  <h1><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link'%> Items</h1>
-  <% if current_merchant_admin? %>
-    <%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new", class: 'btn' %>
-  <% end %>
+  <h1 class="page-title" id="items-title"><%= link_to @merchant.name, "/merchants/#{@merchant.id}", class: 'reg-link'%> Items</h1>
 <% else %>
-  <h1>All Items</h1>
+  <h1 class="page-title" id="items-title">All Items</h1>
 <% end %>
-<section class='item-stats'>
-  <% if Order.first.nil? %>
-    <h2>No orders yet, so no stats lol.</h2>
-  <% else %>
-    <%= render partial: 'partials/popular_items', locals: {section_id: 'top-5', title: 'Most Popular', items: @top_5, hide_zero: true} %>
-    <%= render partial: 'partials/popular_items', locals: {section_id: 'bottom-5', title: 'Least Popular', items: @bottom_5, hide_zero: false} %>
-  <% end %>
-</section>
-<section class="grid-container">
-  <% @items.each do |item| %>
-    <section class = "grid-item" id= 'item-<%=item.id%>'>
-      <h2> <%=link_to item.name, "/items/#{item.id}" %> </h2>
-      <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}" %></p>
-      <img src= <%= item.image %>>
-      <p> <%= item.description unless @merchant%> </p>
-      <p>Price: <%=number_to_currency(item.price) %> </p>
-      <p>Inventory: <%= item.inventory %> </p>
-      <% if !@merchant %>
-      <% end %>
-      <% if item.active? %>
-        <p>Active</p>
-      <% else %>
-        <p>Inactive</p>
-      <% end %>
-    </section>
+<section class="items-main">
+  <aside class='item-stats'>
+    <% if Order.first.nil? %>
+      <h2>No orders yet, so no stats lol.</h2>
+    <% else %>
+      <%= render partial: 'partials/popular_items', locals: {section_id: 'top-5', title: 'Most Popular', items: @top_5, hide_zero: true} %>
+      <%= render partial: 'partials/popular_items', locals: {section_id: 'bottom-5', title: 'Least Popular', items: @bottom_5, hide_zero: false} %>
     <% end %>
+  </aside>
+  <section class="grid-container">
+    <% @items.each do |item| %>
+      <section class = "grid-item" id= 'item-<%=item.id%>'>
+        <h2> <%=link_to item.name, "/items/#{item.id}", class: 'reg-link' %> </h2>
+        <p>Sold by: <%=link_to item.merchant.name, "/merchants/#{item.merchant.id}", class: 'reg-link' %></p>
+        <img src= <%= item.image %>>
+        <p> <%= item.description unless @merchant%> </p>
+        <p>Price: <%=number_to_currency(item.price) %> </p>
+        <p>Inventory: <%= item.inventory %> </p>
+        <% if !@merchant %>
+        <% end %>
+        <% if item.active? %>
+          <p>Active</p>
+        <% else %>
+          <p>Inactive</p>
+        <% end %>
+      </section>
+      <% end %>
+  </section>
 </section>
