@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
   get '/admin/users', to: 'admin/users#index'
+  get '/merchant/orders/:id', to: 'admin/merchants#order_show', as: :admin_merchant_order_show
   get '/admin/users/:id', to: 'users#show'
   get '/admin/merchants/:id', to: 'admin/merchants#index'
   patch '/admin/merchants/:id', to: 'admin/merchants#update'
