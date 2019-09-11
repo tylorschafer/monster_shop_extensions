@@ -29,13 +29,9 @@ RSpec.describe("Order Creation") do
     end
 
     it 'I can create a new order' do
-      fill_in :name, with: @user.name
-      fill_in :address, with: @user.address
-      fill_in :city, with: @user.city
-      fill_in :state, with: @user.state
-      fill_in :zip, with: @user.zip
+      expect(page).to have_button('Create Order')
 
-      click_button "Create Order"
+      click_button 'Create Order'
 
       new_order = Order.last
 
@@ -80,19 +76,6 @@ RSpec.describe("Order Creation") do
       within "#datecreated" do
         expect(page).to have_content(new_order.created_at.strftime('%D'))
       end
-    end
-
-    it 'i cant create order if info not filled out' do
-      fill_in :name, with: @user.name
-      fill_in :address, with: @user.address
-      fill_in :city, with: @user.state
-      fill_in :state, with: @user.state
-      fill_in :zip, with: ""
-
-      click_button "Create Order"
-
-      expect(page).to have_content("Please complete address form to create an order.")
-      expect(page).to have_button("Create Order")
     end
   end
 end
