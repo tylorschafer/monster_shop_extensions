@@ -12,7 +12,7 @@
       <% @orders.pending.each do |order| %>
         <tr>
           <section id="pending-order-<%= order.id %>">
-            <td><%= link_to "#{order.id}", "/orders/#{order.id}" %></td>
+            <td><%= link_to "#{order.id}", "admin/users/#{order.user_id}/orders/#{order.id}" %></td>
             <td><%= link_to order.user.name, "/admin/users/#{order.user.id}" %></td>
             <td><%= order.created_at.strftime('%D') %></td>
           </section>
