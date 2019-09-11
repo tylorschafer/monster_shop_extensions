@@ -5,11 +5,6 @@
 <% end %>
 <section class="items-main">
   <aside class='item-stats'>
-    <% if @merchant && current_merchant_admin? %>
-      <center>
-        <%= link_to "Add New Item", "/merchants/#{@merchant.id}/items/new", class: 'btn' %>
-      </center>
-    <% end %>
     <% if Order.first.nil? %>
       <h2>No orders yet, so no stats lol.</h2>
     <% else %>
