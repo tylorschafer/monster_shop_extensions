@@ -1,5 +1,8 @@
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter "spec/mailers/user_mailer_spec.rb"
+  add_filter "app/controllers/password_resets_controller.rb"
+end
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
