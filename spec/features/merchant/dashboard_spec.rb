@@ -70,4 +70,46 @@ describe 'Merchant employee or admin visits their dashboard' do
     expect(page).to have_content(@order_1.name)
     expect(page).to have_content(@order_1.address)
   end
+
+  it "admin order show is different" do
+    admin = create(:user, role: 4)
+
+    click_on 'Log Out'
+
+    visit login_path
+
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+
+    within '#login-form' do
+      click_on 'Log In'
+    end
+
+    visit merchant_order_show_path(@order_1)
+
+    expect(current_path).to eq("/merchant/orders/#{@order_1.id}")
+
+    expect(page).to have_content("Order ##{@order_1.id}")
+    expect(page).to have_content(@order_1.name)
+    expect(page).to have_content(@order_1.address)
+  end
+
+  it "admin can't access items index through that path" do
+    admin = create(:user, role: 4)
+
+    click_on 'Log Out'
+
+    visit login_path
+
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+
+    within '#login-form' do
+      click_on 'Log In'
+    end
+
+    visit '/merchant'
+
+    expect(page).to have_content("The page you were looking for doesn't exist")
+  end
 end

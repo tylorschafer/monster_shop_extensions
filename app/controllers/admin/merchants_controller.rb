@@ -17,5 +17,4 @@ class Admin::MerchantsController < Admin::BaseController
     @pending_orders = @merchant.pending_orders
     session[:merchant_id] = @merchant.id
   end
-
 end
