@@ -17,9 +17,9 @@
           <td><%=merchant.state%></td>
           <td><%=merchant.status%></td>
           <% if merchant.status == 'enabled' %>
-            <td><%= link_to 'Disable', "/admin/merchants/#{merchant.id}", class: 'btn', method: :patch %></td>
+            <td><%= link_to 'Disable', "/admin/merchants/#{merchant.id}", class: 'btn-small', method: :patch %></td>
           <% else %>
-            <td><%= link_to 'Enable', "/admin/merchants/#{merchant.id}", class: 'btn', method: :patch %></td>
+            <td><%= link_to 'Enable', "/admin/merchants/#{merchant.id}", class: 'btn-small', method: :patch %></td>
           <% end %>
         </tr>
       </section>

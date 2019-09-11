@@ -1,23 +1,21 @@
 class Merchant::DashboardController < Merchant::BaseController
 
   def index
-    @user = User.find(session[:user_id])
-    if @user.role == 'admin'
-      @merchant = Merchant.find(params[:id])
+    if current_admin?
+      render file: "/public/404"
     else
-      @merchant = @user.merchant
+      @user = User.find(session[:user_id])
+      if @user.role == 'admin'
+        @merchant = Merchant.find(params[:id])
+      else
+        @merchant = @user.merchant
+      end
+      @pending_orders = @merchant.pending_orders
+      session[:merchant_id] = @merchant.id
     end
-    @pending_orders = @merchant.pending_orders
-    session[:merchant_id] = @merchant.id
   end
 
   def items
-    # if current_merchant?
-    #   @user = User.find(session[:user_id])
-    #   @merchant = @user.merchant
-    # elsif current_admin?
-    #   @merchant = Merchant.find(session[:merchant_id])
-    # end
     @merchant = Merchant.find(session[:merchant_id])
     @items = @merchant.items
   end

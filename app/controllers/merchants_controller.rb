@@ -31,6 +31,8 @@ class MerchantsController <ApplicationController
 
   def edit
     @merchant = Merchant.find(params[:id])
+    user = User.find(session[:user_id])
+    render file: "/public/404" unless current_merchant_admin? && @merchant.works_here?(user.merchant.id)
   end
 
   def update

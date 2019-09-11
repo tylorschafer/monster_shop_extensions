@@ -25,7 +25,7 @@ RSpec.describe 'Cart show' do
         @items_in_cart.each do |item|
           within "#cart-item-#{item.id}" do
             expect(page).to have_link("+")
-            expect(page).to have_link("-")
+            expect(page).to have_link("−")
           end
         end
       end
@@ -51,7 +51,7 @@ RSpec.describe 'Cart show' do
         within "#cart-item-#{@paper.id}" do
           expect(page).to have_content("1")
           click_on "+"
-          click_on "-"
+          click_on "−"
         end
 
         expect(current_path).to eq("/cart")
@@ -86,7 +86,7 @@ RSpec.describe 'Cart show' do
         visit "/cart"
 
         within "#cart-item-#{@paper.id}" do
-          click_on "-"
+          click_on "−"
         end
 
         expect(current_path).to eq("/cart")

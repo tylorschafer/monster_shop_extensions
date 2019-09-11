@@ -1,0 +1,15 @@
+<section id="<%= section_id %>-items">
+  <h2><%= title %> Items:</h2>
+  <table class="item-stat-table">
+    <tr>
+      <th>Item Name</th>
+      <th>Total Quantity Ordered</th>
+    </tr>
+    <% items.each do |item| %>
+        <tr>
+          <td><%= item.name %></td>
+          <td><%= item.total_quantity %></td>
+        </tr>
+    <% end %>
+  </table>
+</section>

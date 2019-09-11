@@ -26,7 +26,9 @@
   <table>
     <tr>
       <th>Status</th>
+      <th>Image</th>
       <th>Item</th>
+      <th>Description</th>
       <th>Sold By</th>
       <th>Price</th>
       <th>Quantity</th>
@@ -36,7 +38,9 @@
     <tr>
     <section id = "item-<%=item_order.item_id%>">
         <td><p><%= item_order.status %></p></td>
+        <td><img src= <%=item_order.item.image%> id="merchant-order-show"></td>
         <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%= item_order.item.description %></p></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
@@ -47,6 +51,7 @@
 </table>
 
 <section id="grandtotal">
+  <p>Total Items: <%= @order.items_count %></p>
   <p>Total: <%=number_to_currency(@order.grandtotal)%></p>
 </section>
 <section id="datecreated">

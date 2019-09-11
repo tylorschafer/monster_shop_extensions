@@ -20,11 +20,15 @@ class UsersController <ApplicationController
   end
 
   def show
-    if params[:id] && current_admin?
-      @user = User.find(params[:id])
-      @admin = User.find_by(id: session[:user_id])
+    if current_visitor?
+      render file: "/public/404"
     else
-      @user = User.find_by(id: session[:user_id])
+      if params[:id] && current_admin?
+        @user = User.find(params[:id])
+        @admin = User.find_by(id: session[:user_id])
+      else
+        @user = User.find_by(id: session[:user_id])
+      end
     end
   end
 
