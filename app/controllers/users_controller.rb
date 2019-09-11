@@ -20,7 +20,7 @@ class UsersController <ApplicationController
   end
 
   def show
-    if current_visitor?
+    unless session[:user_id]
       render file: "/public/404"
     else
       if params[:id] && current_admin?

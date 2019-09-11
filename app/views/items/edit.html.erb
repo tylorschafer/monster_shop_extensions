@@ -1,4 +1,4 @@
-<h1>Edit <%=link_to @item.name, "/items/#{@item.id}" %></h1>
+<h1 class="page-title">Edit <%=link_to @item.name, "/items/#{@item.id}", class: "reg-link" %></h1>
 
 <center>
   <%= form_tag "/items/#{@item.id}", method: :patch  do %>
@@ -9,7 +9,7 @@
     <%= text_field_tag :description, "#{@item.description}" %>
 
     <%= label_tag :price %>
-    <%= text_field_tag :price, "#{number_to_currency(@item.price)}" %>
+    <%= text_field_tag :price, "#{@item.price}" %>
 
     <%= label_tag :image %>
     <%= text_field_tag :image, "#{@item.image}" %>

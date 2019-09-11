@@ -27,6 +27,7 @@ pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!
 dog_bone = dog_shop.items.create(name: "Dog Bone", description: "They'll love it!", price: 21, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", inventory: 21)
 collar = dog_shop.items.create(name: "Chaco Collar", description: "Dogs love name brand stuff too!", price: 35, image: "https://www.rei.com/media/3ef543ea-9b63-4f97-9c24-e5f2d4de4b85?size=784x588", inventory: 21)
 stache = dog_shop.items.create(name: "Humunga Stache", description: "Make your dog look like an old-timey gentleman!", price: 19, image: "https://www.glamourmutt.com/thumbnail.asp?file=assets/images/stache1.jpg&maxx=300&maxy=0", inventory: 21)
+pugtato = dog_shop.items.create(name: "Baked Pugtato", description: "Feeds a family of four!" price: 300, image: "https://i.redd.it/l6od6xh0e9jy.jpg", inventory: 2)
 
 #pug_lyfe items
 pug_lyfe = pug_lyfe_records.items.create(name: "Respekt da Hustle (and treats)", description: "Hip Hop isn't dead", price: 20, image: "https://cdn.shopify.com/s/files/1/1869/0319/products/artwork_2Fz9cKcghIoyvemWkc1vCv-YBM41z0Oo079n1UnHV5N-OEnIIoR0vasFcNcuRO27-color-black_571x_crop_center.png?v=1522944906", inventory: 6)
@@ -46,15 +47,18 @@ sue = dog_shop.users.create(name: 'Sue', address: '12345 C St', city: 'Los Angel
 admin = User.create(name: 'admin', address: 'admin address', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'admin@email.com', password: 'admin', password_confirmation: 'admin', role: 4)
 
 #orders
-order_1 = user.orders.create(name: "Evette McEvette", address: "123 Evette Street", city: "Denver", state: "CO", zip: "12345")
+evette = User.create(name: 'Evette McEvette', address: '123 A Ave', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'evette@email.com', password: 'bob', password_confirmation: 'bob', role: 1)
+order_1 = evette.orders.create(name: "Evette McEvette", address: "123 Evette Street", city: "Denver", state: "CO", zip: "12345")
 io1 = ItemOrder.create(item: pull_toy, order: order_1, price: pull_toy.price, quantity: 5)
 io2 = ItemOrder.create(item: dog_bone, order: order_1, price: dog_bone.price, quantity: 2)
-order_2 = user.orders.create(name: "Evette McEvette", address: "123 Evette Street", city: "Denver", state: "CO", zip: "12345")
+tylor = User.create(name: 'Tylor McTylor', address: '123 A Ave', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'tylor@email.com', password: 'bob', password_confirmation: 'bob', role: 1)
+order_2 = evette.orders.create(name: "Evette McEvette", address: "123 Evette Street", city: "Denver", state: "CO", zip: "12345")
 io3 = ItemOrder.create(item: cut_style, order: order_2, price: cut_style.price, quantity: 1)
 io4 = ItemOrder.create(item: pug_lyfe, order: order_2, price: pug_lyfe.price, quantity: 2)
-order_3 = user.orders.create(name: "Fenton McFenton", address: "123 Fenton Street", city: "Denver", state: "CO", zip: "12345")
+fenton = User.create(name: 'Fenton McFenton', address: '123 A Ave', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'fenty@email.com', password: 'bob', password_confirmation: 'bob', role: 1)
+order_3 = fenton.orders.create(name: "Fenton McFenton", address: "123 Fenton Street", city: "Denver", state: "CO", zip: "12345")
 io5 = ItemOrder.create(item: stache, order: order_3, price: stache.price, quantity: 1)
 io6 = ItemOrder.create(item: cut, order: order_3, price: cut.price, quantity: 6)
-order_4 = user.orders.create(name: "Tylor McTylor", address: "123 Tylor Street", city: "Denver", state: "CO", zip: "12345")
-io7 = ItemOrder.create(item: bath_time, order: order_3, price: bath_time.price, quantity: 1)
-io8 = ItemOrder.create(item: music_lessons, order: order_3, price: music_lessons.price, quantity: 3)
+order_4 = tylor.orders.create(name: "Tylor McTylor", address: "123 Tylor Street", city: "Denver", state: "CO", zip: "12345")
+io7 = ItemOrder.create(item: bath_time, order: order_4, price: bath_time.price, quantity: 1)
+io8 = ItemOrder.create(item: music_lessons, order: order_4, price: music_lessons.price, quantity: 3)

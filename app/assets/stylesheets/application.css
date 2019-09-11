@@ -240,6 +240,10 @@ ul{
   width: 25%;
 }
 
+.order-show-table {
+  table-layout: fixed;
+}
+
 .page-title {
   text-align: center;
 }
@@ -357,6 +361,10 @@ ul{
 }
 
 #merchant-order-show {
+  width: 50%;
+}
+
+#profile-order-show {
   width: 50%;
 }
 

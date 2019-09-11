@@ -11,8 +11,9 @@ class ItemOrder <ApplicationRecord
   end
 
   def fulfill
+    item = Item.find_by(id: self.item_id)
     self.update(status: 1)
-    self.save
+    self.save!
   end
 
 end

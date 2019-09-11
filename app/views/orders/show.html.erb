@@ -23,7 +23,7 @@
 </section>
 <h1 align = "center">Order Info</h1>
 <center>
-  <table>
+  <table class = "order-show-table">
     <tr>
       <th>Status</th>
       <th>Image</th>
@@ -38,10 +38,10 @@
     <tr>
     <section id = "item-<%=item_order.item_id%>">
         <td><p><%= item_order.status %></p></td>
-        <td><img src= <%=item_order.item.image%> id="merchant-order-show"></td>
-        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><img src= <%=item_order.item.image%> id="profile-order-show"></td>
+        <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}", class: "reg-link" %></p></td>
         <td><p><%= item_order.item.description %></p></td>
-        <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
+        <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}", class: "reg-link" %></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>
         <td><p><%= number_to_currency(item_order.subtotal)%></p></td>
@@ -64,5 +64,5 @@
   </section>
 <% end %>
 <% if current_admin? && @order.status == 'packaged' %>
-  <%= link_to 'Ship Order', shipped_order_path(@order), method: :patch %>
+  <%= link_to 'Ship Order', shipped_order_path(@order), class: "btn", method: :patch %>
 <% end %>
