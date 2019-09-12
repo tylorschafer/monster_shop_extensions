@@ -1,4 +1,4 @@
-<h1 class="page-title"><%= link_to @item.name, "/items/#{@item.id}", class: 'reg-link' %></h1>
+  <h1 class="page-title"><%= link_to @item.name, "/items/#{@item.id}", class: 'reg-link' %></h1>
 <p align="center">Sold by: <%=link_to @item.merchant.name, "/merchants/#{@item.merchant.id}", class: 'reg-link' %> </p>
 <section align = "center" id = "average-rating">
   <p>Average Rating: <%= @item.reviews.empty? ? 'No reviews yet' : @item.average_review.round(2) %></p>
@@ -35,6 +35,7 @@
   <%if @item.reviews.empty? %>
     <h3>This item has not yet been reviewed.</h3>
   <% else %>
+  <section class="best-and-worst-reviews">
     <section class = "top-three-reviews">
       <h2>Top 3 Reviews</h2>
       <% @item.sorted_reviews(3, :desc).each do |review| %>
@@ -48,17 +49,20 @@
       <% end %>
     </section>
   </section>
+
   <section class = "list-reviews">
     <h2>All Reviews</h2>
-    <% @item.reviews.each do |review| %>
-      <section id= 'review-<%=review.id%>'>
-        <%= review.title %>
-        <%= review.content %>
-        Rating: <%= review.rating %>/5
-        <%= link_to "Edit", "/reviews/#{review.id}/edit" %>
-        <%= link_to "Delete", "/reviews/#{review.id}", method: :delete %>
-      </section>
-    <% end %>
+    <table>
+      <% @item.reviews.each do |review| %>
+        <section id= 'review-<%=review.id%>'>
+          <%= review.title %>
+          <%= review.content %>
+          Rating: <%= review.rating %>/5
+          <%= link_to "Edit", "/reviews/#{review.id}/edit", class: 'btn-small' %>
+          <%= link_to "Delete", "/reviews/#{review.id}", class: 'btn-small', id: 'red-btn', method: :delete %>
+        </section>
+      <% end %>
+    </table>
   <% end %>
 </section>
 </center>
