@@ -47,6 +47,9 @@ user = User.create(name: 'Bob', address: '123 A Ave', city: 'Los Angeles', state
 joe = dog_shop.users.create(name: 'Joe', address: '1234 B Blvd', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'joe@email.com', password: 'joe', password_confirmation: 'joe', role: 2)
 moe = dog_shop.users.create(name: 'Moe', address: '12 C Blvd', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'moe@email.com', password: 'moe', password_confirmation: 'moe', role: 2)
 sue = dog_shop.users.create(name: 'Sue', address: '12345 C St', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'sue@email.com', password: 'sue', password_confirmation: 'sue', role: 3)
+larry = larrys_bath_house.users.create(name: 'Larrold McFatty', address: '12345 Porko St', city: 'Pugfield', state: 'CO', zip: 80216, email: 'larry@email.com', password: 'larry', password_confirmation: 'larry', role: 3)
+biggie = pug_lyfe_records.users.create(name: 'Biggie Smalls', address: '12 Christopher Wallace Way', city: 'Brooklyn', state: 'NY', zip: 11205, email: 'big@email.com', password: 'big', password_confirmation: 'big', role: 3)
+meg = bike_shop.users.create(name: 'Meg MooPants', address: '12 DogBike Road', city: 'Denver', state: 'CO', zip: 80216, email: 'meg@email.com', password: 'meg', password_confirmation: 'meg', role: 3)
 admin = User.create(name: 'admin', address: 'admin address', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'admin@email.com', password: 'admin', password_confirmation: 'admin', role: 4)
 
 #orders
