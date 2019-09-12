@@ -207,14 +207,25 @@ ul{
 }
 
 .merchant-index-link {
-  border: 2px solid #303030;
-  text-decoration: none;
-  padding: 2em 3em;
+  background-image: linear-gradient(to right, #D6BDDD, #DDBDC0, #D8D8BA, #B8D8BC , #ABCADA , #B7B4DB);
   border-radius: 12px;
-  font-size: 1em;
+  border: 2px solid #303030;
+  color: white;
+  display: inline-block;
+  font-size: 1.75em;
+  margin: 0 30%;
+  padding: 1em 3em;
   text-align: center;
-  height: 200px;
+  text-decoration: none;
+  text-shadow: 0 0 3px black;
+  width: 40%;
+}
 
+.merchant-index-link:hover {
+  background-image: linear-gradient(to left, #D6BDDD, #DDBDC0, #D8D8BA, #B8D8BC , #ABCADA , #B7B4DB);
+  box-shadow: 0 0 10px #00ffff;
+  color: #505050;
+  text-shadow: 0 0 3px #ff00ff;
 }
 
 .merchant-items-table,
