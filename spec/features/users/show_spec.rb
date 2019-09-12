@@ -1,5 +1,13 @@
 require 'rails_helper'
 
+describe "404 if user is not logged in" do
+  it "should render 404" do
+    visit "/profile"
+
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
+end
+
 describe 'User visits their profile page' do
   before :each do
     @user = create(:user)
