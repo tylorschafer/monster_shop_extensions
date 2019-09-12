@@ -23,7 +23,7 @@
 
  *{
    box-sizing: border-box;
-   /* border: 0.5px solid red; */
+   /* border: 1px solid red; */
  }
 
  body {
@@ -176,6 +176,31 @@ ul{
  	text-align: center
 }
 
+.ir-body-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ir-title {
+  text-align: left;
+  margin-left: 5%;
+  font-weight: bold;
+}
+
+.ir-header {
+  margin-top: 0;
+  padding-top: 1em;
+  text-align: center;
+}
+
+.ir-section {
+  background-image: linear-gradient(to bottom right, #D6BDDD, #DDBDC0, #D8D8BA, #B8D8BC , #ABCADA , #B7B4DB);
+  border-left: 1px solid var(--med-gray);
+  border-right: 1px solid var(--med-gray);
+  margin: 1em 8% 2em 8%;
+  padding: 0.5em 1em;
+}
+
 .item-show-grid{
   width: 60%;
  	display: grid;
@@ -208,11 +233,9 @@ ul{
 }
 
 .list-reviews {
-  /* display: grid;
-  width: 50%;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 30px; */
+  border-left: 3px solid #002244;
+  border-right: 3px solid #002244;
+  margin: 0 20%;
 }
 
 .login-options {
