@@ -83,5 +83,30 @@ RSpec.describe "Create Merchant Items" do
       expect(page).to have_content("Name can't be blank and Inventory is not a number")
       expect(page).to have_button("Submit")
     end
+
+    it 'default image populates for items with no image url' do
+      visit "/merchant/items"
+
+      name = "A Thing"
+      price = 18
+      description = "No more chaffin'!"
+      image_url = ""
+      inventory = 12
+
+      click_on "Add a New Item"
+
+      fill_in 'Name', with: name
+      fill_in 'Price', with: price
+      fill_in 'Description', with: description
+      fill_in 'Image', with: image_url
+      fill_in 'Inventory', with: inventory
+
+      click_button "Submit"
+
+      item = Item.find_by(description: description, inventory: inventory, price: price)
+
+      expect(page).to have_content("#{name} has been added")
+      expect(item.image).to eq("https://i.ibb.co/0jybzgd/default-thumbnail.jpg")
+    end
   end
 end

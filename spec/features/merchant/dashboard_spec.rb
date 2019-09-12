@@ -112,4 +112,29 @@ describe 'Merchant employee or admin visits their dashboard' do
 
     expect(page).to have_content("The page you were looking for doesn't exist")
   end
+
+  it "should render items index for admins" do
+    admin = create(:user, role: 4)
+
+    click_on 'Log Out'
+
+    visit login_path
+
+    fill_in 'Email', with: admin.email
+    fill_in 'Password', with: admin.password
+
+    within '#login-form' do
+      click_on 'Log In'
+    end
+
+    visit '/merchant/items'
+
+    expect(page).to have_content(@dog_shop.name)
+
+    @dog_shop.items.each do |item|
+      expect(page).to have_content(item.name)
+      expect(page).to have_content(item.inventory)
+      expect(page).to have_content(item.price)
+    end
+  end
 end

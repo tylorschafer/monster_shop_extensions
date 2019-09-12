@@ -10,14 +10,6 @@ class Cart
     @contents[item] += 1
   end
 
-  def add_quantity(item_id)
-    @contents[item_id] += 1
-  end
-
-  def subtract_quantity(item_id)
-    @contents[item_id] -= 1
-  end
-
   def quantity_of(item_id)
     @contents[item_id.to_s].to_i
   end
