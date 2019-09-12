@@ -152,7 +152,6 @@ ul{
 }
 
 .grid-item{
- 	/* background-color: var(--bright-link); */
  	padding: 20px;
   border: solid;
  	border-radius: 12px;
@@ -208,15 +207,13 @@ ul{
 }
 
 .merchant-index-link {
-
-}
-
-.merchant-index-grid {
-  grid-template-columns: repeat(4, 1fr);
-
-}
-
-.merchant-index-grid-item {
+  border: 2px solid #303030;
+  text-decoration: none;
+  padding: 2em 3em;
+  border-radius: 12px;
+  font-size: 1em;
+  text-align: center;
+  height: 200px;
 
 }
 

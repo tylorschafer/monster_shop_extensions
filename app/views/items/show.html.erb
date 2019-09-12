@@ -1,7 +1,7 @@
 <h1 class="page-title"><%= link_to @item.name, "/items/#{@item.id}", class: 'reg-link' %></h1>
 <p align="center">Sold by: <%=link_to @item.merchant.name, "/merchants/#{@item.merchant.id}", class: 'reg-link' %> </p>
 <section align = "center" id = "average-rating">
-  <p>Average Rating: <%= @item.average_review.round(2) %></p>
+  <p>Average Rating: <%= @item.reviews.empty? ? 'No reviews yet' : @item.average_review.round(2) %></p>
 </section>
 <center>
   <section class = "item-show-grid">
