@@ -52,6 +52,7 @@ RSpec.describe "Actions in the merchant/items_controller.rb" do
 
             visit "/merchant/items"
             expect(page).to have_content(@pull_toy.name)
+            expect(page).to have_content(not_pull_toy.name)
             expect(page).to have_content("This item has been ordered.")
             expect(page).to have_content(not_pull_toy.name)
             expect(page).to have_content(not_pull_toy.inventory)
