@@ -26,7 +26,11 @@
     <% end %>
   </table>
 <% else %>
-  <% @merchants.each do |merchant|%>
-    <h2 class="grid-item"><%=link_to merchant.name, "/merchants/#{merchant.id}"%></h2>
-  <% end %>
+  <section class="merchant-index-grid">
+    <% @merchants.each do |merchant|%>
+      <section class="merchant-index-grid-item">
+        <%=link_to merchant.name, "/merchants/#{merchant.id}", class: 'merchant-index-link'%>
+      </section>
+    <% end %>
+  </section>
 <% end %>

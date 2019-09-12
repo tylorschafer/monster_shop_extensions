@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'password_resets/new'
 
+  root to: 'welcome#home'
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#login'
