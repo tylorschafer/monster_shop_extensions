@@ -15,3 +15,8 @@ Logic is carefully organized utilizing MVC structure. All database logic is cont
 
 # Database Schema
 
+![Screen Shot 2019-09-11 at 8 31 19 PM](https://user-images.githubusercontent.com/3358870/64749739-352a5e80-d506-11e9-8fc5-8285d968dc85.png)
+
+# Contact 
+
+Please reach out to us if you have any questions or concerns with Monster Shop. We would love to hear your feedback!
