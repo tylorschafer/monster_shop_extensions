@@ -10,6 +10,6 @@ describe Address do
   end
 
   describe 'relationships' do
-    it belongs_to :user
+    it {should belong_to :user}
   end
 end
