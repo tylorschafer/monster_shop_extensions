@@ -33,10 +33,10 @@ describe 'new user creation' do
       new_user = User.last
 
       expect(new_address.address).to eq(@address)
-      expect(new_address.address).to eq(@city)
-      expect(new_address.address).to eq(@state)
-      expect(new_address.address).to eq(@zip)
-      expect(new_address.nickname).to eq('home')
+      expect(new_address.city).to eq(@city)
+      expect(new_address.state).to eq(@state)
+      expect(new_address.zip).to eq(@zip)
+      expect(new_address.nickname).to eq('Home')
       expect(new_address.user_id).to eq(new_user.id)
     end
   end
