@@ -39,7 +39,7 @@ describe 'User clicks link to sign up' do
 
     click_on 'Submit'
 
-    expect(page).to have_content("Name can't be blank, Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, Password confirmation doesn't match Password, Email can't be blank, and Password can't be blank")
+    expect(page).to have_content("Name can't be blank, Password confirmation doesn't match Password, Email can't be blank, and Password can't be blank")
   end
 
   it 'Cant reuse email addresses' do

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders', to: 'orders#index'
 
+  resources :users
   post '/users', to: 'users#create'
   get '/register', to: 'users#new'
   get '/profile', to: 'users#show'
@@ -57,6 +58,10 @@ Rails.application.routes.draw do
   patch '/admin/merchants/:id', to: 'admin/merchants#update'
 
   resources :password_resets
+
+  resources :addresses, only: [:create]
+
+  get '/users/orders/select/:address_id', to: 'addresses#select'
 
   match "*path", to: "welcome#catch_404", via: :all
 end

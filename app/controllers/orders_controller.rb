@@ -5,7 +5,15 @@ class OrdersController <ApplicationController
   end
 
   def new
-
+    @user = User.find(session[:user_id])
+    if session[:address_id]
+      @address = Address.find(session[:address_id])
+      @selected_address = true
+    elsif @user.addresses == []
+      @address = Address.new
+    else
+      @addresses = @user.addresses
+    end
   end
 
   def cancel_item_orders(order)
@@ -50,6 +58,7 @@ class OrdersController <ApplicationController
     order = user.orders.create(user_info(user))
     create_item_orders(order)
     session.delete(:cart)
+    session.delete(:address_id)
     redirect_to "/profile/orders"
     flash[:success] = "Thank You For Your Order!"
   end

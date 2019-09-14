@@ -1,6 +1,6 @@
-<%= form_for resource do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<%= form_for @address do |f| %>
+  <%= f.label :nickname %>
+  <%= f.text_field :nickname, :placeholder => @address.nickname %>
   <%= f.label :address %>
   <%= f.text_field :address %>
   <%= f.label :city %>
