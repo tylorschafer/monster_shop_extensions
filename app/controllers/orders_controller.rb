@@ -12,6 +12,7 @@ class OrdersController <ApplicationController
     elsif @user.addresses == []
       @address = Address.new
     else
+      @has_address = true
       @addresses = @user.addresses
     end
   end

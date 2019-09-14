@@ -21,11 +21,11 @@
 </table>
 <% if @selected_address %>
   <h3>Your order will be shipped to: </h3>
-  <%= render partial: 'partials/address_show' %>
-<% elsif @adressess != [] %>
+  <%= render partial: 'partials/address_show', locals: { user_address: @address } %>
+<% elsif @has_address %>
   <% @addresses.each do |address|  %>
     <p>Which address would you like to ship to?</p>
-    <%= render partial: 'partials/address_show' %>
+    <%= render partial: 'partials/address_show', locals: { user_address: address } %>
     <%= link_to 'Select', "/users/orders/select/#{address.id}", method: :get %>
   <% end %>
   <% else %>
@@ -34,5 +34,7 @@
       <%= render partial: 'partials/address' %>
     </section>
 <% end %>
-<p align = "right"><%= link_to "Create Order", orders_path,  class: 'btn', id: 'green-btn', method: :post %></p>
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
+<% if @selected_address %>
+  <p align = "right"><%= link_to "Create Order", orders_path,  class: 'btn', id: 'green-btn', method: :post %></p>
+<% end %>
