@@ -24,9 +24,11 @@ class UsersController <ApplicationController
       render file: "/public/404"
     else
       if params[:id] && current_admin?
+        session.delete(:creating_order)
         @user = User.find(params[:id])
         @admin = User.find_by(id: session[:user_id])
       else
+        session.delete(:creating_order)
         @user = User.find_by(id: session[:user_id])
       end
     end

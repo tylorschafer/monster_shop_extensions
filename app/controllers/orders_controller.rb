@@ -6,6 +6,7 @@ class OrdersController <ApplicationController
 
   def new
     @user = User.find(session[:user_id])
+    session[:creating_order] = 'true'
     if session[:address_id]
       @address = Address.find(session[:address_id])
       @selected_address = true
@@ -78,7 +79,6 @@ class OrdersController <ApplicationController
 
   def select_address
     session[:address_id] = params[:address_id]
-    session[:creating_order] = 'true'
     redirect_to '/orders/new'
   end
 
