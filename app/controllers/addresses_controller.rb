@@ -8,21 +8,24 @@ class AddressesController < ApplicationController
     user = User.find(session[:user_id])
     @address = user.addresses.create(address_params)
     if @address.save
-      redirect_to '/orders/new'
+      find_redirect
     else
       flash[:error] = @address.errors.full_messages.to_sentence
       render '/orders/new'
     end
   end
 
-  def select
-    session[:address_id] = params[:address_id]
-    redirect_to '/orders/new'
-  end
-
   private
 
   def address_params
     params.require(:address).permit(:address, :city, :state, :zip)
+  end
+
+  def find_redirect
+    if session[:creating_order] == 'true'
+      redirect_to '/orders/new'
+    else
+      redirect_to '/profile'
+    end
   end
 end

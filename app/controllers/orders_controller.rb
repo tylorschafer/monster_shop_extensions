@@ -58,8 +58,7 @@ class OrdersController <ApplicationController
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
     create_item_orders(order)
-    session.delete(:cart)
-    session.delete(:address_id)
+    delete_session
     redirect_to "/profile/orders"
     flash[:success] = "Thank You For Your Order!"
   end
@@ -70,6 +69,17 @@ class OrdersController <ApplicationController
     order.save
     flash[:success] = "Order No. #{order.id} has been shipped, yo!"
     redirect_to "/admin"
+  end
+
+  def remove_address
+    session.delete(:address_id)
+    redirect_to '/orders/new'
+  end
+
+  def select_address
+    session[:address_id] = params[:address_id]
+    session[:creating_order] = 'true'
+    redirect_to '/orders/new'
   end
 
   private
@@ -83,5 +93,11 @@ class OrdersController <ApplicationController
     info[:state] = selected_address.state
     info[:zip] = selected_address.zip
     info
+  end
+
+  def delete_session
+    session.delete(:cart)
+    session.delete(:address_id)
+    session.delete(:creating_order)
   end
 end

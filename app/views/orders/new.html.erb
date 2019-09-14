@@ -20,15 +20,32 @@
   <% end %>
 </table>
 <% if @selected_address %>
-  <h3>Your order will be shipped to: </h3>
+  <center><h3>Your order will be shipped to: </h3></center>
   <%= render partial: 'partials/address_show', locals: { user_address: @address } %>
+  <%= link_to 'Select a Different Address', "/orders/addresses/remove/#{@address.id}", method: :patch, class: 'btn-small' %>
 <% elsif @has_address %>
+<center><p>Which address would you like to ship to?</p></center>
+  <table>
+    <tr>
+      <th>Nickname</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th></th>
+    </tr>
   <% @addresses.each do |address|  %>
-    <p>Which address would you like to ship to?</p>
-    <%= render partial: 'partials/address_show', locals: { user_address: address } %>
-    <%= link_to 'Add a New Address', new_address_path %>
-    <%= link_to 'Select', "/users/orders/select/#{address.id}", method: :get %>
+    <tr>
+    <td><%= address.nickname  %></td>
+    <td><%= address.address  %></td>
+    <td><%= address.city %></td>
+    <td><%= address.state %></td>
+    <td><%= address.zip %></td>
+    <td><%= link_to 'Select', "/orders/addresses/select/#{address.id}", method: :patch, class: 'btn-small' %></td>
+    </tr>
   <% end %>
+  </table>
+  <%= link_to 'Add a New Address', new_address_path %>
   <% else %>
     <section>
       <h3>Create an Address for your order:</h3>
