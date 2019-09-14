@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'new order creation' do
   before :each do
-    @user = create(:user)
+    @user = User.create(name: 'Tylor', password: 'password', email: 'email@email.com')
     @address = '234 A st'
     @city = 'Wonderland'
     @state = 'CA'
@@ -12,8 +12,8 @@ describe 'new order creation' do
 
     visit '/login'
 
-    fill_in 'Email', with: @order.user.email
-    fill_in 'Password', with: @order.user.password
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
 
     within '#login-form' do
       click_on 'Log In'
@@ -31,7 +31,7 @@ describe 'new order creation' do
     it 'is saved into the addresses database and given a default nickname of Home if nickname is not included' do
 
       expect(page).to have_content('Create an Address for your order:')
-      expect(page).to_no have_link('Create Order')
+      expect(page).to_not have_link('Create Order')
 
       fill_in 'Address', with: @address
       fill_in 'City', with: @city
@@ -58,7 +58,7 @@ describe 'new order creation' do
       expect(page).to have_content(@city)
       expect(page).to have_content(@state)
       expect(page).to have_content(@zip)
-      expect(page).to have_link('Select')
+      expect(page).to_not have_link('Select')
 
       expect(page).to have_link('Create Order')
     end
