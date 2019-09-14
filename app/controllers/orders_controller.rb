@@ -76,11 +76,12 @@ class OrdersController <ApplicationController
 
   def user_info(user)
     info = Hash.new
+    selected_address = Address.find(session[:address_id])
     info[:name] = user.name
-    info[:address] = user.address
-    info[:city] = user.city
-    info[:state] = user.state
-    info[:zip] = user.zip
+    info[:address] = selected_address.address
+    info[:city] = selected_address.city
+    info[:state] = selected_address.state
+    info[:zip] = selected_address.zip
     info
   end
 end

@@ -72,6 +72,8 @@ RSpec.describe "As a visitor" do
       visit "/cart"
       click_on "Checkout"
 
+      click_link 'Select'
+
       click_link "Create Order"
 
       visit "/merchants/#{meg.id}"

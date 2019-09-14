@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
   resources :password_resets
 
-  resources :addresses, only: [:create]
+  resources :addresses, only: [:new, :create]
 
   get '/users/orders/select/:address_id', to: 'addresses#select'
 

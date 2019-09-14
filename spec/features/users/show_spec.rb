@@ -27,8 +27,6 @@ describe 'User visits their profile page' do
       expect(current_path).to eq('/profile')
 
       expect(page).to have_content("#{@user.name}'s Profile")
-      expect(page).to have_content("#{@user.address}")
-      expect(page).to have_content("#{@user.city}, #{@user.state} #{@user.zip}")
       expect(page).to have_content("Email: #{@user.email}")
 
       expect(page).to have_link('Edit Profile')
