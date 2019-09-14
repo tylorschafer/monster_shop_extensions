@@ -5,7 +5,16 @@ class OrdersController <ApplicationController
   end
 
   def new
-
+    @user = User.find(session[:user_id])
+    if session[:address_id]
+      @address = Address.find(session[:address_id])
+      @selected_address = true
+    elsif @user.addresses == []
+      @address = Address.new
+    else
+      @has_address = true
+      @addresses = @user.addresses
+    end
   end
 
   def cancel_item_orders(order)
@@ -50,6 +59,7 @@ class OrdersController <ApplicationController
     order = user.orders.create(user_info(user))
     create_item_orders(order)
     session.delete(:cart)
+    session.delete(:address_id)
     redirect_to "/profile/orders"
     flash[:success] = "Thank You For Your Order!"
   end
@@ -66,11 +76,12 @@ class OrdersController <ApplicationController
 
   def user_info(user)
     info = Hash.new
+    selected_address = Address.find(session[:address_id])
     info[:name] = user.name
-    info[:address] = user.address
-    info[:city] = user.city
-    info[:state] = user.state
-    info[:zip] = user.zip
+    info[:address] = selected_address.address
+    info[:city] = selected_address.city
+    info[:state] = selected_address.state
+    info[:zip] = selected_address.zip
     info
   end
 end

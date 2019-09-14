@@ -4,13 +4,13 @@ class UsersController <ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
     if @user.save
       session[:user_id] = @user.id
       flash[:success] = "Welcome, #{@user.name}!"
       redirect_to "/profile"
     else
-      flash[:error] = @user.errors.full_messages.uniq.to_sentence
+      flash[:error] = "#{@user.errors.full_messages.uniq.to_sentence}"
       render :new
     end
   end
@@ -67,6 +67,10 @@ class UsersController <ApplicationController
 
   private
 
+  def complete_params?
+    return true if user_params.keys.count == 4 && address_params.keys.count == 4
+  end
+
   def update_password_params
     params.require(:update_password).permit(:old_password, :new_password, :new_password_confirmation)
   end
@@ -83,8 +87,12 @@ class UsersController <ApplicationController
     update_password_params[:new_password] == update_password_params[:new_password_confirmation]
   end
 
+  def address_params
+    params.require(:user).permit(:address,:city,:state,:zip)
+  end
+
   def user_params
-    params.require(:user).permit(:name,:address,:city,:state,:zip,:email,:password,:password_confirmation)
+    params.require(:user).permit(:name,:email,:password,:password_confirmation)
   end
 
   def profile_params

@@ -1,13 +1,30 @@
 <section class="user-profile">
   <h2><%= @user.name %>'s Profile</h2>
-  <p style="font-weight:bold;">Address:</p>
-  <p><%= @user.address %></p>
-  <p><%= "#{@user.city}, #{@user.state} #{@user.zip}" %></p>
   <p><span style="font-weight:bold;">Email: </span><%= @user.email %></p>
+  <% if @user.addresses != [] %>
+    <p style="font-weight:bold;">Addresses:</p>
+    <table>
+      <tr>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+      </tr>
+      <% @user.addresses.each do |address| %>
+        <tr>
+          <td><%= address.address %></td>
+          <td><%= address.city %></td>
+          <td><%= address.state %></td>
+          <td><%= address.zip %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
   <br>
     <% unless @admin %>
       <%= link_to 'Edit Profile', '/profile/edit', class: 'btn-small' %>
       <%= link_to 'Change Password', '/profile/edit_password', class: 'btn-small' %>
       <%= link_to 'My Orders', '/profile/orders', class: 'btn-small' %>
+      <%= link_to 'Add New Shipping Address', new_address_path %>
     <% end %>
 </section>
