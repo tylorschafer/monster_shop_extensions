@@ -26,6 +26,7 @@
   <% @addresses.each do |address|  %>
     <p>Which address would you like to ship to?</p>
     <%= render partial: 'partials/address_show', locals: { user_address: address } %>
+    <%= link_to 'Add a New Address', new_address_path %>
     <%= link_to 'Select', "/users/orders/select/#{address.id}", method: :get %>
   <% end %>
   <% else %>

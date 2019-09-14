@@ -1,12 +1,16 @@
 class AddressesController < ApplicationController
 
+  def new
+    @address = Address.new
+  end
+
   def create
     user = User.find(session[:user_id])
     @address = user.addresses.create(address_params)
     if @address.save
       redirect_to '/orders/new'
     else
-      flash[:error] = @address.errors.full_messages
+      flash[:error] = @address.errors.full_messages.to_sentence
       render '/orders/new'
     end
   end
