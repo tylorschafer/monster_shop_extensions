@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
   resources :password_resets
 
-  resources :addresses, only: [:new, :create]
+  resources :addresses
 
   patch '/orders/addresses/remove/:address_id', to: 'orders#remove_address'
   patch '/orders/addresses/select/:address_id', to: 'orders#select_address'

@@ -1,0 +1,66 @@
+require 'rails_helper'
+
+describe 'User profile page' do
+  before :each do
+    @user = User.create(name: 'Tylor', password: 'password', email: 'email@email.com')
+    @address_1 = create(:address, user_id: @user.id)
+    @address_2 = create(:address, user_id: @user.id)
+    @city = 'Wonderland'
+    @state = 'CA'
+    @zip = 90345
+    @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+    @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+
+    visit '/login'
+
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+
+    within '#login-form' do
+      click_on 'Log In'
+    end
+  end
+
+  it 'Users can edit their addressess from their profile ' do
+    visit '/profile'
+
+    within "#address-#{@address_1.id}" do
+      expect(page).to have_content(@address_1.nickname)
+      expect(page).to have_content(@address_1.address)
+      expect(page).to have_content(@address_1.city)
+      expect(page).to have_content(@address_1.state)
+      expect(page).to have_content(@address_1.zip)
+      click_on 'Edit Address'
+    end
+
+    expect(current_path).to eq(edit_address_path(@address_1.id))
+
+    nickname = 'Work'
+    address = '123 Fake Streek'
+    city = 'Apple Valley'
+    state = 'MN'
+    zip = 55024
+
+    fill_in 'Nickname', with: nickname
+    fill_in 'Address', with: address
+    fill_in 'City', with: city
+    fill_in 'State', with: state
+    fill_in 'Zip', with: zip
+    click_link 'Submit'
+
+    expect(current_path).to eq('/profile')
+
+    within "#address-#{@address_1.id}" do
+      expect(page).to have_content(nickname)
+      expect(page).to have_content(address)
+      expect(page).to have_content(city)
+      expect(page).to have_content(state)
+      expect(page).to have_content(zip)
+      click_on 'Edit Address'
+    end
+  end
+
+  it 'A flash message will display an error if a field is left blank' do
+
+  end
+end

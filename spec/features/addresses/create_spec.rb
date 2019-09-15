@@ -56,7 +56,7 @@ describe 'new order creation' do
       expect(page).to have_content(@city)
       expect(page).to have_content(@state)
       expect(page).to have_content(@zip)
-      expect(page).to_not have_link('Select')
+      expect(page).to have_link('Select a Different Address')
 
       expect(page).to have_link('Create Order')
     end
