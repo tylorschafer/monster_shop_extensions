@@ -28,6 +28,11 @@ class AddressesController < ApplicationController
     end
   end
 
+  def destroy
+    Address.delete(params[:id])
+    redirect_to '/profile'
+  end
+
   private
 
   def address_params
