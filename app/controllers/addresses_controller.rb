@@ -18,8 +18,14 @@ class AddressesController < ApplicationController
   end
 
   def update
-    Address.find(params[:id]).update(address_params)
-    redirect_to '/profile'
+    address = Address.find(params[:id])
+    address.update(address_params)
+    if address.save
+      redirect_to '/profile'
+    else
+      flash[:error] = address.errors.full_messages.to_sentence
+      redirect_to edit_address_path(address)
+    end
   end
 
   private

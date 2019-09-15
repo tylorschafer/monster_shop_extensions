@@ -46,7 +46,7 @@ describe 'User profile page' do
     fill_in 'City', with: city
     fill_in 'State', with: state
     fill_in 'Zip', with: zip
-    click_link 'Submit'
+    click_button 'Update Address'
 
     expect(current_path).to eq('/profile')
 
@@ -56,11 +56,24 @@ describe 'User profile page' do
       expect(page).to have_content(city)
       expect(page).to have_content(state)
       expect(page).to have_content(zip)
-      click_on 'Edit Address'
     end
   end
 
   it 'A flash message will display an error if a field is left blank' do
+    visit '/profile'
 
+    within "#address-#{@address_1.id}" do
+      click_on 'Edit Address'
+    end
+
+    fill_in 'Nickname', with: ''
+    fill_in 'Address', with: ''
+    fill_in 'City', with: ''
+    fill_in 'State', with: ''
+    fill_in 'Zip', with: ''
+    click_button 'Update Address'
+
+    expect(current_path).to eq(edit_address_path(@address_1.id))
+    expect(page).to have_content("Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, and Nickname can't be blank")
   end
 end
