@@ -1,5 +1,5 @@
 class Order <ApplicationRecord
-  validates_presence_of :status
+  validates_presence_of :name, :status
 
   has_many :item_orders
   has_many :items, through: :item_orders
