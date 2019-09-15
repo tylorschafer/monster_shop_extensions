@@ -29,7 +29,9 @@ class AddressesController < ApplicationController
   end
 
   def destroy
-    Address.delete(params[:id])
+    address = Address.find(params[:id])
+    session.delete[:address_id] if session[:address_id] == address.id
+    address.delete
     redirect_to '/profile'
   end
 

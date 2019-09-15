@@ -44,4 +44,31 @@ describe 'User profile page' do
       expect(page).to have_content(@address_2.zip)
     end
   end
+
+  it 'An address cannot be deleted if it has been used to ship an order' do
+    visit "/items/#{@tire.id}"
+    click_on "Add To Cart"
+
+    visit '/cart'
+
+    click_on 'Checkout'
+
+    within "#address-#{@address_1.id}" do
+      click_link 'Select'
+    end
+
+    click_link 'Create Order'
+
+    order = Order.last
+
+    order.status = 'shipped'
+
+    visit '/profile'
+
+    within "#address-#{@address_1.id}" do
+      click_link 'Delete Address'
+    end
+
+    expect(page).to have_content('Addresses used in completed orders cannot be deleted')
+  end
 end
