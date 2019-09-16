@@ -35,6 +35,7 @@
       <th></th>
     </tr>
   <% @addresses.each do |address|  %>
+    <section id= "address-<%= address.id %>">
     <tr>
     <td><%= address.nickname  %></td>
     <td><%= address.street  %></td>
@@ -43,6 +44,7 @@
     <td><%= address.zip %></td>
     <td><%= link_to 'Select', "/orders/addresses/select/#{address.id}", method: :patch, class: 'btn-small' %></td>
     </tr>
+    </section>
   <% end %>
   </table>
   <%= link_to 'Add a New Address', new_address_path %>

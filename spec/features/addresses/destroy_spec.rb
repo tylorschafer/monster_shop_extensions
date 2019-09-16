@@ -45,30 +45,14 @@ describe 'User profile page' do
     end
   end
 
-  it 'An address cannot be deleted if it has been used to ship an order' do
-    visit "/items/#{@tire.id}"
-    click_on "Add To Cart"
-
-    visit '/cart'
-
-    click_on 'Checkout'
-
-    within "#address-#{@address_1.id}" do
-      click_link 'Select'
-    end
-
-    click_link 'Create Order'
-
-    order = Order.last
-
-    order.status = 'shipped'
+  it 'An address cannot be deleted or edited if it has been used to ship an order' do
+    create(:order, address: @address_1, status: 'shipped')
 
     visit '/profile'
 
     within "#address-#{@address_1.id}" do
-      click_link 'Delete Address'
+      expect(page).to_not have_link('Delete Address')
+      expect(page).to_not have_link('Update Address')
     end
-
-    expect(page).to have_content('Addresses used in completed orders cannot be deleted')
   end
 end
