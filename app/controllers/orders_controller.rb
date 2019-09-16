@@ -31,6 +31,7 @@ class OrdersController <ApplicationController
     order = Order.find(params[:id])
     cancel_item_orders(order)
     order.status = "cancelled"
+    cancelled_address(order)
     order.save
     if current_admin?
       flash[:success] = "You destroyed the users order dawg"
@@ -39,6 +40,13 @@ class OrdersController <ApplicationController
       flash[:success] = "Your order has been cancelled dawg"
       redirect_to "/profile"
     end
+  end
+
+  def cancelled_address(order)
+    user = order.user
+    admin = User.find_by(role: 'admin')
+    default_address ||= Address.create!(nickname: 'Admin', street: 'Cancelled', city: 'Cancelled', state: 'Cancelled', zip: 99999, user: admin)
+    order.address = default_address
   end
 
   def show
