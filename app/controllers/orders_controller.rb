@@ -31,6 +31,7 @@ class OrdersController <ApplicationController
     order = Order.find(params[:id])
     cancel_item_orders(order)
     order.status = "cancelled"
+    cancelled_address(order)
     order.save
     if current_admin?
       flash[:success] = "You destroyed the users order dawg"
@@ -41,8 +42,24 @@ class OrdersController <ApplicationController
     end
   end
 
+  def cancelled_address(order)
+    user = order.user
+    admin = User.find_by(role: 'admin')
+    default_address ||= Address.create!(nickname: 'Admin', street: 'Cancelled', city: 'Cancelled', state: 'Cancelled', zip: 99999, user: admin)
+    order.address = default_address
+  end
+
   def show
     @order = Order.find(params[:order_id])
+  end
+
+  def create
+    user = User.find(session[:user_id])
+    order = user.orders.create(user_info(user))
+    create_item_orders(order)
+    delete_session
+    redirect_to "/profile/orders"
+    flash[:success] = "Thank You For Your Order!"
   end
 
   def create_item_orders(order)
@@ -55,14 +72,6 @@ class OrdersController <ApplicationController
     end
   end
 
-  def create
-    user = User.find(session[:user_id])
-    order = user.orders.create(user_info(user))
-    create_item_orders(order)
-    delete_session
-    redirect_to "/profile/orders"
-    flash[:success] = "Thank You For Your Order!"
-  end
 
   def ship
     order = Order.find(params[:order_id])
@@ -72,14 +81,23 @@ class OrdersController <ApplicationController
     redirect_to "/admin"
   end
 
-  def remove_address
-    session.delete(:address_id)
-    redirect_to '/orders/new'
+  def select_address
+    if session[:pending_address_select] == 'true'
+      update_address
+    else
+      session[:address_id] = params[:address_id]
+      redirect_to '/orders/new'
+    end
   end
 
-  def select_address
-    session[:address_id] = params[:address_id]
-    redirect_to '/orders/new'
+  def update_address
+    order = Order.find(session[:order_id])
+    order.address = Address.find(params[:address_id])
+    order.save
+    redirect_to "/profile/orders"
+    session.delete(:order_id)
+    session.delete(:pending_address_select)
+    flash[:success] = "You have changed the address for order ##{order.id}"
   end
 
   private

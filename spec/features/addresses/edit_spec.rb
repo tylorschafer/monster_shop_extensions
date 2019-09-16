@@ -76,4 +76,17 @@ describe 'User profile page' do
     expect(current_path).to eq(edit_address_path(@address_1.id))
     expect(page).to have_content("City can't be blank, State can't be blank, Zip can't be blank, and Nickname can't be blank")
   end
+
+  it 'A flash message will display an error if the address is associated with a pending order' do
+    create(:order, user: @user, address: @address_1, status: 'pending')
+
+    visit '/profile'
+
+    within "#address-#{@address_1.id}" do
+      click_on 'Edit Address'
+    end
+
+    expect(current_path).to eq("/addresses/#{@address_1.id}/edit")
+    expect(page).to have_content("This address is currently associated with a pending order. Making changes to this address will change any orders associated with the address.")
+  end
 end
