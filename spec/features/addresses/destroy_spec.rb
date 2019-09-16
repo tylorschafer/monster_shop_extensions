@@ -45,7 +45,7 @@ describe 'User profile page' do
     end
   end
 
-  it 'An address cannot be deleted or edited if it has been used to ship an order' do
+  it 'An address will not have a delete or edit link if it is associated with a shipped order' do
     create(:order, address: @address_1, status: 'shipped')
 
     visit '/profile'
@@ -54,5 +54,18 @@ describe 'User profile page' do
       expect(page).to_not have_link('Delete Address')
       expect(page).to_not have_link('Update Address')
     end
+  end
+
+  it 'An address will display a flash message if it is associated with a pending order' do
+    create(:order, address: @address_1, status: 'pending')
+
+    visit '/profile'
+
+    within "#address-#{@address_1.id}" do
+      click_link 'Delete Address'
+    end
+
+    expect(current_path).to eq('/profile')
+    expect(page).to have_content("This address is associated with a pending order, you must select a different address for your orders before deleting this")
   end
 end
