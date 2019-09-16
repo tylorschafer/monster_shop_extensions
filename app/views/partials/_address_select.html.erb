@@ -9,15 +9,15 @@
       <th></th>
     </tr>
   <% @addresses.each do |address|  %>
-    <section id= "address-<%= address.id %>">
     <tr>
-    <td><%= address.nickname  %></td>
-    <td><%= address.street  %></td>
-    <td><%= address.city %></td>
-    <td><%= address.state %></td>
-    <td><%= address.zip %></td>
-    <td><%= link_to 'Select', "/orders/addresses/select/#{address.id}", method: :patch, class: 'btn-small' %></td>
+      <section id= "address-<%= address.id %>">
+        <td><%= address.nickname  %></td>
+        <td><%= address.street  %></td>
+        <td><%= address.city %></td>
+        <td><%= address.state %></td>
+        <td><%= address.zip %></td>
+        <td><%= link_to 'Select', "/orders/addresses/select/#{address.id}", method: :patch, class: 'btn-small' %></td>
+      </section>
     </tr>
-    </section>
   <% end %>
   </table>

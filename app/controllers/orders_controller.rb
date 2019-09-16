@@ -12,7 +12,6 @@ class OrdersController <ApplicationController
       @selected_address = true
     elsif @user.addresses == []
       @address = Address.new
-      flash[:error] = "You must create an address to process an order"
     else
       @has_address = true
       @addresses = @user.addresses
@@ -54,6 +53,15 @@ class OrdersController <ApplicationController
     @order = Order.find(params[:order_id])
   end
 
+  def create
+    user = User.find(session[:user_id])
+    order = user.orders.create(user_info(user))
+    create_item_orders(order)
+    delete_session
+    redirect_to "/profile/orders"
+    flash[:success] = "Thank You For Your Order!"
+  end
+
   def create_item_orders(order)
     cart.items.each do |item,quantity|
       order.item_orders.create({
@@ -64,14 +72,6 @@ class OrdersController <ApplicationController
     end
   end
 
-  def create
-    user = User.find(session[:user_id])
-    order = user.orders.create(user_info(user))
-    create_item_orders(order)
-    delete_session
-    redirect_to "/profile/orders"
-    flash[:success] = "Thank You For Your Order!"
-  end
 
   def ship
     order = Order.find(params[:order_id])
@@ -79,11 +79,6 @@ class OrdersController <ApplicationController
     order.save
     flash[:success] = "Order No. #{order.id} has been shipped, yo!"
     redirect_to "/admin"
-  end
-
-  def remove_address
-    session.delete(:address_id)
-    redirect_to '/orders/new'
   end
 
   def select_address

@@ -65,5 +65,30 @@ describe 'new order creation' do
 
       expect(page).to have_content("Street can't be blank, City can't be blank, State can't be blank, and Zip can't be blank")
     end
+
+    it 'Add a new address from profile' do
+      visit '/profile'
+
+      click_link 'Add New Shipping Address'
+
+      expect(current_path).to eq(new_address_path)
+
+      fill_in 'Nickname', with: 'Work'
+      fill_in 'Street', with: @street
+      fill_in 'City', with: @city
+      fill_in 'State', with: @state
+      fill_in 'Zip', with: @zip
+      click_on 'Create Address'
+
+      expect(current_path).to eq('/profile')
+
+      new_address = Address.last
+
+      expect(new_address.nickname).to eq('Work')
+      expect(new_address.street).to eq(@street)
+      expect(new_address.city).to eq(@city)
+      expect(new_address.state).to eq(@state)
+      expect(new_address.zip).to eq(@zip)
+    end
   end
 end

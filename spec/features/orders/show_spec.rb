@@ -4,20 +4,21 @@ describe 'user order show page' do
   before :each do
     @tire = create(:item, inventory: 10, price: 35)
     @paper = create(:item, inventory: 10, price: 40)
-    @user_1 = create(:user)
     @admin = create(:user, role: 4)
-    @address_1 = create(:address, user_id: @user_1.id)
-    @order = create(:order, address_id: @address_1.id)
+    @user_1 = create(:user)
+    @address_1 = create(:address, user: @user_1)
+    @address_3 = create(:address, user: @user_1)
+    @order = create(:order, user: @user_1, address: @address_1)
     @user_2 = create(:user)
-    @address_2 = create(:address, user_id: @user_2.id)
-    @order_2 = create(:order, status: 2, address_id: @address_2.id)
+    @address_2 = create(:address, user: @user_2)
+    @order_2 = create(:order, status: 2, user: @user_2, address: @address_2)
     @item_order_1 = @order.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
     @item_order_2 = @order.item_orders.create!(item: @paper, price: @paper.price, quantity: 4)
 
     visit '/login'
 
-    fill_in 'Email', with: @order.user.email
-    fill_in 'Password', with: @order.user.password
+    fill_in 'Email', with: @user_1.email
+    fill_in 'Password', with: @user_1.password
 
     within '#login-form' do
       click_on 'Log In'
@@ -111,5 +112,27 @@ describe 'user order show page' do
 
     expect(current_path).to eq('/admin')
     expect(page).to have_content('You destroyed the users order dawg')
+  end
+
+  it 'pending_orders can have their addresses changed' do
+    visit "/profile/orders/#{@order.id}"
+
+    click_link 'Select a Different Shipping Address'
+
+    expect(current_path).to eq("/profile/orders/#{@order.id}/addresses/select")
+
+    within "#address-#{@address_3.id}" do
+      click_link 'Select'
+    end
+
+    expect(current_path).to eq('/profile/orders')
+    expect(page).to have_content("You have changed the address for order ##{@order.id}")
+
+    visit "/profile/orders/#{@order.id}"
+
+    expect(page).to have_content(@address_3.street)
+    expect(page).to have_content(@address_3.city)
+    expect(page).to have_content(@address_3.state)
+    expect(page).to have_content(@address_3.zip)
   end
 end
