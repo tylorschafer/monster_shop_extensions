@@ -6,8 +6,8 @@ describe 'User order index page' do
     @paper = create(:item, price: 20)
     @pencil = create(:item, price: 2)
     @user = create(:user)
-    @order_1 = create(:order, user: @user)
-    @order_2 = create(:order, user: @user)
+    @order_1 = create(:order, user: @user, address: @user.addresses[0])
+    @order_2 = create(:order, user: @user, address: @user.addresses[0])
     @orders = [@order_1,@order_2]
     @item_order_1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
     @item_order_2 = @order_2.item_orders.create!(item: @paper, price: @paper.price, quantity: 4)

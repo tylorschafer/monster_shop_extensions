@@ -29,7 +29,7 @@ describe Item, type: :model do
       item_6 = create(:item)
       item_7 = create(:item)
 
-      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = user.orders.create(name: 'Meg', address_id: user.addresses[0].id)
 
       order.item_orders.create(item: item_1, price: item_1.price, quantity: 10)
       order.item_orders.create(item: item_2, price: item_2.price, quantity: 20)
@@ -83,7 +83,7 @@ describe Item, type: :model do
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
       user = create(:user)
-      order = user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = user.orders.create(name: 'Meg', address_id: user.addresses[0].id)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end

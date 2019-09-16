@@ -4,7 +4,7 @@ describe 'admin user order show page' do
   before :each do
     @admin = create(:user, role: 4)
     @user = create(:user)
-    @order = create(:order, status: 0, user_id: @user.id)
+    @order = create(:order, status: 0, user: @user, address: @user.addresses[0])
     @tire = create(:item)
     @paper = create(:item)
     @item_order_1 = @order.item_orders.create!(item: @tire, price: 35, quantity: 2)

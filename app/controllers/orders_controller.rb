@@ -88,10 +88,7 @@ class OrdersController <ApplicationController
     info = Hash.new
     selected_address = Address.find(session[:address_id])
     info[:name] = user.name
-    info[:address] = selected_address.address
-    info[:city] = selected_address.city
-    info[:state] = selected_address.state
-    info[:zip] = selected_address.zip
+    info[:address_id] = selected_address.id
     info
   end
 

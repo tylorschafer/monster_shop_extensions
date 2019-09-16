@@ -9,10 +9,10 @@ describe 'Merchant employee or admin visits their dashboard' do
     @user = create(:user)
     @sue = @dog_shop.users.create(name: 'Sue', address: '12345 C St', city: 'Los Angeles', state: 'CA', zip: 90210, email: 'sue@email.com', password: 'sue', password_confirmation: 'sue', role: 3)
 
-    @order_1 = @user.orders.create(name: "Evette", address: "123 street", city: "Denver", state: "CO", zip: "12345")
+    @order_1 = @user.orders.create(name: "Evette", user: @user, address: @user.addresses[0])
     @io1 = ItemOrder.create(item: @pull_toy, order: @order_1, price: @pull_toy.price, quantity: 5)
     @io2 = ItemOrder.create(item: @dog_bone, order: @order_1, price: @dog_bone.price, quantity: 2)
-    @order_2 = @user.orders.create(name: "Evette", address: "123 street", city: "Denver", state: "CO", zip: "12345")
+    @order_2 = @user.orders.create(name: "Evette", user: @user, address: @user.addresses[0])
     @io3 = ItemOrder.create(item: @pull_toy, order: @order_2, price: @pull_toy.price, quantity: 1)
     @io4 = ItemOrder.create(item: @dog_bone, order: @order_2, price: @dog_bone.price, quantity: 1)
 
@@ -68,7 +68,7 @@ describe 'Merchant employee or admin visits their dashboard' do
 
     expect(page).to have_content("Order ##{@order_1.id}")
     expect(page).to have_content(@order_1.name)
-    expect(page).to have_content(@order_1.address)
+    expect(page).to have_content(@order_1.address.street)
   end
 
   it "admin order show is different" do
@@ -91,7 +91,7 @@ describe 'Merchant employee or admin visits their dashboard' do
 
     expect(page).to have_content("Order ##{@order_1.id}")
     expect(page).to have_content(@order_1.name)
-    expect(page).to have_content(@order_1.address)
+    expect(page).to have_content(@order_1.address.street)
   end
 
   it "admin can't access items index through that path" do

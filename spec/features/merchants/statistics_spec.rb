@@ -1,9 +1,3 @@
-# As a visitor
-# When I visit a merchant's show page
-# I see statistics for that merchant, including:
-# - count of items for that merchant
-# - average price of that merchant's items
-# - Distinct cities where my items have been ordered
 require 'rails_helper'
 
 RSpec.describe 'merchant show page', type: :feature do
@@ -17,9 +11,11 @@ RSpec.describe 'merchant show page', type: :feature do
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 20, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
       @user = create(:user)
-      @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      @order_2 = @user.orders.create!(name: 'Brian', address: '123 Zanti St', city: 'Denver', state: 'CO', zip: 80204)
-      @order_3 = @user.orders.create!(name: 'Mike', address: '123 Dao St', city: 'Denver', state: 'CO', zip: 80210)
+      @address = @user.addresses[0]
+      @address_2 = create(:address, user: @user)
+      @order_1 = @user.orders.create!(name: 'Meg', user: @user, address: @address)
+      @order_2 = @user.orders.create!(name: 'Brian', user: @user, address: @address)
+      @order_3 = @user.orders.create!(name: 'Mike', user: @user, address: @address_2)
 
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
@@ -37,8 +33,8 @@ RSpec.describe 'merchant show page', type: :feature do
         expect(page).to have_content("Average Price of Items: $15")
         within ".distinct-cities" do
           expect(page).to have_content("Cities that order these items:")
-          expect(page).to have_content("Hershey")
-          expect(page).to have_content("Denver")
+          expect(page).to have_content(@address.city)
+          expect(page).to have_content(@address_2.city)
         end
       end
 

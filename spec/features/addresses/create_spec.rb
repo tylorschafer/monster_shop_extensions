@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'new order creation' do
   before :each do
     @user = User.create(name: 'Tylor', password: 'password', email: 'email@email.com')
-    @address = '234 A st'
+    @street = '234 A st'
     @city = 'Wonderland'
     @state = 'CA'
     @zip = 90345
@@ -33,7 +33,7 @@ describe 'new order creation' do
       expect(page).to have_content('Create an Address for your order:')
       expect(page).to_not have_link('Create Order')
 
-      fill_in 'Address', with: @address
+      fill_in 'Street', with: @street
       fill_in 'City', with: @city
       fill_in 'State', with: @state
       fill_in 'Zip', with: @zip
@@ -41,7 +41,7 @@ describe 'new order creation' do
 
       expect(page).to have_content('Which address would you like to ship to?')
       expect(page).to have_content('Home')
-      expect(page).to have_content(@address)
+      expect(page).to have_content(@street)
       expect(page).to have_content(@city)
       expect(page).to have_content(@state)
       expect(page).to have_content(@zip)
@@ -52,18 +52,18 @@ describe 'new order creation' do
 
       expect(page).to have_content('Your order will be shipped to:')
       expect(page).to have_content('Home')
-      expect(page).to have_content(@address)
+      expect(page).to have_content(@street)
       expect(page).to have_content(@city)
       expect(page).to have_content(@state)
       expect(page).to have_content(@zip)
-      expect(page).to_not have_link('Select')
+      expect(page).to have_link('Select a Different Address')
 
       expect(page).to have_link('Create Order')
     end
     it 'an error message will be displayed if the new address form is not completed' do
       click_on 'Create Address'
 
-      expect(page).to have_content("Address can't be blank, City can't be blank, State can't be blank, and Zip can't be blank")
+      expect(page).to have_content("Street can't be blank, City can't be blank, State can't be blank, and Zip can't be blank")
     end
   end
 end

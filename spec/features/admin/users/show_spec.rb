@@ -23,7 +23,7 @@ describe 'admin users show' do
       expect(current_path).to eq("/admin/users/#{@user_1.id}")
 
       expect(page).to have_content("#{@user_1.name}'s Profile")
-      expect(page).to have_content("#{@address.address}")
+      expect(page).to have_content("#{@address.street}")
       expect(page).to have_content("#{@address.city}")
       expect(page).to have_content("#{@address.state}")
       expect(page).to have_content("#{@address.zip}")
