@@ -16,18 +16,24 @@ describe Address do
 
   describe 'instance methods' do
     before :each do
-
+      @user = create(:user)
+      @address = @user.addresses[0]
     end
+
     it '#has_shipped_orders?' do
-      user = create(:user)
-      address = user.addresses[0]
-      user.orders.create!(name: 'Meg', address: address)
+      create(:order, user: @user, address: @address)
 
-      expect(address.has_shipped_orders?).to eq(nil)
+      expect(@address.has_shipped_orders?).to eq(nil)
 
-      user.orders.create!(name: 'Meg', address: address, status: 'shipped')
+      create(:order, user: @user, address: @address, status: 'shipped')
 
-      expect(address.has_shipped_orders?).to eq(true)
+      expect(@address.has_shipped_orders?).to eq(true)
+    end
+
+    it '#has_pending_orders?' do
+      create(:order, user: @user, address: @address, status: 'pending')
+
+      expect(@address.has_pending_orders?).to eq(true)
     end
   end
 end
