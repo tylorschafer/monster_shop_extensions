@@ -18,12 +18,16 @@ describe Address do
     before :each do
 
     end
-    it '#has_order?' do
+    it '#has_shipped_orders?' do
       user = create(:user)
       address = user.addresses[0]
-      order_1 = user.orders.create!(name: 'Meg', address: address)
+      user.orders.create!(name: 'Meg', address: address)
 
-      expect(address.has_order?).to eq(true)
+      expect(address.has_shipped_orders?).to eq(nil)
+
+      user.orders.create!(name: 'Meg', address: address, status: 'shipped')
+
+      expect(address.has_shipped_orders?).to eq(true)
     end
   end
 end

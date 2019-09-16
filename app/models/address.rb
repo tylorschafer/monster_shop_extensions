@@ -3,4 +3,9 @@ class Address < ApplicationRecord
 
   belongs_to :user
   has_many :orders
+
+  def has_shipped_orders?
+    shipped_orders = orders.find_by(status: 'shipped')
+    return true if shipped_orders
+  end
 end
