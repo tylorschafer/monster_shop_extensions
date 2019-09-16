@@ -3,10 +3,12 @@ require 'rails_helper'
 describe 'admin dashboard' do
   before :each do
     @admin = create(:user, role: 4)
-    @order_1 = create(:order, status: 0)
-    @order_2 = create(:order, status: 1)
-    @order_3 = create(:order, status: 2)
-    @order_4 = create(:order, status: 3)
+    @user = create(:user)
+    @address = @user.addresses[0]
+    @order_1 = create(:order, status: 0, user: @user, address: @address)
+    @order_2 = create(:order, status: 1, user: @user, address: @address)
+    @order_3 = create(:order, status: 2, user: @user, address: @address)
+    @order_4 = create(:order, status: 3, user: @user, address: @address)
 
     visit login_path
 

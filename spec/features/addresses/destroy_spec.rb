@@ -31,14 +31,14 @@ describe 'User profile page' do
     expect(current_path).to eq('/profile')
 
     expect(page).to_not have_content(@address_1.nickname)
-    expect(page).to_not have_content(@address_1.address)
+    expect(page).to_not have_content(@address_1.street)
     expect(page).to_not have_content(@address_1.city)
     expect(page).to_not have_content(@address_1.state)
     expect(page).to_not have_content(@address_1.zip)
 
     within "#address-#{@address_2.id}" do
       expect(page).to have_content(@address_2.nickname)
-      expect(page).to have_content(@address_2.address)
+      expect(page).to have_content(@address_2.street)
       expect(page).to have_content(@address_2.city)
       expect(page).to have_content(@address_2.state)
       expect(page).to have_content(@address_2.zip)

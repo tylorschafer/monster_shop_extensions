@@ -26,7 +26,7 @@ describe 'User profile page' do
 
     within "#address-#{@address_1.id}" do
       expect(page).to have_content(@address_1.nickname)
-      expect(page).to have_content(@address_1.address)
+      expect(page).to have_content(@address_1.street)
       expect(page).to have_content(@address_1.city)
       expect(page).to have_content(@address_1.state)
       expect(page).to have_content(@address_1.zip)
@@ -36,13 +36,13 @@ describe 'User profile page' do
     expect(current_path).to eq(edit_address_path(@address_1.id))
 
     nickname = 'Work'
-    address = '123 Fake Streek'
+    street = '123 Fake Streek'
     city = 'Apple Valley'
     state = 'MN'
     zip = 55024
 
     fill_in 'Nickname', with: nickname
-    fill_in 'Address', with: address
+    fill_in 'Street', with: street
     fill_in 'City', with: city
     fill_in 'State', with: state
     fill_in 'Zip', with: zip
@@ -52,7 +52,7 @@ describe 'User profile page' do
 
     within "#address-#{@address_1.id}" do
       expect(page).to have_content(nickname)
-      expect(page).to have_content(address)
+      expect(page).to have_content(street)
       expect(page).to have_content(city)
       expect(page).to have_content(state)
       expect(page).to have_content(zip)
@@ -67,13 +67,13 @@ describe 'User profile page' do
     end
 
     fill_in 'Nickname', with: ''
-    fill_in 'Address', with: ''
+    fill_in 'Street', with: ''
     fill_in 'City', with: ''
     fill_in 'State', with: ''
     fill_in 'Zip', with: ''
     click_button 'Update Address'
 
     expect(current_path).to eq(edit_address_path(@address_1.id))
-    expect(page).to have_content("Address can't be blank, City can't be blank, State can't be blank, Zip can't be blank, and Nickname can't be blank")
+    expect(page).to have_content("City can't be blank, State can't be blank, Zip can't be blank, and Nickname can't be blank")
   end
 end

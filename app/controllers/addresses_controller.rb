@@ -38,7 +38,7 @@ class AddressesController < ApplicationController
   private
 
   def address_params
-    params.require(:address).permit(:nickname, :address, :city, :state, :zip)
+    params.require(:address).permit(:nickname, :street, :city, :state, :zip)
   end
 
   def find_redirect
