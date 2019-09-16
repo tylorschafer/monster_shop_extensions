@@ -21,7 +21,7 @@ describe 'User visits their profile page' do
       click_on 'Log In'
     end
   end
-  it 'Show all their info inlucing edit link' do
+  it 'Show all their info inluding edit link' do
 
     within '.user-profile' do
       expect(current_path).to eq('/profile')
