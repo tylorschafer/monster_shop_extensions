@@ -1,0 +1,23 @@
+<center><p>Which address would you like to ship to?</p></center>
+  <table>
+    <tr>
+      <th>Nickname</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th></th>
+    </tr>
+  <% @addresses.each do |address|  %>
+    <section id= "address-<%= address.id %>">
+    <tr>
+    <td><%= address.nickname  %></td>
+    <td><%= address.street  %></td>
+    <td><%= address.city %></td>
+    <td><%= address.state %></td>
+    <td><%= address.zip %></td>
+    <td><%= link_to 'Select', "/orders/addresses/select/#{address.id}", method: :patch, class: 'btn-small' %></td>
+    </tr>
+    </section>
+  <% end %>
+  </table>

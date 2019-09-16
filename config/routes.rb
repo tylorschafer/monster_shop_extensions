@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/orders/:order_id', to: 'orders#show', as: :order
   patch '/orders/:order_id/ship', to: 'orders#ship', as: :shipped_order
   get '/profile/orders/:order_id', to: 'orders#show'
+  get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
   get '/profile/orders', to: 'orders#index'
 
   resources :users

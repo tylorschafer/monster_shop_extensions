@@ -20,6 +20,7 @@
       <td><p><%= @order.address.zip %> </p></td>
     </tr>
   </table>
+  <%= link_to 'Select a Different Shipping Address', address_select_path, method: :get, class: 'btn-small' %>
 </section>
 <h1 align = "center">Order Info</h1>
 <center>

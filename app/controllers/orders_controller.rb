@@ -12,6 +12,7 @@ class OrdersController <ApplicationController
       @selected_address = true
     elsif @user.addresses == []
       @address = Address.new
+      flash[:error] = "You must create an address to process an order"
     else
       @has_address = true
       @addresses = @user.addresses
@@ -86,8 +87,22 @@ class OrdersController <ApplicationController
   end
 
   def select_address
-    session[:address_id] = params[:address_id]
-    redirect_to '/orders/new'
+    if session[:pending_address_select] == 'true'
+      update_address
+    else
+      session[:address_id] = params[:address_id]
+      redirect_to '/orders/new'
+    end
+  end
+
+  def update_address
+    order = Order.find(session[:order_id])
+    order.address = Address.find(params[:address_id])
+    order.save
+    redirect_to "/profile/orders"
+    session.delete(:order_id)
+    session.delete(:pending_address_select)
+    flash[:success] = "You have changed the address for order ##{order.id}"
   end
 
   private

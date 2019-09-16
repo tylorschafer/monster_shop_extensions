@@ -5,6 +5,7 @@ describe 'user order show page' do
     @tire = create(:item, inventory: 10, price: 35)
     @paper = create(:item, inventory: 10, price: 40)
     @user_1 = create(:user)
+    @admin = create(:user, role: 4)
     @address_1 = create(:address, user_id: @user_1.id)
     @order = create(:order, address_id: @address_1.id)
     @user_2 = create(:user)
