@@ -39,8 +39,6 @@ describe 'new order creation' do
       fill_in 'Zip', with: @zip
       click_on 'Create Address'
 
-      new_address = Address.last
-
       expect(page).to have_content('Which address would you like to ship to?')
       expect(page).to have_content('Home')
       expect(page).to have_content(@address)
@@ -61,6 +59,11 @@ describe 'new order creation' do
       expect(page).to_not have_link('Select')
 
       expect(page).to have_link('Create Order')
+    end
+    it 'an error message will be displayed if the new address form is not completed' do
+      click_on 'Create Address'
+
+      expect(page).to have_content("Address can't be blank, City can't be blank, State can't be blank, and Zip can't be blank")
     end
   end
 end

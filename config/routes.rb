@@ -61,7 +61,8 @@ Rails.application.routes.draw do
 
   resources :addresses, only: [:new, :create]
 
-  get '/users/orders/select/:address_id', to: 'addresses#select'
+  patch '/orders/addresses/remove/:address_id', to: 'orders#remove_address'
+  patch '/orders/addresses/select/:address_id', to: 'orders#select_address'
 
   match "*path", to: "welcome#catch_404", via: :all
 end

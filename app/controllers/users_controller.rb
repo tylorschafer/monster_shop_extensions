@@ -24,9 +24,11 @@ class UsersController <ApplicationController
       render file: "/public/404"
     else
       if params[:id] && current_admin?
+        session.delete(:creating_order)
         @user = User.find(params[:id])
         @admin = User.find_by(id: session[:user_id])
       else
+        session.delete(:creating_order)
         @user = User.find_by(id: session[:user_id])
       end
     end
@@ -67,10 +69,6 @@ class UsersController <ApplicationController
 
   private
 
-  def complete_params?
-    return true if user_params.keys.count == 4 && address_params.keys.count == 4
-  end
-
   def update_password_params
     params.require(:update_password).permit(:old_password, :new_password, :new_password_confirmation)
   end
@@ -85,10 +83,6 @@ class UsersController <ApplicationController
 
   def new_passwords_match?
     update_password_params[:new_password] == update_password_params[:new_password_confirmation]
-  end
-
-  def address_params
-    params.require(:user).permit(:address,:city,:state,:zip)
   end
 
   def user_params
