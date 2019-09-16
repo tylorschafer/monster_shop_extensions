@@ -4,6 +4,7 @@ describe Order, type: :model do
   describe "validations" do
     it { should validate_presence_of :name }
     it { should validate_presence_of :status }
+    it {should allow_value(nil).for(:coupon)}
   end
 
   describe "relationships" do

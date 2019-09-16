@@ -5,6 +5,7 @@ class Order <ApplicationRecord
   has_many :items, through: :item_orders
   belongs_to :user
   belongs_to :address
+  belongs_to :coupon, optional: true
 
   enum status: { pending: 0, packaged: 1, shipped: 2 , cancelled: 3 }
 
