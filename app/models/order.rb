@@ -41,25 +41,28 @@ class Order <ApplicationRecord
     self.update(status: 1) if item_orders.pluck(:status).all? {|status| status == "fulfilled"}
   end
 
-  def has_coupon?
+  def has_cou
    self.coupon != nil
   end
 
   def discounted_total
     coupon = self.coupon
-    discounts(coupon)
+    merchant_total = item_orders.joins(:item)
+                                .where("items.merchant_id = #{coupon.merchant_id}")
+                                .sum('item_orders.price * item_orders.quantity')
+    discounts(coupon, merchant_total)
   end
 
-  def discounts(coupon)
-    merchant_total = item_orders.joins(:item).where("items.merchant_id = #{coupon.merchant.id}").sum('item_orders.price * item_orders.quantity')
-    if coupon.coupon_type == 'percentage'
-       new_total = merchant_total * (coupon.rate / 10)
+  def discounts(coupon, merchant_total)
+    if coupon.coupon_type == 'percent'
+       total_discounts = merchant_total * (coupon.rate / 100)
     else
-      new_total = merchant_total - coupon.rate
-      if new_total < 0
-         new_total = 0
+      if merchant_total -  coupon.rate <= 0
+         total_discounts = merchant_total
+       else
+         total_discounts = coupon.rate.to_f
       end
     end
-    new_total
+    grandtotal - total_discounts
   end
 end

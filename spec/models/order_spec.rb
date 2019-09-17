@@ -68,5 +68,18 @@ describe Order, type: :model do
 
       expect(@order_1.status).to eq('packaged')
     end
+    it "#discounts" do
+      coupon = create(:coupon, coupon_type: :percent, rate: 10, merchant: @meg)
+      @order_1.coupon = coupon
+      expect(@order_1.discounted_total).to eq(210)
+
+      coupon_2 = create(:coupon, coupon_type: :dollar, rate: 30, merchant: @meg)
+      @order_1.coupon = coupon_2
+      expect(@order_1.discounted_total).to eq(200)
+
+      coupon_3 = create(:coupon, coupon_type: :dollar, rate: 210, merchant: @meg)
+      @order_1.coupon = coupon_3
+      expect(@order_1.discounted_total).to eq(30)
+    end
   end
 end
