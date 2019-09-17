@@ -2,8 +2,8 @@ class Merchant::CouponsController < Merchant::BaseController
 
   def index
     user = User.find(session[:user_id])
-    merchant = user.merchant
-    @coupons = merchant.coupons
+    @merchant = user.merchant
+    @coupons = @merchant.coupons
   end
 
   def new
@@ -30,9 +30,9 @@ class Merchant::CouponsController < Merchant::BaseController
   def update
     @coupon = Coupon.find(params[:id])
     @coupon.update(coupon_params)
-    if coupon.save
+    if @coupon.save
       flash[:success] = "You Create a New Coupon"
-      redirect_to merchant_coupons
+      redirect_to merchant_coupons_path
     else
       flash[:errors] = @coupon.errors.full_messages.to_sentence
       render :edit
@@ -42,7 +42,7 @@ class Merchant::CouponsController < Merchant::BaseController
   def destroy
     coupon = Coupon.find(params[:id])
     coupon.destroy
-    redirect_to merchant_coupons
+    redirect_to merchant_coupons_path
   end
 
   private

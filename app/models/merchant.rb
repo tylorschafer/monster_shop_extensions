@@ -61,4 +61,8 @@ class Merchant < ApplicationRecord
   def works_here?(id)
     self.id == id.to_i
   end
+
+  def coupon_count
+    coupons.count(:id)
+  end
 end

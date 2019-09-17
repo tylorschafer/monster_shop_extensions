@@ -117,5 +117,15 @@ describe Merchant, type: :model do
 
       expect(bottom).to eq([@tire, item_1, item_2, item_3, item_4])
     end
+
+    it '#coupon_count' do
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+
+      expect(@meg.coupon_count).to eq(5)
+    end
   end
 end

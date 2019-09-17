@@ -9,18 +9,22 @@
   </tr>
 
   <% @coupons.each do |coupon| %>
-    <tr>
-      <th><%= coupon.name %></th>
-      <th><%= coupon.coupon_type %></th>
-      <% if coupon.coupon_type == 'percent' %>
-        <th>%<%= coupon.rate.round %></th>
-      <% else %>
-        <th>$<%= coupon.rate.round %></th>
-      <% end %>
-      <th><%= coupon.status %></th>
-      <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get %></th>
-      <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete %></th>
-    </tr>
+    <section id="coupon-<%= coupon.id %>">
+      <tr>
+        <th><%= coupon.name %></th>
+        <th><%= coupon.coupon_type %></th>
+        <% if coupon.coupon_type == 'percent' %>
+          <th>%<%= coupon.rate.round %></th>
+        <% else %>
+          <th>$<%= coupon.rate.round %></th>
+        <% end %>
+        <th><%= coupon.status %></th>
+        <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get %></th>
+        <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete %></th>
+      </tr>
+    </section>
   <% end %>
 </table>
-<center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get %></center>
+<% if @merchant.coupon_count < 5 %>
+  <center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get %></center>
+<% end %>

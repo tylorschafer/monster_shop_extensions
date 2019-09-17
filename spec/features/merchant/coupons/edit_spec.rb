@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Merchants can create coupons' do
+describe 'Merchants can edit coupons' do
   before :each do
     @dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
     @pull_toy = @dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
@@ -16,16 +16,18 @@ describe 'Merchants can create coupons' do
       click_on 'Log In'
     end
   end
+  it 'there is a link to an edit form from merchant coupon index' do
+    coupon_1 = create(:coupon, merchant: @dog_shop)
+    coupon_2 = create(:coupon, merchant: @dog_shop)
 
-  it "A merchant can create coupons from the coupon tab" do
     visit merchant_coupons_path
 
-    expect(page).to have_link('Create a new Coupon')
+    within "#coupon-#{coupon_1.id}" do
+      expect(page).to have_link('Edit Coupon')
+      click_link 'Edit Coupon'
+    end
 
-    click_link 'Create a new Coupon'
-
-    expect(current_path).to eq(new_coupon_path)
-
+    expect(current_path).to eq(edit_coupon_path(coupon_1))
 
     name = 'MegaDeal'
     type = 'percent'
@@ -34,24 +36,14 @@ describe 'Merchants can create coupons' do
     fill_in 'Name', with: name
     fill_in 'Coupon type', with: type
     fill_in 'Rate', with: rate
-    click_on 'Create Coupon'
+    click_on 'Update Coupon'
 
     expect(current_path).to eq(merchant_coupons_path)
 
-    expect(page).to have_content(name)
-    expect(page).to have_content('percent')
-    expect(page).to have_content("%10")
-  end
-
-  it "There will be no create link if merchant already has 5 coupons" do
-    create(:coupon, merchant: @dog_shop)
-    create(:coupon, merchant: @dog_shop)
-    create(:coupon, merchant: @dog_shop)
-    create(:coupon, merchant: @dog_shop)
-    create(:coupon, merchant: @dog_shop)
-
-    visit merchant_coupons_path
-
-    expect(page).to_not have_link 'Create a new Coupon'
+    within "#coupon-#{coupon_1.id}" do
+      expect(page).to have_content(name)
+      expect(page).to have_content('percent')
+      expect(page).to have_content("%10")
+    end
   end
 end
