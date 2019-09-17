@@ -19,8 +19,12 @@
           <th>$<%= coupon.rate.round %></th>
         <% end %>
         <th><%= coupon.status %></th>
-        <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get %></th>
-        <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete %></th>
+        <% if coupon.has_orders? %>
+          <th>Coupons used on user orders cannot be deleted</th>
+        <% else %>
+          <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get %></th>
+          <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete %></th>
+        <% end %>
       </tr>
     </section>
   <% end %>
