@@ -29,7 +29,7 @@ class Merchant < ApplicationRecord
   def distinct_cities
     orders.joins(:address)
       .distinct
-      .pluck(:city)
+      .pluck('city')
   end
 
   def pending_orders

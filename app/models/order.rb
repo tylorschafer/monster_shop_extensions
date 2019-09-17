@@ -41,7 +41,7 @@ class Order <ApplicationRecord
     self.update(status: 1) if item_orders.pluck(:status).all? {|status| status == "fulfilled"}
   end
 
-  def has_cou
+  def has_coupon?
    self.coupon != nil
   end
 

@@ -86,5 +86,14 @@ describe Cart do
 
     coupon_2 = create(:coupon, coupon_type: :dollar, rate: 10, merchant: @dog_shop)
     expect(@cart.discounts(coupon_2).to_f).to eq(10)
+
+    coupon_3 = create(:coupon, coupon_type: :dollar, rate: 100, merchant: @dog_shop)
+    expect(@cart.discounts(coupon_3).to_f).to eq(52)
+    expect(@cart.discounted_total(coupon_3)).to eq(0)
+  end
+
+  it "#discounted_total" do
+    coupon_3 = create(:coupon, coupon_type: :dollar, rate: 100, merchant: @dog_shop)
+    expect(@cart.discounted_total(coupon_3)).to eq(0)
   end
 end

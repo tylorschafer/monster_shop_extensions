@@ -59,7 +59,7 @@ class OrdersController <ApplicationController
   def create
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
-    coupon = Coupon.find_by(params[:coupon_code])
+    coupon = Coupon.find_by(name: session[:has_coupon])
     order.coupon = coupon
     order.save
     create_item_orders(order)
@@ -107,8 +107,14 @@ class OrdersController <ApplicationController
   end
 
   def add_coupon
-    session[:has_coupon] = params[:coupon_code]
-    redirect_to "/orders/new"
+    coupon = Coupon.find_by(name: params[:coupon_code])
+    if coupon.nil?
+      flash[:error] = "Sorry that is not a valid coupon"
+      redirect_to "/orders/new"
+    else
+      session[:has_coupon] = coupon.name
+      redirect_to "/orders/new"
+    end
   end
 
   private

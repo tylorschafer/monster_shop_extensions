@@ -81,7 +81,7 @@ class Cart
       merchant_total += (item.price * quantity) if item
     end
     if merchant_total - coupon.rate < 0
-      0
+      merchant_total
     else
       coupon.rate
     end

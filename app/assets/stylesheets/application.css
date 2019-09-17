@@ -399,6 +399,13 @@ ul{
   color: var(--light-text);
 }
 
+#coupon-input {
+  padding: 0.2em;
+  width: 40em;
+  background-color: inherit;
+  float: left;
+}
+
 #home-indicator {
   width: 10em;
 }

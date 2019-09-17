@@ -87,7 +87,7 @@ RSpec.describe("New Order Page") do
       fill_in :coupon_code, with: coupon_1.name
       click_on 'Enter'
 
-      expect(page).to have_content("Discount Total: $62.00")
+      expect(page).to have_content("Discount Total: $137.80")
     end
   end
 end

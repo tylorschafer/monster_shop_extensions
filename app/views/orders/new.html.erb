@@ -25,12 +25,14 @@
   <%= link_to 'Select a Different Address', "/orders/addresses/remove/#{@address.id}", method: :patch, class: 'btn-small' %>
   <% if @coupon %>
     <h3 align = "right">You have applied <%= @coupon.merchant.name %> <%= @coupon.name %> Coupon to your order!</h3>
-  <% else %>
+  <% end %>
+  <center><section id='coupon-input'>
+    <h4>Apply a coupon(limit 1 per order):</h4>
     <%= form_tag add_coupon_path, method: :patch do |f| %>
-      <%= label_tag :coupon_code %>
-      <%= text_field_tag :coupon_code %>
-      <%= submit_tag 'Enter' %>
-    <% end %>
+    <center><%= label_tag :coupon_code %></center>
+    <%= text_field_tag :coupon_code %>
+    <center><%= submit_tag 'Enter', class: 'reg-link' %></center>
+  </section></center>
   <% end %>
   <p align = "right"><%= link_to "Create Order", orders_path,  class: 'btn', id: 'green-btn', method: :post %></p>
 <% elsif @has_address %>

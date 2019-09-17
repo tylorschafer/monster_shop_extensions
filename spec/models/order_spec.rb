@@ -81,5 +81,11 @@ describe Order, type: :model do
       @order_1.coupon = coupon_3
       expect(@order_1.discounted_total).to eq(30)
     end
+
+    it "#has_coupon?" do
+      coupon = create(:coupon, coupon_type: :percent, rate: 10, merchant: @meg)
+      @order_1.coupon = coupon
+      expect(@order_1.has_coupon?).to eq(true)
+    end
   end
 end
