@@ -22,13 +22,13 @@
         <% if coupon.has_orders? %>
           <th>Coupons used on user orders cannot be deleted</th>
         <% else %>
-          <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get %></th>
-          <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete %></th>
+          <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get, class: 'btn-small' %></th>
+          <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete, class: 'btn-small' %></th>
         <% end %>
       </tr>
     </section>
   <% end %>
 </table>
 <% if @merchant.coupon_count < 5 %>
-  <center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get %></center>
+  <center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get, class: 'btn-small' %></center>
 <% end %>

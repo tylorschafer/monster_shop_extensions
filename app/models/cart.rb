@@ -52,4 +52,15 @@ class Cart
   def quantity_zero?(item_id)
     @contents[item_id.to_s] == 0
   end
+
+  def discounted_total(coupon)
+    if coupon.coupon_type = 'percent'
+      total * (1 - (coupon.rate / 100))
+    else
+      new_total = total - coupon.rate
+      if new_total < 0
+        new_total = 0 
+      end
+    end
+  end
 end

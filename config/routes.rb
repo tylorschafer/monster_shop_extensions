@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
   get '/profile/orders', to: 'orders#index'
+  patch '/orders/new/coupon', to: 'orders#add_coupon', as: :add_coupon
 
   resources :users
   post '/users', to: 'users#create'
