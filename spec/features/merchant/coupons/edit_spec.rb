@@ -28,11 +28,10 @@ describe 'Merchants can edit coupons' do
     expect(current_path).to eq(edit_coupon_path(coupon_1))
 
     name = 'MegaDeal'
-    type = 'percent'
     rate = 10
 
     fill_in 'Name', with: name
-    fill_in 'Coupon type', with: type
+    select :percent, from: 'Coupon type'
     fill_in 'Rate', with: rate
     click_on 'Update Coupon'
 
@@ -43,5 +42,18 @@ describe 'Merchants can edit coupons' do
       expect(page).to have_content('percent')
       expect(page).to have_content("%10")
     end
+  end
+  it 'an error will display if coupon is not updated' do
+    coupon_1 = create(:coupon, merchant: @dog_shop)
+
+    visit merchant_coupons_path
+
+    click_link 'Edit Coupon'
+
+    fill_in 'Name', with: ' '
+    fill_in 'Rate', with: ' '
+    click_on 'Update Coupon'
+
+    expect(page).to have_content("Name can't be blank and Rate is not a number")
   end
 end

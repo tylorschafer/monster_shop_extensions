@@ -28,11 +28,10 @@ describe 'Merchants can create coupons' do
 
 
     name = 'MegaDeal'
-    type = 'percent'
     rate = 10
 
     fill_in 'Name', with: name
-    fill_in 'Coupon type', with: type
+    select :percent, from: 'Coupon type'
     fill_in 'Rate', with: rate
     click_on 'Create Coupon'
 
@@ -53,5 +52,18 @@ describe 'Merchants can create coupons' do
     visit merchant_coupons_path
 
     expect(page).to_not have_link 'Create a new Coupon'
+  end
+
+  it "An error will display if the coupon is not created" do
+    visit merchant_coupons_path
+
+    click_link 'Create a new Coupon'
+
+    fill_in 'Name', with: ''
+    select :dollar, from: 'Coupon type'
+    fill_in 'Rate', with: ''
+    click_on 'Create Coupon'
+
+    expect(page).to have_content("Name can't be blank and Rate is not a number")
   end
 end
