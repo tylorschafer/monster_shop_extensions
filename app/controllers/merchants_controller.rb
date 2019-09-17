@@ -9,10 +9,6 @@ class MerchantsController <ApplicationController
     end
   end
 
-  def my_coupons
-    coupons
-  end
-
   def show
     @merchant = Merchant.find(params[:id])
     if current_merchant?

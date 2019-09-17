@@ -89,5 +89,31 @@ RSpec.describe("New Order Page") do
 
       expect(page).to have_content("Discount Total: $137.80")
     end
+
+    it "an error will show if entering a bad coupon" do
+      visit "/cart"
+
+      user = create(:user)
+
+      click_on "log in"
+
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+
+      within "#login-form" do
+        click_on 'Log In'
+      end
+
+      visit "/cart"
+
+      click_on "Checkout"
+
+      click_on 'Select'
+
+      fill_in :coupon_code, with: 'bad code'
+      click_on 'Enter'
+
+      expect(page).to have_content("Sorry that is not a valid coupon")
+    end
   end
 end
