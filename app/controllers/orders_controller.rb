@@ -59,6 +59,9 @@ class OrdersController <ApplicationController
   def create
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
+    coupon = Coupon.find_by(params[:coupon_code])
+    order.coupon = coupon
+    order.save
     create_item_orders(order)
     delete_session
     redirect_to "/profile/orders"
