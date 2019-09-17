@@ -11,12 +11,14 @@ class Merchant::CouponsController < Merchant::BaseController
   end
 
   def create
-    coupon = Coupon.create(coupon_params)
-    if coupon.save
-      flash[:success] = "You Create a New Coupon"
-      redirect_to merchant_coupons
+    user = User.find(session[:user_id])
+    merchant = user.merchant
+    @coupon = merchant.coupons.create(coupon_params)
+    if @coupon.save
+      flash[:success] = "You Created a New Coupon"
+      redirect_to merchant_coupons_path
     else
-      flash[:errors] = coupon.errors.full_messages.to_sentence
+      flash[:errors] = @coupon.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -26,13 +28,13 @@ class Merchant::CouponsController < Merchant::BaseController
   end
 
   def update
-    coupon = Coupon.find(params[:id])
-    coupon.update(coupon_params)
+    @coupon = Coupon.find(params[:id])
+    @coupon.update(coupon_params)
     if coupon.save
       flash[:success] = "You Create a New Coupon"
       redirect_to merchant_coupons
     else
-      flash[:errors] = coupon.errors.full_messages.to_sentence
+      flash[:errors] = @coupon.errors.full_messages.to_sentence
       render :edit
     end
   end

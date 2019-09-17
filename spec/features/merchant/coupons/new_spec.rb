@@ -28,19 +28,18 @@ describe 'Merchants can create coupons' do
 
 
     name = 'MegaDeal'
-    type = 1
+    type = 'percent'
     rate = 10
 
     fill_in 'Name', with: name
-    fill_in 'Type', with: type
+    fill_in 'Coupon type', with: type
     fill_in 'Rate', with: rate
-    fill_in 'Chance', with: chance
-    click_on 'Submit'
+    click_on 'Create Coupon'
 
     expect(current_path).to eq(merchant_coupons_path)
 
     expect(page).to have_content(name)
-    expect(page).to have_content('Percent Off')
+    expect(page).to have_content('percent')
     expect(page).to have_content("%10")
   end
 end
