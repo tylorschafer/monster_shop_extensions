@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   delete '/merchant/items/:id', to: 'merchant/items#destroy', as: :merchant_delete_item
   get '/merchant/orders/:id', to: 'merchant/dashboard#order_show', as: :merchant_order_show
   post '/merchant/orders/:order_id/items/:item_id', to: 'merchant/items#fulfill_item', as: :merchant_fulfill_item
+  get '/merchant/coupons', to: 'merchant/coupons#index', as: :merchant_coupons
 
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
   get '/admin/users', to: 'admin/users#index'

@@ -4,7 +4,7 @@ class Coupon < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validates_numericality_of :rate, greater_than: 0
-  validates_numericality_of :chance, greater_than: 0
 
-  enum type: { percent_off: 1, dollar_off: 2}
+  enum type: { percent: 1, dollar: 2}
+  enum status: { active: 0, inactive: 1}
 end

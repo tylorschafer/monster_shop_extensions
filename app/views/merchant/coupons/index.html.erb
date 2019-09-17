@@ -1,0 +1,23 @@
+<h1>Your Coupons</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Rate</th>
+    <th>Status</th>
+  </tr>
+
+  <% @coupons.each do |coupon| %>
+    <tr>
+      <th><%= coupon.name %></th>
+      <th><%= coupon.type %></th>
+      <% if coupon.type == 'percent' %>
+        <th>%<%= coupon.rate %></th>
+      <% else %>
+        <th>$<%= coupon.rate %></th>
+      <% end %>
+      <th><%= coupon.status %></th>
+    </tr>
+  <% end %>
+</table>
