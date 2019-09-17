@@ -55,9 +55,9 @@ Rails.application.routes.draw do
   get '/merchant/coupons', to: 'merchant/coupons#index', as: :merchant_coupons
   get '/merchant/coupons/new', to: 'merchant/coupons#new', as: :new_coupon
   post '/merchant/coupons/new', to: 'merchant/coupons#create', as: :create_coupon
-  get '/merchant/coupons/:coupon_id', to: 'merchant/coupons#edit', as: :edit_coupon
-  patch '/merchant/coupons/:coupon_id', to: 'merchant/coupons#update', as: :update_coupon
-  delete '/merchant/coupons/:coupon_id', to: 'merchant/coupons#destroy', as: :delete_coupon
+  get '/merchant/coupons/:id', to: 'merchant/coupons#edit', as: :edit_coupon
+  patch '/merchant/coupons/:id', to: 'merchant/coupons#update', as: :update_coupon
+  delete '/merchant/coupons/:id', to: 'merchant/coupons#destroy', as: :delete_coupon
 
 
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
