@@ -104,7 +104,6 @@ class OrdersController <ApplicationController
   end
 
   def add_coupon
-    binding.pry
     session[:has_coupon] = params[:coupon_code]
     redirect_to "/orders/new"
   end

@@ -65,4 +65,8 @@ class Merchant < ApplicationRecord
   def coupon_count
     coupons.count(:id)
   end
+
+  def has_coupons?
+    coupon_count > 0
+  end
 end

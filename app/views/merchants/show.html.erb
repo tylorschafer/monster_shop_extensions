@@ -30,3 +30,26 @@
     <% end %>
   </section>
 </section>
+
+<% if @merchant.has_coupons? %>
+  <% @merchant.coupons.each do |coupon| %>
+    <section id="coupon-<%= coupon.id %>">
+      <table>
+        <tr>
+          <th>Code</th>
+          <th>Type</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <th><%= coupon.name %></th>
+          <th><%= coupon.coupon_type %></th>
+            <% if coupon.coupon_type == 'percent' %>
+              <th>%<%= coupon.rate %></th>
+            <% else %>
+              <th>$<%= coupon.rate %></th>
+            <% end %>
+        </tr>
+      </table>
+    </section>
+    <% end %>
+<% end %>
