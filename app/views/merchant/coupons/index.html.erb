@@ -11,13 +11,16 @@
   <% @coupons.each do |coupon| %>
     <tr>
       <th><%= coupon.name %></th>
-      <th><%= coupon.type %></th>
-      <% if coupon.type == 'percent' %>
-        <th>%<%= coupon.rate %></th>
+      <th><%= coupon.coupon_type %></th>
+      <% if coupon.coupon_type == 'percent' %>
+        <th>%<%= coupon.rate.round %></th>
       <% else %>
-        <th>$<%= coupon.rate %></th>
+        <th>$<%= coupon.rate.round %></th>
       <% end %>
       <th><%= coupon.status %></th>
+      <th><%= link_to 'Edit Coupon', edit_coupon_path, method: :get %></th>
+      <th><%= link_to 'Delete Coupon', delete_coupon_path, method: :delete %></th>
     </tr>
   <% end %>
 </table>
+<center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get %></center>
