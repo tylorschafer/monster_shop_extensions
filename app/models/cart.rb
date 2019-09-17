@@ -53,7 +53,8 @@ class Cart
     @contents[item_id.to_s] == 0
   end
 
-  def discounts(coupon, merchant_id)
+  def discounts(coupon)
+    merchant_id = coupon.merchant.id
     if coupon.coupon_type = 'percent'
       apply_percentage_discount(coupon, merchant_id)
     else
@@ -62,23 +63,33 @@ class Cart
   end
 
   def apply_percentage_discount(coupon, merchant_id)
-    @contents.sum do |item_id,quantity|
-      discounted_items = Item.select(item_id).where(merchant_id: merchant_id).pluck(:price)[0]
-      (discounted_items * (coupon.rate / 10)) * quantity
+    discounted_total = 0
+    @contents.each do |item_id,quantity|
+      item = Item.find_by(merchant_id: merchant_id, id: item_id)
+      if item
+        item_price = item.price
+        discounted_total += (item_price * (coupon.rate / 100)) * quantity
+      end
     end
+    discounted_total
   end
 
   def apply_dollar_discount(coupon, merchant_id)
-    @contents.sum do |item_id,quantity|
-      price = Item.find(item_id).where(merchant_id: merchant_id).pluck(:price)[0]
-      (price - coupon.rate) * quantity
-      if price < 0
-        price = 0
+    discounted_total = 0
+    @contents.each do |item_id,quantity|
+      item = Item.find_by(merchant_id: merchant_id, id: item_id)
+      if item
+        new_price = item.price - coupon.rate
+        if new_price > 0
+          discounted_total += (coupon.rate * quantity)
+        else
+          discounted_total += item.price
+        end
       end
     end
   end
 
-  def discounted_total(coupon, merchant_id)
-    total - discounts(coupon, merchant_id)
+  def discounted_total(coupon)
+    total - discounts(coupon)
   end
 end

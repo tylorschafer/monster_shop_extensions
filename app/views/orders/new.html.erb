@@ -44,5 +44,5 @@
 <% end %>
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
 <% if @coupon %>
-  <h3 align = "right">Discount Total: <%= number_to_currency(cart.discounted_total(@coupon, @coupon.merchant.id))%></h3>
+  <h3 align = "right">Discount Total: <%= number_to_currency(cart.discounted_total(@coupon))%></h3>
 <% end %>
