@@ -31,7 +31,9 @@ describe 'Merchants can edit coupons' do
     rate = 10
 
     fill_in 'Name', with: name
-    select :percent, from: 'Coupon type'
+    within "#drop-down" do
+      select :percent
+    end
     fill_in 'Rate', with: rate
     click_on 'Update Coupon'
 
