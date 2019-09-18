@@ -1,17 +1,10 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 ItemOrder.destroy_all
 Order.destroy_all
 Address.destroy_all
 Review.destroy_all
 Item.destroy_all
 User.destroy_all
+Coupon.destroy_all
 Merchant.destroy_all
 
 #merchants
@@ -25,6 +18,10 @@ tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never po
 lights = bike_shop.items.create(name: "Blinky Lights", description: "They are super bright and blinky!", price: 43, image: "https://images-na.ssl-images-amazon.com/images/I/81NBFtp5HGL._SX466_.jpg", inventory: 8)
 horn = bike_shop.items.create(name: "Honky Horn", description: "Let everyone know you mean business!", price: 27, image: "https://static.evanscycles.com/production/bike-accessories/bells--horns/product-image/484-319/electra-bicycle-horn-black-silver-EV322701-8575-1.jpg", inventory: 4)
 
+#bike_shop coups
+bike_shop.coupons.create(name: 'bigdeal', coupon_type: :percent, rate: 30)
+bike_shop.coupons.create(name: 'littledeal', coupon_type: :percent, rate: 5)
+bike_shop.coupons.create(name: 'noway', coupon_type: :dollar, rate: 55)
 
 #dog_shop items
 pull_toy = dog_shop.items.create(name: "Pull Toy", description: "Great pull toy!", price: 10, image: "http://lovencaretoys.com/image/cache/dog/tug-toy-dog-pull-9010_2-800x800.jpg", inventory: 32)
@@ -33,15 +30,29 @@ collar = dog_shop.items.create(name: "Chaco Collar", description: "Dogs love nam
 stache = dog_shop.items.create(name: "Humunga Stache", description: "Make your dog look like an old-timey gentleman!", price: 19, image: "https://www.glamourmutt.com/thumbnail.asp?file=assets/images/stache1.jpg&maxx=300&maxy=0", inventory: 21)
 pugtato = dog_shop.items.create(name: "Baked Pugtato", description: "Feeds a family of four!", price: 300, image: "https://i.redd.it/l6od6xh0e9jy.jpg", inventory: 2)
 
+#dog_shop coups
+dog_shop.coupons.create(name: 'dogdeal', coupon_type: :percent, rate: 25)
+dog_shop.coupons.create(name: 'sweetsale', coupon_type: :percent, rate: 15)
+dog_shop.coupons.create(name: 'pooch', coupon_type: :dollar, rate: 100)
+
 #pug_lyfe items
 pug_lyfe = pug_lyfe_records.items.create(name: "Respekt da Hustle (and treats)", description: "Hip Hop isn't dead", price: 20, image: "https://cdn.shopify.com/s/files/1/1869/0319/products/artwork_2Fz9cKcghIoyvemWkc1vCv-YBM41z0Oo079n1UnHV5N-OEnIIoR0vasFcNcuRO27-color-black_571x_crop_center.png?v=1522944906", inventory: 6)
 music_lessons = pug_lyfe_records.items.create(name: "Band of Pugs", description: "A private serenade by this cute boi", price: 200, image: "https://i.redd.it/jixotthmobwz.jpg", inventory: 90)
+
+#pug_lyfe coups
+pug_lyfe_records.coupons.create(name: 'wowza', coupon_type: :percent, rate: 16)
+pug_lyfe_records.coupons.create(name: 'puglyfe', coupon_type: :dollar, rate: 80)
+pug_lyfe_records.coupons.create(name: 'pughugs', coupon_type: :percent, rate: 75)
 
 #bath house items
 cut = larrys_bath_house.items.create(name: "Cut", description: "just a cut.. no style", price: 10, image: "https://hipms.files.wordpress.com/2007/11/d8af4-wig21.jpg", inventory: 100)
 cut_style = larrys_bath_house.items.create(name: "Cut n' Style", description: "beautify ur puggo", price: 50, image: "https://i.pinimg.com/originals/78/d6/c7/78d6c742fd95d4ace577d0aa89f77e94.png", inventory: 100)
 bath_time = larrys_bath_house.items.create(name: "Bath Time", description: "So fresh and so clean, clean", price: 50, image: "https://i.ytimg.com/vi/fTtwE6iXCIM/maxresdefault.jpg", inventory: 100)
 
+#bath house coups
+larrys_bath_house.coupons.create(name: 'clean', coupon_type: :percent, rate: 35)
+larrys_bath_house.coupons.create(name: 'wowsale', coupon_type: :dollar, rate: 45)
+larrys_bath_house.coupons.create(name: 'blackfriday', coupon_type: :dollar, rate: 300)
 
 #Users
 user = User.create(name: 'Bob', email: 'bob@email.com', password: 'bob', password_confirmation: 'bob', role: 1)

@@ -20,7 +20,7 @@
         <% end %>
         <th><%= coupon.status %></th>
         <% if coupon.has_orders? %>
-          <th>Coupons used on user orders cannot be deleted</th>
+          <th>Coupons used on user orders cannot be modified</th>
         <% else %>
           <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get, class: 'btn-small' %></th>
           <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete, class: 'btn-small' %></th>
