@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   #address
   resources :addresses
   patch '/orders/addresses/select/:address_id', to: 'orders#select_address'
-  patch '/orders/addresses/remove/2', to: 'address#remove'
+  patch '/orders/addresses/remove/:address_id', to: 'addresses#remove'
   get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
   get '/profile/orders', to: 'orders#index'
 
@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   get '/profile', to: 'users#show'
   get '/profile/edit', to: 'users#edit'
   patch '/profile/edit', to: 'users#update'
-  get '/profopenile/edit_password', to: 'users#edit_password'
+  get '/profile/edit_password', to: 'users#edit_password'
   patch '/profile/edit_password', to: 'users#update_password'
 
   #merchant
