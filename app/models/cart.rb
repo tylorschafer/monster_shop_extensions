@@ -52,4 +52,42 @@ class Cart
   def quantity_zero?(item_id)
     @contents[item_id.to_s] == 0
   end
+
+  def discounts(coupon)
+    merchant_id = coupon.merchant.id
+    if coupon.coupon_type == 'percent'
+      apply_percentage_discount(coupon, merchant_id)
+    else
+      apply_dollar_discount(coupon, merchant_id)
+    end
+  end
+
+  def apply_percentage_discount(coupon, merchant_id)
+    discounted_total = 0
+    @contents.each do |item_id,quantity|
+      item = Item.find_by(merchant_id: merchant_id, id: item_id)
+      if item
+        item_price = item.price
+        discounted_total += (item_price * (coupon.rate / 100)) * quantity
+      end
+    end
+    discounted_total
+  end
+
+  def apply_dollar_discount(coupon, merchant_id)
+    merchant_total = 0
+    @contents.each do |item_id,quantity|
+      item = Item.find_by(merchant_id: merchant_id, id: item_id)
+      merchant_total += (item.price * quantity) if item
+    end
+    if merchant_total - coupon.rate < 0
+      merchant_total
+    else
+      coupon.rate
+    end
+  end
+
+  def discounted_total(coupon)
+    total - discounts(coupon)
+  end
 end

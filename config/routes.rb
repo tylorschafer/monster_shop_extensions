@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get '/profile/orders/:order_id', to: 'orders#show'
   get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
   get '/profile/orders', to: 'orders#index'
+  patch '/orders/new/coupon', to: 'orders#add_coupon', as: :add_coupon
 
   resources :users
   post '/users', to: 'users#create'
@@ -48,8 +49,17 @@ Rails.application.routes.draw do
   patch '/merchant/items/:id/activity', to: 'merchant/items#update_activity', as: :merchant_update_item_activity
   patch '/merchant/items/:id', to: 'merchant/items#update', as: :merchant_update_item
   delete '/merchant/items/:id', to: 'merchant/items#destroy', as: :merchant_delete_item
+
   get '/merchant/orders/:id', to: 'merchant/dashboard#order_show', as: :merchant_order_show
   post '/merchant/orders/:order_id/items/:item_id', to: 'merchant/items#fulfill_item', as: :merchant_fulfill_item
+
+  get '/merchant/coupons', to: 'merchant/coupons#index', as: :merchant_coupons
+  get '/merchant/coupons/new', to: 'merchant/coupons#new', as: :new_coupon
+  post '/merchant/coupons/new', to: 'merchant/coupons#create', as: :create_coupon
+  get '/merchant/coupons/:id', to: 'merchant/coupons#edit', as: :edit_coupon
+  patch '/merchant/coupons/:id', to: 'merchant/coupons#update', as: :update_coupon
+  delete '/merchant/coupons/:id', to: 'merchant/coupons#destroy', as: :delete_coupon
+
 
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
   get '/admin/users', to: 'admin/users#index'

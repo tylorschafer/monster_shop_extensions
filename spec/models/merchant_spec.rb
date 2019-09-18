@@ -13,6 +13,7 @@ describe Merchant, type: :model do
   describe "relationships" do
     it {should have_many :items}
     it {should have_many :users}
+    it {should have_many :coupons}
   end
 
   describe 'instance methods' do
@@ -60,7 +61,7 @@ describe Merchant, type: :model do
       order_2.item_orders.create!(item: chain, price: chain.price, quantity: 2)
       order_3.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
 
-      expect(@meg.distinct_cities.sort).to eq(["#{user.addresses[0].city}","#{user.addresses[1].city}"])
+      expect(@meg.distinct_cities.sort).to eq(["#{user.addresses[1].city}","#{user.addresses[0].city}"])
     end
 
     it '#pending_orders' do
@@ -115,6 +116,22 @@ describe Merchant, type: :model do
       expect(top).to eq([item_6, item_5, item_4, item_3, item_2])
 
       expect(bottom).to eq([@tire, item_1, item_2, item_3, item_4])
+    end
+
+    it '#coupon_count' do
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+      create(:coupon, merchant: @meg)
+
+      expect(@meg.coupon_count).to eq(5)
+    end
+
+    it "#has_coupons?" do
+      expect(@meg.has_coupons?).to eq(false)
+      create(:coupon, merchant: @meg)
+      expect(@meg.has_coupons?).to eq(true)
     end
   end
 end

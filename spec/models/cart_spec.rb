@@ -80,4 +80,20 @@ describe Cart do
     @cart = Cart.new({@pull_toy.id.to_s => 0, @dog_bone.id.to_s => 2})
     expect(@cart.quantity_zero?(@pull_toy.id)).to be(true)
   end
+  it "#discounts" do
+    coupon = create(:coupon, coupon_type: :percent, rate: 10, merchant: @dog_shop)
+    expect(@cart.discounts(coupon).to_f).to eq(5.20)
+
+    coupon_2 = create(:coupon, coupon_type: :dollar, rate: 10, merchant: @dog_shop)
+    expect(@cart.discounts(coupon_2).to_f).to eq(10)
+
+    coupon_3 = create(:coupon, coupon_type: :dollar, rate: 100, merchant: @dog_shop)
+    expect(@cart.discounts(coupon_3).to_f).to eq(52)
+    expect(@cart.discounted_total(coupon_3)).to eq(0)
+  end
+
+  it "#discounted_total" do
+    coupon_3 = create(:coupon, coupon_type: :dollar, rate: 100, merchant: @dog_shop)
+    expect(@cart.discounted_total(coupon_3)).to eq(0)
+  end
 end

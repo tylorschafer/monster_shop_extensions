@@ -399,6 +399,17 @@ ul{
   color: var(--light-text);
 }
 
+#coupon-input {
+  padding: 0.2em;
+  width: 40em;
+  background-color: inherit;
+  float: left;
+}
+
+#drop-down {
+  height: 3.5em;
+}
+
 #home-indicator {
   width: 10em;
 }

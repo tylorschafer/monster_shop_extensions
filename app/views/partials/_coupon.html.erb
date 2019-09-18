@@ -1,0 +1,9 @@
+<center><%= form_for @coupon, :url => path do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :coupon_type %>
+  <%= f.select :coupon_type, ['percent', 'dollar'], {}, { id: 'drop-down' } %>
+  <%= f.label :rate %>
+  <%= f.text_field :rate %>
+  <%= f.submit %>
+<% end %></center>

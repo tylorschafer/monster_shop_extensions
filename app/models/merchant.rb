@@ -3,6 +3,7 @@ class Merchant < ApplicationRecord
   has_many :item_orders, through: :items
   has_many :orders, through: :item_orders
   has_many :users
+  has_many :coupons
 
   validates_presence_of :name,
                         :address,
@@ -28,7 +29,7 @@ class Merchant < ApplicationRecord
   def distinct_cities
     orders.joins(:address)
       .distinct
-      .pluck(:city)
+      .pluck('city')
   end
 
   def pending_orders
@@ -59,5 +60,13 @@ class Merchant < ApplicationRecord
 
   def works_here?(id)
     self.id == id.to_i
+  end
+
+  def coupon_count
+    coupons.count(:id)
+  end
+
+  def has_coupons?
+    coupon_count > 0
   end
 end

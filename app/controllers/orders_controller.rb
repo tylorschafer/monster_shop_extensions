@@ -10,6 +10,9 @@ class OrdersController <ApplicationController
     if session[:address_id]
       @address = Address.find(session[:address_id])
       @selected_address = true
+      if session[:has_coupon] != nil
+        @coupon = Coupon.find_by(name: session[:has_coupon])
+      end
     elsif @user.addresses == []
       @address = Address.new
     else
@@ -56,6 +59,9 @@ class OrdersController <ApplicationController
   def create
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
+    coupon = Coupon.find_by(name: session[:has_coupon])
+    order.coupon = coupon
+    order.save
     create_item_orders(order)
     delete_session
     redirect_to "/profile/orders"
@@ -100,6 +106,17 @@ class OrdersController <ApplicationController
     flash[:success] = "You have changed the address for order ##{order.id}"
   end
 
+  def add_coupon
+    coupon = Coupon.find_by(name: params[:coupon_code])
+    if coupon.nil?
+      flash[:error] = "Sorry that is not a valid coupon"
+      redirect_to "/orders/new"
+    else
+      session[:has_coupon] = coupon.name
+      redirect_to "/orders/new"
+    end
+  end
+
   private
 
   def user_info(user)
@@ -114,5 +131,6 @@ class OrdersController <ApplicationController
     session.delete(:cart)
     session.delete(:address_id)
     session.delete(:creating_order)
+    session.delete(:has_coupon)
   end
 end

@@ -23,6 +23,17 @@
   <center><h3>Your order will be shipped to: </h3></center>
   <%= render partial: 'partials/address_show', locals: { user_address: @address } %>
   <%= link_to 'Select a Different Address', "/orders/addresses/remove/#{@address.id}", method: :patch, class: 'btn-small' %>
+  <% if @coupon %>
+    <h3 align = "right">You have applied <%= @coupon.merchant.name %> <%= @coupon.name %> Coupon to your order!</h3>
+  <% end %>
+  <center><section id='coupon-input'>
+    <h4>Apply a coupon(limit 1 per order):</h4>
+    <%= form_tag add_coupon_path, method: :patch do |f| %>
+    <center><%= label_tag :coupon_code %></center>
+    <%= text_field_tag :coupon_code %>
+    <center><%= submit_tag 'Enter', class: 'reg-link' %></center>
+  </section></center>
+  <% end %>
   <p align = "right"><%= link_to "Create Order", orders_path,  class: 'btn', id: 'green-btn', method: :post %></p>
 <% elsif @has_address %>
   <%= render partial: 'partials/address_select' %>
@@ -34,3 +45,6 @@
     </section>
 <% end %>
 <h3 align = "right">Total: <%= number_to_currency(cart.total)%></h3>
+<% if @coupon %>
+  <h3 align = "right">Discount Total: <%= number_to_currency(cart.discounted_total(@coupon))%></h3>
+<% end %>

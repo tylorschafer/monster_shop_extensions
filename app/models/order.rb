@@ -5,6 +5,7 @@ class Order <ApplicationRecord
   has_many :items, through: :item_orders
   belongs_to :user
   belongs_to :address
+  belongs_to :coupon, optional: true
 
   enum status: { pending: 0, packaged: 1, shipped: 2 , cancelled: 3 }
 
@@ -38,5 +39,30 @@ class Order <ApplicationRecord
 
   def update_status
     self.update(status: 1) if item_orders.pluck(:status).all? {|status| status == "fulfilled"}
+  end
+
+  def has_coupon?
+   self.coupon != nil
+  end
+
+  def discounted_total
+    coupon = self.coupon
+    merchant_total = item_orders.joins(:item)
+                                .where("items.merchant_id = #{coupon.merchant_id}")
+                                .sum('item_orders.price * item_orders.quantity')
+    discounts(coupon, merchant_total)
+  end
+
+  def discounts(coupon, merchant_total)
+    if coupon.coupon_type == 'percent'
+       total_discounts = merchant_total * (coupon.rate / 100)
+    else
+      if merchant_total -  coupon.rate <= 0
+         total_discounts = merchant_total
+       else
+         total_discounts = coupon.rate.to_f
+      end
+    end
+    grandtotal - total_discounts
   end
 end

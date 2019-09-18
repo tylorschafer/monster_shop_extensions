@@ -1,0 +1,34 @@
+<h1>Your Coupons</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Rate</th>
+    <th>Status</th>
+  </tr>
+
+  <% @coupons.each do |coupon| %>
+    <section id="coupon-<%= coupon.id %>">
+      <tr>
+        <th><%= coupon.name %></th>
+        <th><%= coupon.coupon_type %></th>
+        <% if coupon.coupon_type == 'percent' %>
+          <th>%<%= coupon.rate.round %></th>
+        <% else %>
+          <th>$<%= coupon.rate.round %></th>
+        <% end %>
+        <th><%= coupon.status %></th>
+        <% if coupon.has_orders? %>
+          <th>Coupons used on user orders cannot be deleted</th>
+        <% else %>
+          <th><%= link_to 'Edit Coupon', edit_coupon_path(coupon), method: :get, class: 'btn-small' %></th>
+          <th><%= link_to 'Delete Coupon', delete_coupon_path(coupon), method: :delete, class: 'btn-small' %></th>
+        <% end %>
+      </tr>
+    </section>
+  <% end %>
+</table>
+<% if @merchant.coupon_count < 5 %>
+  <center><%= link_to 'Create a new Coupon', new_coupon_path, method: :get, class: 'btn-small' %></center>
+<% end %>
