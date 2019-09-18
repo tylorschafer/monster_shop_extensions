@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
     binding.pry
   end
 
-  # rescue_from ActionController::RoutingError do |exception|
-  #   logger.error 'Routing error occurred'
-  #   render file: 'public/404'
-  # end
+  rescue_from ActionController::RoutingError do |exception|
+    logger.error 'Routing error occurred'
+    render file: 'public/404'
+  end
 end

@@ -60,8 +60,6 @@ describe 'new order creation' do
 
       expect(page).to have_link('Create Order')
 
-      save_and_open_page
-
       click_link 'Select a Different Address'
 
       expect(page).to have_content('Which address would you like to ship to?')
