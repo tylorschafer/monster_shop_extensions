@@ -59,6 +59,10 @@ describe 'new order creation' do
       expect(page).to have_link('Select a Different Address')
 
       expect(page).to have_link('Create Order')
+
+      click_link 'Select a Different Address'
+
+      expect(page).to have_content('Which address would you like to ship to?')
     end
     it 'an error message will be displayed if the new address form is not completed' do
       click_on 'Create Address'

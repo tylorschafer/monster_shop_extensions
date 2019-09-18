@@ -8,16 +8,24 @@ class OrdersController <ApplicationController
     @user = User.find(session[:user_id])
     session[:creating_order] = 'true'
     if session[:address_id]
-      @address = Address.find(session[:address_id])
-      @selected_address = true
-      if session[:has_coupon] != nil
-        @coupon = Coupon.find_by(name: session[:has_coupon])
-      end
+      select_order_address
     elsif @user.addresses == []
       @address = Address.new
     else
-      @has_address = true
-      @addresses = @user.addresses
+      user_addresses
+    end
+  end
+
+  def user_addresses
+    @has_address = true
+    @addresses = @user.addresses
+  end
+
+  def select_order_address
+    @address = Address.find(session[:address_id])
+    @selected_address = true
+    if session[:has_coupon]
+      @coupon = Coupon.find_by(name: session[:has_coupon])
     end
   end
 
@@ -36,13 +44,7 @@ class OrdersController <ApplicationController
     order.status = "cancelled"
     cancelled_address(order)
     order.save
-    if current_admin?
-      flash[:success] = "You destroyed the users order dawg"
-      redirect_to "/admin"
-    else
-      flash[:success] = "Your order has been cancelled dawg"
-      redirect_to "/profile"
-    end
+    cancel_finalize
   end
 
   def cancelled_address(order)
@@ -52,6 +54,16 @@ class OrdersController <ApplicationController
     order.address = default_address
   end
 
+  def cancel_finalize
+    if current_admin?
+      flash[:success] = "You destroyed the users order dawg"
+      redirect_to "/admin"
+    else
+      flash[:success] = "Your order has been cancelled dawg"
+      redirect_to "/profile"
+    end
+  end
+
   def show
     @order = Order.find(params[:order_id])
   end
@@ -59,13 +71,17 @@ class OrdersController <ApplicationController
   def create
     user = User.find(session[:user_id])
     order = user.orders.create(user_info(user))
-    coupon = Coupon.find_by(name: session[:has_coupon])
-    order.coupon = coupon
-    order.save
+    load_coupon(order)
     create_item_orders(order)
     delete_session
     redirect_to "/profile/orders"
     flash[:success] = "Thank You For Your Order!"
+  end
+
+  def load_coupon(order)
+    coupon = Coupon.find_by(name: session[:has_coupon])
+    order.coupon = coupon
+    order.save
   end
 
   def create_item_orders(order)
@@ -78,14 +94,6 @@ class OrdersController <ApplicationController
     end
   end
 
-
-  def ship
-    order = Order.find(params[:order_id])
-    order.update(status: 'shipped')
-    order.save
-    flash[:success] = "Order No. #{order.id} has been shipped, yo!"
-    redirect_to "/admin"
-  end
 
   def select_address
     if session[:pending_address_select] == 'true'
@@ -115,6 +123,14 @@ class OrdersController <ApplicationController
       session[:has_coupon] = coupon.name
       redirect_to "/orders/new"
     end
+  end
+
+  def ship
+    order = Order.find(params[:order_id])
+    order.update(status: 'shipped')
+    order.save
+    flash[:success] = "Order No. #{order.id} has been shipped, yo!"
+    redirect_to "/admin"
   end
 
   private

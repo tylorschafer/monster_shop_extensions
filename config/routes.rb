@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'password_resets/new'
 
+  # sessions
   root to: 'welcome#home'
   get '/', to: 'welcome#home'
   get '/login', to: 'sessions#new'
@@ -17,21 +18,30 @@ Rails.application.routes.draw do
 
   resources :reviews, only: [:edit, :update, :destroy]
 
+  # cart
   post '/cart/:item_id', to: 'cart#add_item'
   get '/cart', to: 'cart#show'
   delete '/cart', to: 'cart#empty'
   delete '/cart/:item_id', to: 'cart#remove_item'
   patch '/cart/:item_id/:increment_decrement', to: 'cart#increment_decrement'
 
+  #orders
   resources :orders, only: [:new, :create]
   patch '/orders/:id', to: 'orders#cancel', as: :order_cancel
   get '/orders/:order_id', to: 'orders#show', as: :order
   patch '/orders/:order_id/ship', to: 'orders#ship', as: :shipped_order
   get '/profile/orders/:order_id', to: 'orders#show'
-  get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
-  get '/profile/orders', to: 'orders#index'
+
   patch '/orders/new/coupon', to: 'orders#add_coupon', as: :add_coupon
 
+  #address
+  resources :addresses
+  patch '/orders/addresses/select/:address_id', to: 'orders#select_address'
+  patch '/orders/addresses/remove/:address_id', to: 'addresses#remove'
+  get '/profile/orders/:order_id/addresses/select', to: 'addresses#select', as: :address_select
+  get '/profile/orders', to: 'orders#index'
+
+  #users
   resources :users
   post '/users', to: 'users#create'
   get '/register', to: 'users#new'
@@ -41,6 +51,7 @@ Rails.application.routes.draw do
   get '/profile/edit_password', to: 'users#edit_password'
   patch '/profile/edit_password', to: 'users#update_password'
 
+  #merchant
   get '/merchant', to: 'merchant/dashboard#index', as: :merchant_dash
   get '/merchant/items', to: 'merchant/dashboard#items'
   get '/merchant/items/new', to: 'merchant/items#new'
@@ -53,6 +64,7 @@ Rails.application.routes.draw do
   get '/merchant/orders/:id', to: 'merchant/dashboard#order_show', as: :merchant_order_show
   post '/merchant/orders/:order_id/items/:item_id', to: 'merchant/items#fulfill_item', as: :merchant_fulfill_item
 
+  #merchant coupons
   get '/merchant/coupons', to: 'merchant/coupons#index', as: :merchant_coupons
   get '/merchant/coupons/new', to: 'merchant/coupons#new', as: :new_coupon
   post '/merchant/coupons/new', to: 'merchant/coupons#create', as: :create_coupon
@@ -60,7 +72,7 @@ Rails.application.routes.draw do
   patch '/merchant/coupons/:id', to: 'merchant/coupons#update', as: :update_coupon
   delete '/merchant/coupons/:id', to: 'merchant/coupons#destroy', as: :delete_coupon
 
-
+  #admin
   get '/admin', to: 'admin/dashboard#index', as: :admin_dash
   get '/admin/users', to: 'admin/users#index'
   get '/admin/users/:id', to: 'users#show'
@@ -70,9 +82,7 @@ Rails.application.routes.draw do
 
   resources :password_resets
 
-  resources :addresses
 
-  patch '/orders/addresses/select/:address_id', to: 'orders#select_address'
 
   match "*path", to: "welcome#catch_404", via: :all
 end

@@ -54,6 +54,11 @@ class AddressesController < ApplicationController
     session[:pending_address_select] = 'true'
   end
 
+  def remove
+    session.delete(:address_id)
+    redirect_to '/orders/new'
+  end
+
   private
 
   def address_params

@@ -14,6 +14,7 @@ describe 'User clicks Change Password in their profile' do
     end
 
     click_link('Change Password')
+
   end
 
   it 'Makes them enter their old password and a new password with confirmation' do

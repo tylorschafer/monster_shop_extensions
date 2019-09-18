@@ -35,6 +35,6 @@ describe 'Merchants can delete coupons' do
 
     expect(page).to_not have_link('Update Coupon')
     expect(page).to_not have_link('Delete Coupon')
-    expect(page).to have_content('Coupons used on user orders cannot be deleted')
+    expect(page).to have_content('Coupons used on user orders cannot be modified')
   end
 end
